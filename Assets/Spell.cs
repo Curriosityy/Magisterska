@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Spell : MonoBehaviour
+public abstract class Spell
 {
     public string SpellName{get;set;}
 }
