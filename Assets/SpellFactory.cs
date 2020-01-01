@@ -9,13 +9,13 @@ public static class SpellFactory
 {
     private static Dictionary<string, Type> spellsByName;
     private static bool IsInitialized=>spellsByName!=null;
-    public static void InitializeFactory()
+    private static void InitializeFactory()
     {
         if(IsInitialized)
             return;
 
         var spellTypes = Assembly.GetAssembly(typeof(Spell)).GetTypes()
-            .Where(myClass => myClass.IsClass && !myClass.IsAbstract && !myClass.IsSubclassOf(typeof(Spell)));
+            .Where(myClass => myClass.IsClass && !myClass.IsAbstract && myClass.IsSubclassOf(typeof(Spell)));
         spellsByName = new Dictionary<string, Type>();
         foreach(var type in spellTypes)
         {
