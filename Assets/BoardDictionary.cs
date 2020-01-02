@@ -16,18 +16,18 @@ public class BoardDictionary : MonoBehaviour
     private void CreateDictionary()
     {
         GameObject temp;
+        string position;
         _board = new Dictionary<string, GameObject>();
         for (int i = 0; i < _sizex; i++)
         {
             for (int j = 0; j < _sizey; j++)
             {
-                temp = new GameObject("point");
+                position = (char)('A' + i) + "" + (j+1);
+                temp = new GameObject(position);
                 temp.transform.parent = _pointsHolder;
                 temp.transform.localPosition = new Vector3(-i - 0.5f, 0, j + 0.5f);
-                _board.Add((char)('A' + i) + "" + j, temp);
+                _board.Add(position, temp);
             }
         }
     }
-
-
 }
