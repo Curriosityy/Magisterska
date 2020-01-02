@@ -4,15 +4,30 @@ using UnityEngine;
 
 public class BoardDictionary : MonoBehaviour
 {
+    private Dictionary<string, GameObject> _board;
+    [SerializeField] private Transform _pointsHolder;
+    [SerializeField] private int _sizex = 7, _sizey = 7;
+    public Dictionary<string, GameObject> Board { get => _board; }
     // Start is called before the first frame update
     void Start()
     {
-        
+        CreateDictionary();
+    }
+    private void CreateDictionary()
+    {
+        GameObject temp;
+        _board = new Dictionary<string, GameObject>();
+        for (int i = 0; i < _sizex; i++)
+        {
+            for (int j = 0; j < _sizey; j++)
+            {
+                temp = new GameObject("point");
+                temp.transform.parent = _pointsHolder;
+                temp.transform.localPosition = new Vector3(-i - 0.5f, 0, j + 0.5f);
+                _board.Add((char)('A' + i) + "" + j, temp);
+            }
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }
