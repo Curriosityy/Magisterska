@@ -16,8 +16,14 @@ public class MinionTester : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("space clicked");
-            WalkSpell walkSpell = new WalkSpell();
+            var walkSpell = new WalkSpell();
             walkSpell.Cast(gameObject, "A1");
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Debug.Log("Q clicked");
+            var fireballSpell = new FireBallSpell();
+            fireballSpell.Cast(gameObject, "G7");
         }
     }
 }
