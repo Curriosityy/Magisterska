@@ -4,6 +4,6 @@ using UnityEngine;
 
 public abstract class Spell
 {
-    public string SpellName{get;set;}
-    public abstract void Cast();
+    public abstract string SpellName{get;}
+    public abstract void Cast(GameObject caster, string position);
 }
