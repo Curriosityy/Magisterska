@@ -20,6 +20,7 @@ public abstract class BarStatistic : MonoBehaviour
         var dmgText = Instantiate(_text);
         dmgText.transform.SetParent(_minionCanvas.transform);
         dmgText.transform.localPosition = new Vector3(Random.Range(-0.1f, 0.1f), 0, 0);
+        dmgText.transform.localRotation = Quaternion.identity;
         dmgText.text = damage.ToString();
         dmgText.color = _textColor;
         Destroy(dmgText.gameObject, dmgText.GetComponent<Animation>().clip.length);
