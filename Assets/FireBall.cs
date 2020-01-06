@@ -16,7 +16,7 @@ public class FireBall : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(string.Format("{0} Collided",gameObject.name));
+        Debug.Log(string.Format("{0} Collided with {1}",gameObject.name,collision.collider.name));
         Explode();
     }
     private void Explode()
@@ -33,7 +33,7 @@ public class FireBall : MonoBehaviour
     }
     IEnumerator FlyToPosition()
     {
-        Debug.Log(string.Format("{0} FlyToPosition", gameObject.name));
+        Debug.Log(string.Format("{0} FlyToPosition {1}", gameObject.name,_positionToFly));
         Vector3 oldPos = transform.position;
         _timer = 0;
         while(_positionToFly!=transform.position)

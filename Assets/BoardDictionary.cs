@@ -25,7 +25,7 @@ public class BoardDictionary : MonoBehaviour
                 position = (char)('A' + i) + "" + (j+1);
                 temp = new GameObject(position);
                 temp.transform.parent = _pointsHolder;
-                temp.transform.localPosition = new Vector3(-i - 0.5f, 0, j + 0.5f);
+                temp.transform.localPosition = new Vector3(-i - 0.5f, 1, j + 0.5f);
                 _board.Add(position, temp);
             }
         }
