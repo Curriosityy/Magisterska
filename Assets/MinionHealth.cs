@@ -6,15 +6,15 @@ public class MinionHealth : BarStatistic, IDamageable
 {
     public void DealDamage(int damagage)
     {
-        var oldHp = statistic;
-        statistic -= damagage;
+        var oldHp = Statistics;
+        Statistics -= damagage;
         CalculateBar();
         SpawnText(damagage);
-        if (statistic <= 0)
+        if (Statistics <= 0)
         {
             Die();
         }
-        Debug.Log(string.Format("{0} Took {1} DMG, HP Before {2} HP now {3}", gameObject.name, damagage, oldHp, statistic));
+        Debug.Log(string.Format("{0} Took {1} DMG, HP Before {2} HP now {3}", gameObject.name, damagage, oldHp, Statistics));
     }
 
     private void Die()

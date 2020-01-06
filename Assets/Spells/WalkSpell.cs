@@ -9,6 +9,7 @@ class WalkSpell : Spell
 
     public override void Cast(Minion caster, string position)
     {
+        base.Cast(caster, position);
         var pos = Object.FindObjectOfType<BoardDictionary>().Board[position];
         Debug.Log(string.Format("WalkSpell Casted old value{0}, new value{1}", caster.transform.position, pos.transform.position));
         caster.transform.position = pos.transform.position;

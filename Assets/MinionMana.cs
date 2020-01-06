@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class MinionMana : BarStatistic
 {
-    
-    // Start is called before the first frame update
-
-    // Update is called once per frame
-    void Update()
+    public void BurnMana(int manaToBurn)
     {
-        
+        var oldMana = Statistics;
+        Statistics -= manaToBurn;
+        CalculateBar();
+        SpawnText(manaToBurn);
+        Debug.Log(string.Format("{0} Burned {1} mana, mana Before {2} mana now {3}", gameObject.name, manaToBurn, oldMana, Statistics));
     }
 }
