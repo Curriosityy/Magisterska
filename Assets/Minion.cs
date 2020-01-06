@@ -27,6 +27,7 @@ public class Minion : MonoBehaviour, IDamageable
         dmgText.transform.SetParent(_minionCanvas.transform);
         dmgText.transform.localPosition = new Vector3(Random.Range(-0.1f, 0.1f), 0, 0);
         dmgText.text = damage.ToString();
+        Destroy(dmgText.gameObject, dmgText.GetComponent<Animation>().clip.length);
     }
 
     private void Die()
