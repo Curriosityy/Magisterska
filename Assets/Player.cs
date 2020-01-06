@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!_controledMinion && Input.GetKeyDown(KeyCode.Return))
+        if(!_controledMinion)
         {
             SpawnMinion();
         }

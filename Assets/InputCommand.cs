@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
+
 public class InputCommand : MonoBehaviour
 {
     [SerializeField]private TextMeshProUGUI _output;
@@ -23,6 +25,12 @@ public class InputCommand : MonoBehaviour
          */
         string inputToReturn = _inputField.text;
         _inputField.text = "";
-        return _inputField.text;
+        return inputToReturn;
+    }
+
+    private void Update()
+    {
+        if (EventSystem.current.currentSelectedGameObject != _inputField.gameObject)
+            EventSystem.current.SetSelectedGameObject(_inputField.gameObject);
     }
 }
