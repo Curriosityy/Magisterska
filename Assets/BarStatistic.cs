@@ -10,7 +10,10 @@ public abstract class BarStatistic : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private Canvas _minionCanvas;
     [SerializeField] private Color _textColor;
-    protected int statistic;
+    private int _statistics;
+
+    public int Statistics { get => _statistics; set => _statistics = value; }
+
     // Start is called before the first frame update
     protected void SpawnText(int damage)
     {
@@ -18,19 +21,17 @@ public abstract class BarStatistic : MonoBehaviour
         dmgText.transform.SetParent(_minionCanvas.transform);
         dmgText.transform.localPosition = new Vector3(Random.Range(-0.1f, 0.1f), 0, 0);
         dmgText.text = damage.ToString();
-
+        dmgText.color = _textColor;
         Destroy(dmgText.gameObject, dmgText.GetComponent<Animation>().clip.length);
     }
 
     protected void CalculateBar()
     {
-        _statBar.fillAmount = (statistic * 1.0f) / maxStat;
+        _statBar.fillAmount = (_statistics * 1.0f) / maxStat;
     }
     protected virtual void Start()
     {
-        _text.color = _textColor;
-        statistic = maxStat;
+        _statistics = maxStat;
         CalculateBar();
-        
     }
 }
