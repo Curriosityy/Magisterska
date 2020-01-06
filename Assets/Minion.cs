@@ -1,33 +1,42 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-public class Minion : MonoBehaviour,IDamageable
+using TMPro;
+public class Minion : MonoBehaviour, IDamageable
 {
-    [SerializeField] private int _maxHealth;
+    [SerializeField] private int _maxHealth = 100;
     [SerializeField] private Image _healthBar;
+    [SerializeField] private TextMeshProUGUI _dmgText;
+    [SerializeField] private Canvas _minionCanvas;
     private int _health;
     public void DealDamage(int damagage)
     {
         var oldHp = _health;
         _health -= damagage;
         CalculateHealthBar();
-        if(_health<=0)
+        SpawnText(damagage);
+        if (_health <= 0)
         {
             Die();
         }
         Debug.Log(string.Format("{0} Took {1} DMG, HP Before {2} HP now {3}", gameObject.name, damagage, oldHp, _health));
     }
 
+    private void SpawnText(int damage)
+    {
+        var dmgText = Instantiate(_dmgText);
+        dmgText.transform.SetParent(_minionCanvas.transform);
+        dmgText.transform.localPosition = new Vector3(Random.Range(-0.1f, 0.1f), 0, 0);
+        dmgText.text = damage.ToString();
+    }
+
     private void Die()
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     private void CalculateHealthBar()
     {
-        _healthBar.fillAmount = (_health * 1.0f)/ _maxHealth;
+        _healthBar.fillAmount = (_health * 1.0f) / _maxHealth;
     }
     // Start is called before the first frame update
     void Start()
@@ -39,6 +48,6 @@ public class Minion : MonoBehaviour,IDamageable
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
