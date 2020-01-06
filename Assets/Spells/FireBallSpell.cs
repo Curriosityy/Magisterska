@@ -10,6 +10,8 @@ class FireBallSpell : Spell
     {
         //TODO in the future use assetbundle
         base.Cast(caster, position);
+        if (!canCast)
+            return;
         var prefab = Resources.Load("Prefabs/FireBall");
         var fireball = Object.Instantiate(prefab, caster.transform.position, Quaternion.identity) as GameObject;
         Physics.IgnoreCollision(caster.GetComponentInChildren<Collider>(), fireball.GetComponentInChildren<Collider>());
