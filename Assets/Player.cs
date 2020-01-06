@@ -5,9 +5,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     //TODO swap gameobject with minion script.
-    private GameObject _controledMinion;
-    public GameObject Minion { get => _controledMinion; }
-    [SerializeField] private GameObject _minionPrefab;
+    private Minion _controledMinion;
+    public Minion Minion { get => _controledMinion; }
+    [SerializeField] private Minion _minionPrefab;
     private BoardDictionary _dictionary;
     // Start is called before the first frame update
     void Start()

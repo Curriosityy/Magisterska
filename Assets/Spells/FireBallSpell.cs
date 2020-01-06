@@ -4,7 +4,7 @@ class FireBallSpell : Spell
 {
     public override string SpellName => "fireball";
 
-    public override void Cast(GameObject caster, string position)
+    public override void Cast(Minion caster, string position)
     {
         //TODO in the future use assetbundle
         var prefab = Resources.Load("Prefabs/FireBall");

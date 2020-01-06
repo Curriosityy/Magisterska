@@ -7,8 +7,8 @@ using UnityEngine;
 
 public static class SpellFactory
 {
-    private static Dictionary<string, Type> spellsByName;
-    private static bool IsInitialized=>spellsByName!=null;
+    private static Dictionary<string, Type> _spellsByName;
+    private static bool IsInitialized=>_spellsByName!=null;
     private static void InitializeFactory()
     {
         if(IsInitialized)
@@ -16,27 +16,27 @@ public static class SpellFactory
 
         var spellTypes = Assembly.GetAssembly(typeof(Spell)).GetTypes()
             .Where(myClass => myClass.IsClass && !myClass.IsAbstract && myClass.IsSubclassOf(typeof(Spell)));
-        spellsByName = new Dictionary<string, Type>();
+        _spellsByName = new Dictionary<string, Type>();
         foreach(var type in spellTypes)
         {
             var tempSpell = Activator.CreateInstance(type) as Spell;
-            spellsByName.Add(tempSpell.SpellName, type);
+            _spellsByName.Add(tempSpell.SpellName, type);
         }
     }
 
     public static Spell GetSpell(string spellName)
     {
         InitializeFactory();
-        if(spellsByName.ContainsKey(spellName))
+        if(_spellsByName.ContainsKey(spellName))
         {
-            return Activator.CreateInstance(spellsByName[spellName]) as Spell;
+            return Activator.CreateInstance(_spellsByName[spellName]) as Spell;
         }
         return null;
     }
 
     public static IEnumerable<string> GetSpellsName()
     {
-        return spellsByName.Keys;
+        return _spellsByName.Keys;
     }
    
 }
