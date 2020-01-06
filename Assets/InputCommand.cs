@@ -25,12 +25,14 @@ public class InputCommand : MonoBehaviour
          */
         string inputToReturn = _inputField.text;
         _inputField.text = "";
+        _inputField.ActivateInputField();
         return inputToReturn;
     }
 
     private void Update()
     {
-        if (EventSystem.current.currentSelectedGameObject != _inputField.gameObject)
-            EventSystem.current.SetSelectedGameObject(_inputField.gameObject);
+        if (!_inputField.isFocused)
+            _inputField.Select();
     }
+
 }
