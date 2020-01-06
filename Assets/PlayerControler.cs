@@ -18,9 +18,11 @@ public class PlayerControler : MonoBehaviour
     {
         if(player.Minion && Input.GetKeyDown(KeyCode.Return))
         {
-            string inputValue = ic.GetInputValue();
+            var inputValue = ic.GetInputValue().Split(' ');
             Debug.Log(string.Format("Getted input value {0}",inputValue));
-            
+            Spell spell = SpellFactory.GetSpell(inputValue[0].ToLower());
+            if(inputValue.Length>=2)
+                spell?.Cast(player.Minion, inputValue[1].ToUpper());
         }
     }
 }

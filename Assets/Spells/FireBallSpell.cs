@@ -2,7 +2,7 @@
 
 class FireBallSpell : Spell
 {
-    public override string SpellName => "FireBall";
+    public override string SpellName => "fireball";
 
     public override void Cast(GameObject caster, string position)
     {
