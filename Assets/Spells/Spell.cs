@@ -5,5 +5,6 @@ using UnityEngine;
 public abstract class Spell
 {
     public abstract string SpellName{get;}
+    public abstract int ManaCost { get; }
     public abstract void Cast(Minion caster, string position);
 }

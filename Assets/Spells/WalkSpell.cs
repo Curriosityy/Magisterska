@@ -5,6 +5,8 @@ class WalkSpell : Spell
 {
     public override string SpellName => "walk";
 
+    public override int ManaCost => 30;
+
     public override void Cast(Minion caster, string position)
     {
         var pos = Object.FindObjectOfType<BoardDictionary>().Board[position];

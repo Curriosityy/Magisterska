@@ -384,8 +384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f455f84b3107ff478563b2e5b634f3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
-  _healthBar: {fileID: 5299549244343235112}
-  _dmgText: {fileID: 4329002164965235116, guid: 49e53d5ea787f5645ada250d092d8c7b,
-    type: 3}
+  _maxStat: 100
+  _statBar: {fileID: 5299549244343235112}
+  _text: {fileID: 4329002164965235116, guid: 49e53d5ea787f5645ada250d092d8c7b, type: 3}
   _minionCanvas: {fileID: 7654563141621150251}

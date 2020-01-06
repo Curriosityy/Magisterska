@@ -4,9 +4,12 @@ class FireBallSpell : Spell
 {
     public override string SpellName => "fireball";
 
+    public override int ManaCost => 30;
+
     public override void Cast(Minion caster, string position)
     {
         //TODO in the future use assetbundle
+        
         var prefab = Resources.Load("Prefabs/FireBall");
         var fireball = Object.Instantiate(prefab, caster.transform.position, Quaternion.identity) as GameObject;
         Physics.IgnoreCollision(caster.GetComponentInChildren<Collider>(), fireball.GetComponentInChildren<Collider>());
