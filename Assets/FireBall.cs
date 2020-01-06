@@ -22,7 +22,7 @@ public class FireBall : MonoBehaviour
     private void Explode()
     {
         //TODO Cast some nice explosion effect.
-        var entityToDamage = Physics.SphereCastAll(transform.position, _expRange, Vector3.zero)
+        var entityToDamage = Physics.SphereCastAll(transform.position, _expRange, Vector3.forward)
             .Where(entity => entity.collider.GetComponent<IDamageable>() != null)
             .Select(entity => entity.collider.GetComponent<IDamageable>());
         foreach (var entity in entityToDamage)
