@@ -585,7 +585,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &663336955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2230,17 +2230,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5724506001882217668, guid: e93f2aa087cc8834983ad29623f4eb50,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5299004918738501227, guid: e93f2aa087cc8834983ad29623f4eb50,
         type: 3}
-      propertyPath: _text
+      propertyPath: _statBar
       value: 
-      objectReference: {fileID: 4329002164965235116, guid: 49e53d5ea787f5645ada250d092d8c7b,
-        type: 3}
+      objectReference: {fileID: 1548193453}
     - target: {fileID: 5299004918738501227, guid: e93f2aa087cc8834983ad29623f4eb50,
         type: 3}
       propertyPath: _minionCanvas
       value: 
       objectReference: {fileID: 1668663343}
+    - target: {fileID: 5299004918738501227, guid: e93f2aa087cc8834983ad29623f4eb50,
+        type: 3}
+      propertyPath: _textColor.r
+      value: 0.2216981
+      objectReference: {fileID: 0}
+    - target: {fileID: 5299004918738501227, guid: e93f2aa087cc8834983ad29623f4eb50,
+        type: 3}
+      propertyPath: _textColor.g
+      value: 0.2216981
+      objectReference: {fileID: 0}
+    - target: {fileID: 5299004918738501227, guid: e93f2aa087cc8834983ad29623f4eb50,
+        type: 3}
+      propertyPath: _textColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5299004918738501227, guid: e93f2aa087cc8834983ad29623f4eb50,
+        type: 3}
+      propertyPath: _textColor.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 595373379689026507, guid: e93f2aa087cc8834983ad29623f4eb50,
         type: 3}
       propertyPath: _statBar
@@ -2248,15 +2272,29 @@ PrefabInstance:
       objectReference: {fileID: 34826741}
     - target: {fileID: 595373379689026507, guid: e93f2aa087cc8834983ad29623f4eb50,
         type: 3}
-      propertyPath: _text
-      value: 
-      objectReference: {fileID: 4329002164965235116, guid: 49e53d5ea787f5645ada250d092d8c7b,
-        type: 3}
-    - target: {fileID: 595373379689026507, guid: e93f2aa087cc8834983ad29623f4eb50,
-        type: 3}
       propertyPath: _minionCanvas
       value: 
       objectReference: {fileID: 1668663343}
+    - target: {fileID: 595373379689026507, guid: e93f2aa087cc8834983ad29623f4eb50,
+        type: 3}
+      propertyPath: _textColor.r
+      value: 0.9339623
+      objectReference: {fileID: 0}
+    - target: {fileID: 595373379689026507, guid: e93f2aa087cc8834983ad29623f4eb50,
+        type: 3}
+      propertyPath: _textColor.g
+      value: 0.048460312
+      objectReference: {fileID: 0}
+    - target: {fileID: 595373379689026507, guid: e93f2aa087cc8834983ad29623f4eb50,
+        type: 3}
+      propertyPath: _textColor.b
+      value: 0.048460312
+      objectReference: {fileID: 0}
+    - target: {fileID: 595373379689026507, guid: e93f2aa087cc8834983ad29623f4eb50,
+        type: 3}
+      propertyPath: _textColor.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e93f2aa087cc8834983ad29623f4eb50, type: 3}
 --- !u!1 &1064621431
@@ -4083,6 +4121,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1491264647}
   m_CullTransparentMesh: 0
+--- !u!114 &1548193453 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8650111071685272038, guid: e93f2aa087cc8834983ad29623f4eb50,
+    type: 3}
+  m_PrefabInstance: {fileID: 1042940217}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1548307196
 GameObject:
   m_ObjectHideFlags: 0
@@ -5610,7 +5660,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c171f4bc8d175ac4c848b925788a0294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minionPrefab: {fileID: 4363454346956770714, guid: e93f2aa087cc8834983ad29623f4eb50,
+  _minionPrefab: {fileID: 3629667637929790650, guid: e93f2aa087cc8834983ad29623f4eb50,
     type: 3}
 --- !u!4 &2001256703
 Transform:
