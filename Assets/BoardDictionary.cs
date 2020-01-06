@@ -9,7 +9,7 @@ public class BoardDictionary : MonoBehaviour
     [SerializeField] private int _sizex = 7, _sizey = 7;
     public Dictionary<string, GameObject> Board { get => _board; }
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         CreateDictionary();
     }
