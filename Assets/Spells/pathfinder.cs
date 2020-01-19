@@ -33,10 +33,13 @@ public class pathfinder : MonoBehaviour
                 char character = (char)unicode;
                 string text = character.ToString();
                 var temp = Object.FindObjectOfType<BoardDictionary>().Board[text + System.Convert.ToString(j)];
+                
                 array[i, j - 1] = temp;
                 array[i, j - 1].GetComponent<ss>().setDist(targetLocation);
                 array[i, j - 1].GetComponent<ss>().x = i;
                 array[i, j - 1].GetComponent<ss>().y = j - 1;
+                array[i, j - 1].GetComponent<ss>().g = int.MaxValue;
+                array[i, j - 1].GetComponent<ss>().f = int.MaxValue;
                 //bug.Log(array[i, j - 1].name);
             }
         }
@@ -71,7 +74,7 @@ public class pathfinder : MonoBehaviour
        
         List<GameObject> path = new List<GameObject>();
         string curtile = last;
-        while (curtile!="A3")
+        while (curtile!=first)
         {
             GameObject ctile = Object.FindObjectOfType<BoardDictionary>().Board[curtile];
             path.Add(ctile);

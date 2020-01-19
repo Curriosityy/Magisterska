@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class move : MonoBehaviour
 {
-    float speed = 5f;
-    private IEnumerator coroutine;
+    
     // Start is called before the first frame update
     void Start()
     {
 
-        //coroutine = walk(path,player);
-        StartCoroutine(coroutine);
+        
     }
+    public static void movetowards()
+    {
 
+    }
     // Update is called once per frame
     private IEnumerator walk(List<GameObject> path,Minion player)
     {
