@@ -12,7 +12,7 @@ public class pathfinder : MonoBehaviour
     {
 
     }
-    public static void findpath(GameObject targetLocation, GameObject startingPosition)
+    public static List<GameObject> findpath(GameObject targetLocation, GameObject startingPosition)
     {
         List<GameObject> openlist = new List<GameObject>();
         List<GameObject> closedlist = new List<GameObject>();
@@ -62,7 +62,7 @@ public class pathfinder : MonoBehaviour
             //Debug.Log("Current best:"+ currentbest.name);
         }
         path=recreatepath(targetLocation.name,startingPosition.name);
-       
+        return path;
         //geting neighbours
         
     }
