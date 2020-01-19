@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     {
         var minion = Instantiate(_minionPrefab);
         minion.transform.position = _dictionary.Board["A3"].transform.position;
+       
         _controledMinion = minion;
     }
     // Update is called once per frame
