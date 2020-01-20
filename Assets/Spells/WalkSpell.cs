@@ -18,7 +18,7 @@ class WalkSpell : Spell
         if (!canCast)
             return;
         var pos = Object.FindObjectOfType<BoardDictionary>().Board[position];
-        path=pathfinder.findpath(pos, caster.getminionpos);
+        path=PathFinder.FindPath(pos, caster.getminionpos);
         path.Reverse();
         caster.MoveTo(path);
         Debug.Log(string.Format("WalkSpell Casted old value{0}, new value{1}", caster.transform.position, pos.transform.position));

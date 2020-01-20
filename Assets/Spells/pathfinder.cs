@@ -2,22 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class pathfinder : MonoBehaviour
+public class PathFinder : MonoBehaviour
 {
-
-
-
-
     void Start()
     {
 
     }
-    public static List<GameObject> findpath(GameObject targetLocation, GameObject startingPosition)
+    public static List<GameObject> FindPath(GameObject targetLocation, GameObject startingPosition)
     {
         List<GameObject> openlist = new List<GameObject>();
         List<GameObject> closedlist = new List<GameObject>();
         List<GameObject> path = new List<GameObject>();
-        startingPosition.GetComponent<ss>().g = 0;
+        startingPosition.GetComponent<PointInfo>().G = 0;
         openlist.Add(startingPosition);
         GameObject[,] array;
         int size = GameObject.FindObjectOfType<BoardDictionary>().size;
@@ -35,11 +31,11 @@ public class pathfinder : MonoBehaviour
                 var temp = Object.FindObjectOfType<BoardDictionary>().Board[text + System.Convert.ToString(j)];
                 
                 array[i, j - 1] = temp;
-                array[i, j - 1].GetComponent<ss>().setDist(targetLocation);
-                array[i, j - 1].GetComponent<ss>().x = i;
-                array[i, j - 1].GetComponent<ss>().y = j - 1;
-                array[i, j - 1].GetComponent<ss>().g = int.MaxValue;
-                array[i, j - 1].GetComponent<ss>().f = int.MaxValue;
+                array[i, j - 1].GetComponent<PointInfo>().setDist(targetLocation);
+                array[i, j - 1].GetComponent<PointInfo>().X = i;
+                array[i, j - 1].GetComponent<PointInfo>().Y = j - 1;
+                array[i, j - 1].GetComponent<PointInfo>().G = int.MaxValue;
+                array[i, j - 1].GetComponent<PointInfo>().F = int.MaxValue;
                 //bug.Log(array[i, j - 1].name);
             }
         }
@@ -48,11 +44,11 @@ public class pathfinder : MonoBehaviour
         while (currentbest.name != targetLocation.name)
         {
             List<GameObject> neighbours = new List<GameObject>();
-            neighbours = getNeighbours(array, currentbest.GetComponent<ss>().x, currentbest.GetComponent<ss>().y, size);
+            neighbours = GetNeighbours(array, currentbest.GetComponent<PointInfo>().X, currentbest.GetComponent<PointInfo>().Y, size);
             for (int i = 0; i < neighbours.Count; i += 1)
             {
                 string neighbourname = neighbours[i].name;
-                if (!ischecked(openlist, closedlist, neighbourname))
+                if (!IsChecked(openlist, closedlist, neighbourname))
                 {
                     openlist.Add(neighbours[i]);
                 }
@@ -60,16 +56,16 @@ public class pathfinder : MonoBehaviour
             GameObject tempc = currentbest;
             openlist.Remove(currentbest);
             closedlist.Add(tempc);
-            evaluateroute(openlist, tempc);
-            currentbest= openlist[selectBest(openlist)];
+            EvaluateRoute(openlist, tempc);
+            currentbest= openlist[SelectBest(openlist)];
             //Debug.Log("Current best:"+ currentbest.name);
         }
-        path=recreatepath(targetLocation.name,startingPosition.name);
+        path=RecreatePath(targetLocation.name,startingPosition.name);
         return path;
         //geting neighbours
         
     }
-    static List<GameObject> recreatepath(string last,string first)
+    static List<GameObject> RecreatePath(string last,string first)
     {
        
         List<GameObject> path = new List<GameObject>();
@@ -80,37 +76,37 @@ public class pathfinder : MonoBehaviour
             path.Add(ctile);
             Debug.Log("Current best:" + curtile);
 
-            curtile = ctile.GetComponent<ss>().camefrom.name;
+            curtile = ctile.GetComponent<PointInfo>().Camefrom.name;
         }
         path.Add(Object.FindObjectOfType<BoardDictionary>().Board[first]);
         return path;
 
     }
-    static void evaluateroute(List<GameObject> olist,GameObject curb)
+    static void EvaluateRoute(List<GameObject> olist,GameObject curb)
     {
-        int g =curb.GetComponent<ss>().g;
+        int g =curb.GetComponent<PointInfo>().G;
         for (int i=0;i< olist.Count;i+=1)
         {
-            if (olist[i].GetComponent<ss>().g > g+10)
+            if (olist[i].GetComponent<PointInfo>().G > g+10)
             {
-                olist[i].GetComponent<ss>().camefrom = curb;
-                olist[i].GetComponent<ss>().g = g + 10;
-                olist[i].GetComponent<ss>().f = olist[i].GetComponent<ss>().g + olist[i].GetComponent<ss>().h;
-                Debug.Log(olist[i].GetComponent<ss>().g);
+                olist[i].GetComponent<PointInfo>().Camefrom = curb;
+                olist[i].GetComponent<PointInfo>().G = g + 10;
+                olist[i].GetComponent<PointInfo>().F = olist[i].GetComponent<PointInfo>().G + olist[i].GetComponent<PointInfo>().H;
+                Debug.Log(olist[i].GetComponent<PointInfo>().G);
             }
         }
     }
     
-    static int selectBest(List<GameObject> olist)
+    static int SelectBest(List<GameObject> olist)
     {
         int curbest=int.MaxValue;
         float fscore=int.MaxValue;
         for(int i = 0; i < olist.Count; i += 1)
         {
-            if (olist[i].GetComponent<ss>().f<fscore)
+            if (olist[i].GetComponent<PointInfo>().F<fscore)
             {
                 curbest = i;
-                fscore = olist[i].GetComponent<ss>().f;
+                fscore = olist[i].GetComponent<PointInfo>().F;
             }
         }
         return curbest;
@@ -118,28 +114,28 @@ public class pathfinder : MonoBehaviour
     
 
     // Update is called once per frame
-    public static List<GameObject> getNeighbours(GameObject[,] array, int x, int y, int asize)
+    public static List<GameObject> GetNeighbours(GameObject[,] array, int x, int y, int asize)
     {
         List<GameObject> neighbours = new List<GameObject>();
-        if (x > 0 && array[x - 1, y].GetComponent<ss>().walkable)
+        if (x > 0 && array[x - 1, y].GetComponent<PointInfo>().Walkable)
         {
             neighbours.Add(array[x - 1, y]);
         }
-        if (x < asize- 1 && array[x + 1, y].GetComponent<ss>().walkable)
+        if (x < asize- 1 && array[x + 1, y].GetComponent<PointInfo>().Walkable)
         {
             neighbours.Add(array[x + 1, y]);
         }
-        if (y > 0 && array[x, y - 1].GetComponent<ss>().walkable)
+        if (y > 0 && array[x, y - 1].GetComponent<PointInfo>().Walkable)
         {
             neighbours.Add(array[x, y - 1]);
         }
-        if (y < asize- 1 && array[x, y + 1].GetComponent<ss>().walkable)
+        if (y < asize- 1 && array[x, y + 1].GetComponent<PointInfo>().Walkable)
         {
             neighbours.Add(array[x, y + 1]);
         }
         return neighbours;
     }
-    static bool ischecked(List<GameObject> olist, List<GameObject> clist,string name)
+    static bool IsChecked(List<GameObject> olist, List<GameObject> clist,string name)
     {
         for (int i=0;i<olist.Count;i+=1)
         {

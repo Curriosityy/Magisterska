@@ -31,7 +31,7 @@ public class Minion : MonoBehaviour
     {
         
         Debug.Log(collision.collider.name);
-        if (position.Length == 2)
+        if (collision.gameObject.GetComponent<PointInfo>()!=null)
         {
             position = collision.collider.name;
             minionposition = GameObject.FindObjectOfType<BoardDictionary>().Board[position];

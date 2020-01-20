@@ -31,7 +31,7 @@ public Dictionary<string, GameObject> Board { get => _board; }
                 temp = new GameObject(position);
                 temp.transform.parent = _pointsHolder;
                 temp.transform.localPosition = new Vector3(-i - 0.5f, 1, j + 0.5f);
-                temp.AddComponent<ss>();
+                temp.AddComponent<PointInfo>();
                 //BoxCollider bc= temp.AddComponent<BoxCollider>();
                 //bc.size = new Vector3 (1,1,1);
                 //temp.AddComponent<Rigidbody>();
