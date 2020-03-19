@@ -7,8 +7,11 @@ public class PopulationGenerator : MonoBehaviour
     [SerializeField] int _boards;
     [SerializeField] AIControler _aiPrefab;
     [SerializeField] BoardDictionary _boardPrefab;
-    List<GameObject> boardList = new List<GameObject>();
-    List<GameObject> aiList = new List<GameObject>();
+
+
+    //Obie listy mogą zostać wykożystane do ustawiania bitew między AI
+    List<GameObject> _boardList = new List<GameObject>();
+    List<GameObject> _aiList = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
@@ -21,12 +24,12 @@ public class PopulationGenerator : MonoBehaviour
         {
             var ai = Instantiate(_aiPrefab, aiHolder.transform);
             population.Species[0].AddIndividual(ai);
-            aiList.Add(ai.gameObject);
+            _aiList.Add(ai.gameObject);
         }
         for(int i=0;i<_boards;i++)
         {
             var board = Instantiate(_boardPrefab, new Vector3(i*10,0,0), Quaternion.identity, boardHolder.transform);
-            boardList.Add(board.gameObject);
+            _boardList.Add(board.gameObject);
         }
     }
 }

@@ -10,6 +10,8 @@ public class NeuralNetwork
     List<Edge> _connection;
     public List<Neuron> Neurons { get => _neurons;}
     public List<Edge> Connection { get => _connection; }
+
+    //Lista do przechowywania wszystkich istniejących edgów.
     public static List<Edge> allEdges = new List<Edge>();
 
     public NeuralNetwork()
@@ -31,11 +33,11 @@ public class NeuralNetwork
                 {
                     var edge = new Edge(neuronFrom.NeuronID, neuronTo.NeuronID, Edge.innoNumber++,1);
                     _connection.Add(edge);
-                    allEdges.Add(edge);
+                    allEdges.Add(new Edge(edge));
                 }
                 else
                 {
-                    _connection.Add(GetEdgeFromStaticList(neuronFrom.NeuronID, neuronTo.NeuronID));
+                    _connection.Add(new Edge(GetEdgeFromStaticList(neuronFrom.NeuronID, neuronTo.NeuronID)));
                 }
             }
         }
