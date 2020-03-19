@@ -10,7 +10,9 @@ public class Population
     private static Population _instance;
     private Population()
     {
-        _isInitialized = false;
+        //_isInitialized = false;
+        _species = new List<Species>();
+        _species.Add(new Species());
     }
 
     public static Population Instance {
@@ -23,16 +25,6 @@ public class Population
             return _instance;
         }
 
-    }
-
-    public void Initialize()
-    {
-        if(!_isInitialized)
-        {
-            _species = new List<Species>();
-            _species.Add(new Species());
-            _isInitialized = true;
-        }
     }
 }
 

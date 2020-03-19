@@ -19,7 +19,6 @@ public class PopulationGenerator : MonoBehaviour
         var boardHolder = new GameObject("BoardHolder");
         var population  = Population.Instance;
 
-        population.Initialize();
         for(int i=0;i<_boards*2;i++)
         {
             var ai = Instantiate(_aiPrefab, aiHolder.transform);

@@ -31,18 +31,24 @@ public class NeuralNetwork
         }
 
         foreach(var neuronFrom in GetNeurons(NeuronType.input)){
-            foreach (var neuronTo in GetNeurons(NeuronType.output)){
-                if(!IsEdgeExist(neuronFrom.NeuronID, neuronTo.NeuronID))
-                {
-                    var edge = new Edge(neuronFrom.NeuronID, neuronTo.NeuronID, Edge.innoNumber++,1);
-                    _connection.Add(edge);
-                    allEdges.Add(new Edge(edge));
-                }
-                else
-                {
-                    _connection.Add(new Edge(GetEdgeFromStaticList(neuronFrom.NeuronID, neuronTo.NeuronID)));
-                }
+            foreach (var neuronTo in GetNeurons(NeuronType.output))
+            {
+                AddNewConnection(neuronFrom, neuronTo);
             }
+        }
+    }
+
+    private void AddNewConnection(Neuron neuronFrom, Neuron neuronTo)
+    {
+        if (!IsEdgeExistInDatabase(neuronFrom.NeuronID, neuronTo.NeuronID))
+        {
+            var edge = new Edge(neuronFrom.NeuronID, neuronTo.NeuronID, Edge.innoNumber++, 1);
+            _connection.Add(edge);
+            allEdges.Add(new Edge(edge));
+        }
+        else
+        {
+            _connection.Add(new Edge(GetEdgeFromStaticList(neuronFrom.NeuronID, neuronTo.NeuronID)));
         }
     }
 
@@ -56,7 +62,7 @@ public class NeuralNetwork
         return _neurons.Where(n => n.Type == type).ToList();
     }
 
-    private bool IsEdgeExist(int neuronFromId,int neuronToId)
+    private bool IsEdgeExistInDatabase(int neuronFromId,int neuronToId)
     {
         return allEdges.Where(e => e.ConnectedFrom == neuronFromId && e.ConnectedTo == neuronToId).Count() == 1;
     }
