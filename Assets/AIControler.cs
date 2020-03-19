@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AIControler : MonoBehaviour
 {
-    private NeuralNetwork _neuralNetwork;
+    [SerializeField]private NeuralNetwork _neuralNetwork;
 
     public NeuralNetwork NeuralNetwork { get => _neuralNetwork; }
 

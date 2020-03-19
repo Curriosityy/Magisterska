@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+
+[Serializable]
 public class NeuralNetwork
 {
     int _neuronCounter = 0;
     int _neuronInputSize = 20;
     int _neuronOutputSize = 2;
-    List<Neuron> _neurons;
-    List<Edge> _connection;
+    [SerializeField] List<Neuron> _neurons;
+    [SerializeField] List<Edge> _connection;
     public List<Neuron> Neurons { get => _neurons;}
     public List<Edge> Connection { get => _connection; }
 

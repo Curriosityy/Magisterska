@@ -1,10 +1,19 @@
-﻿public class Edge
+﻿using System;
+using UnityEngine;
+
+[Serializable]
+public class Edge
 {
+    [SerializeField]
     int _connectedFrom;
+    [SerializeField]
     int _connectedTo;
+    [SerializeField]
     int _id;
     public static int innoNumber = 0;
+    [SerializeField]
     double _weight;
+    [SerializeField]
     private bool _isActivated;
 
     public Edge(int connectedFrom, int connectedTo, int id, double weight)

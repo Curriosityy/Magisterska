@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public enum NeuronType
 {
@@ -10,9 +11,12 @@ public enum NeuronType
     hidden,
     output
 }
+[Serializable]
 public class Neuron
 {
+    [SerializeField]
     int _neuronID;
+    [SerializeField]
     NeuronType _neuronType;
     public int NeuronID { get => _neuronID; set => _neuronID = value; }
     public NeuronType Type { get => _neuronType; set => _neuronType = value; }
