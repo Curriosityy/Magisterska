@@ -3,6 +3,7 @@
     int _connectedFrom;
     int _connectedTo;
     int _id;
+    public static int innoNumber = 0;
     double _weight;
     public Edge(int connectedFrom, int connectedTo, int id, double weight)
     {

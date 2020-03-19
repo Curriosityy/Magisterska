@@ -7,6 +7,10 @@ public class BoardDictionary : MonoBehaviour
     private Dictionary<string, GameObject> _board;
     [SerializeField] private Transform _pointsHolder;
     [SerializeField] private int _sizex = 7, _sizey = 7;
+
+    [SerializeField] private string _spawningPoint1;
+    [SerializeField] private string _spawningPoint2;
+
     public int size
     {
         get { return _sizex; }
@@ -17,6 +21,12 @@ public Dictionary<string, GameObject> Board { get => _board; }
     void Awake()
     {
         CreateDictionary();
+        var temp = new GameObject("SpawningPoint1");
+        temp.transform.position = _board[_spawningPoint1].transform.position;
+        temp.transform.parent = transform;
+        temp = new GameObject("SpawningPoint2");
+        temp.transform.position = _board[_spawningPoint2].transform.position;
+        temp.transform.parent = transform;
     }
     private void CreateDictionary()
     {
