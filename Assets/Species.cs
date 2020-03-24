@@ -8,23 +8,89 @@ public class Species
     private List<AIControler> _individuals;
     private float _avgFitness;
     private float _adjFitness;
-
+    private float _stagnationCount=0;
+    System.Random rnd = new System.Random();
     public float AvgFitness { get => _avgFitness;}
     public List<AIControler> Individuals { get => _individuals; }
     public int SpecieID { get => _specieID; set => _specieID = value; }
     public float AdjFitness { get => _adjFitness; }
+    public float StagnationCount { get => _stagnationCount;}
 
-    public Species(/*NeatValues nv*/)
+    public Species()
     {
-        //_specieID = nv.GetSpecieID();
-        //nv.IncreaseSpecieID();
+        NeatValues.IncreaseSpecie();
+        _specieID = NeatValues.SpecieCount;
         _individuals = new List<AIControler>();
+        for(int i = 0; i < NeatValues.populationSize; i += 1)
+        {
+            _individuals.Add(new AIControler());
+        }
+    }
+    public Species(AIControler existing)
+    {
+        NeatValues.IncreaseSpecie();
+        _specieID = NeatValues.SpecieCount;
+        _individuals = new List<AIControler>();
+        _individuals.Add(existing);
     }
     
+    public AIControler Crossover(AIControler child)
+    {
+        //wybierz 2 osobnikow z populacji
+        /*AIControler parent1 =_individuals[rnd.Next(0,_individuals.Count-1)];
+        AIControler parent2 = _individuals[rnd.Next(0, _individuals.Count - 1)];
+        if (parent1.GetFitness() >= parent2.GetFitness())
+        {
+            child=parent2.Crossover(child, parent2);
+        }
+        else
+        {
+            child=parent2.Crossover(child, parent1);
+        }
+        */
+        return child;
+    }
+    public int CompareWithAll(AIControler testSubject)
+    {
+        int matchesFound = 0;
+        for(int i = 0; i < _individuals.Count; i += 1)
+        {
+           /* if (_individuals[i].Compare(testSubject))
+            {
+                matchesFound += 1;
+            }*/
+        }
+        return matchesFound;
+    }
+
+    public bool CompareWithFirst(AIControler testSubject)
+    {
+
+        /*if (_individuals[0].Compare(testSubject))
+        {
+            return true;
+        }*/
+        return false;
+    }
 
     public void AddIndividual(AIControler individual)
     {
         _individuals.Add(individual);
+    }
+    public void RemoveIndividual(int numberOfIndividual)
+    {
+        _individuals.RemoveAt(numberOfIndividual);
+    }
+
+    public void RemoveFromPreviosGeneration()
+    {
+        for(int i = 0; i < _individuals.Count; i += 1)
+        {
+            if (/*_individuals[i].generation != NeatValues.GenerationCount*/true)
+            {
+                _individuals.RemoveAt(i);
+            }
+        }
     }
 
     public AIControler GetFirstIndividual()
@@ -38,8 +104,11 @@ public class Species
         foreach (var individual in _individuals)
         {
             //fitness += individual.GetFitness();
+        
         }
-        _avgFitness = fitness/_individuals.Count; 
+        fitness = fitness / _individuals.Count;
+        CheckStagnation(fitness);
+        _avgFitness = fitness; 
     }
     public void GetTotalAdjustedFitness()
     {
@@ -48,21 +117,32 @@ public class Species
         {
             //adjustedFitness += individual.GetAdjFitness();
         }
+       
         _adjFitness = adjustedFitness;
     }
-    public void SetIndividualAdjustedFitness()
+    private void CheckStagnation(float newfitness)
+    {
+        if (_adjFitness > newfitness)
+        {
+            _stagnationCount += 1;
+        }
+    }
+
+    //Trzeba zrobic w populacji, policzyc dystans od kazdego osobnika nie tylko tych w gatunku.
+
+    /*public void SetIndividualAdjustedFitness()
     {
         int specieCount = _individuals.Count;
         foreach (var individual in _individuals)
         {
             //individual.SetAdjustedFitness(individual.GetFitness()/specieCount);
         }
-    }
+    }*/
 
-    public void KillWorstIndividuals(float cullingPercentage)
+    public void KillWorstIndividuals()
     {
         SortIndividuals();
-        int remaining=Mathf.CeilToInt(_individuals.Count*cullingPercentage);
+        int remaining=Mathf.CeilToInt(_individuals.Count-1*NeatValues.survivingRate);
         _individuals = _individuals.GetRange(0, remaining);
 
     }
