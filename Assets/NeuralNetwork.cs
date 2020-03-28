@@ -25,7 +25,26 @@ public class NeuralNetwork
 
     private void MutateNeurons()
     {
+        DeleteNeurons();
         CreateNewNeurons();
+    }
+
+    private void DeleteNeurons()
+    {
+        var hiddenNeuronList = GetNeurons(NeuronType.hidden);
+        for(int i = 0;i<hiddenNeuronList.Count;i++)
+        {
+            if (GetRand() <= NeatValues.removeNodeProbability)
+            {
+                RemoveNeuronOfId(hiddenNeuronList[i].NeuronID);
+            }
+        }
+    }
+
+    private void RemoveNeuronOfId(int id)
+    {
+        _neurons.Remove(GetNeuronOfId(id));
+        _connections.RemoveAll(e => e.ConnectedTo == id);
     }
 
     private void CreateNewNeurons()
@@ -131,11 +150,11 @@ public class NeuralNetwork
         {
             _neurons.Add(new Neuron(_neuronCounter++, NeuronType.output,1));
         }
-
+        var rand = new System.Random();
         foreach(var neuronFrom in GetNeurons(NeuronType.input)){
             foreach (var neuronTo in GetNeurons(NeuronType.output))
             {
-                if(GetRand() <= NeatValues.addNodeProbability)
+                if(rand.Next(0,100) <= NeatValues.addNodeProbability*100)
                     AddNewConnection(neuronFrom, neuronTo);
             }
         }
@@ -150,8 +169,9 @@ public class NeuralNetwork
             _connections.Add(edge);
             allEdges.Add(new Edge(edge));
         }
-        else if(!IsEdgeExistInThisNeuralNetwork(neuronFrom.NeuronID, neuronTo.NeuronID))
+        else if(IsEdgeExistInThisNeuralNetwork(neuronFrom.NeuronID, neuronTo.NeuronID))
         {
+            
             GetConnection(neuronFrom.NeuronID, neuronTo.NeuronID).IsActivated = true;
         }
         else
@@ -162,7 +182,7 @@ public class NeuralNetwork
 
     private Edge GetEdgeFromStaticList(int neuronFromId, int neuronToId)
     {
-        return allEdges.Where(e => e.ConnectedFrom == neuronFromId && e.ConnectedTo == neuronToId).First();
+        return allEdges.FirstOrDefault(e => e.ConnectedFrom == neuronFromId && e.ConnectedTo == neuronToId);
     }
 
     private List<Neuron> GetNeurons(NeuronType type)
@@ -187,7 +207,7 @@ public class NeuralNetwork
 
     private Edge GetConnection(int neuronFrom, int neuronTo)
     {
-        return _connections.Where(e => e.ConnectedFrom == neuronFrom && e.ConnectedTo == neuronTo).First();
+        return _connections.FirstOrDefault(e => e.ConnectedFrom == neuronFrom && e.ConnectedTo == neuronTo);
     }
 
     private List<Neuron> GetNeuronOfLevel(int level)
@@ -215,8 +235,9 @@ public class NeuralNetwork
 
     private Neuron GetNeuronOfId(int id)
     {
-        return _neurons.Where(n => n.NeuronID == id).First();
+        return _neurons.FirstOrDefault(n => n.NeuronID == id);
     }
+
 
 
 }
