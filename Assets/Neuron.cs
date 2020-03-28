@@ -16,7 +16,6 @@ public class Neuron
 {
 
     int _level;
-
     float _bias;
     [SerializeField]
     int _neuronID;

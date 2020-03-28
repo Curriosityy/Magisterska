@@ -17,15 +17,18 @@ public class NeuralNetwork
     //Lista do przechowywania wszystkich istniejących edgów.
     public static List<Edge> allEdges = new List<Edge>();
 
+
+
+
     public NeuralNetwork()
     {
         _neurons = new List<Neuron>();
         _connection = new List<Edge>();
-        for(int i=0;i<_neuronInputSize;i++)
+        for(int i=0;i<NeatValues.inputNeutonSize;i++)
         {
             _neurons.Add(new Neuron(_neuronCounter++, NeuronType.input,0));
         }
-        for(int i = 0; i < _neuronOutputSize; i++)
+        for(int i = 0; i < NeatValues.outputNeuronSize; i++)
         {
             _neurons.Add(new Neuron(_neuronCounter++, NeuronType.output,1));
         }
@@ -33,7 +36,8 @@ public class NeuralNetwork
         foreach(var neuronFrom in GetNeurons(NeuronType.input)){
             foreach (var neuronTo in GetNeurons(NeuronType.output))
             {
-                AddNewConnection(neuronFrom, neuronTo);
+                if(UnityEngine.Random.Range(0f,1f)> NeatValues.addNodeProbability)
+                    AddNewConnection(neuronFrom, neuronTo);
             }
         }
     }

@@ -19,7 +19,8 @@ public static class NeatValues {
         _specieCount += 1;
     }
 
-
+    public const int inputNeutonSize = 20;
+    public const int outputNeuronSize = 2;
     //Population
     public const int populationSize=50;
     public const int generationTreshhold=9999;
