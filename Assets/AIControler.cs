@@ -12,4 +12,9 @@ public class AIControler : MonoBehaviour
     {
         _neuralNetwork = new NeuralNetwork();
     }
+
+    private void CalculateMove()
+    {
+
+    }
 }
