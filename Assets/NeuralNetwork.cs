@@ -23,11 +23,11 @@ public class NeuralNetwork
         _connection = new List<Edge>();
         for(int i=0;i<_neuronInputSize;i++)
         {
-            _neurons.Add(new Neuron(_neuronCounter++, NeuronType.input));
+            _neurons.Add(new Neuron(_neuronCounter++, NeuronType.input,0));
         }
         for(int i = 0; i < _neuronOutputSize; i++)
         {
-            _neurons.Add(new Neuron(_neuronCounter++, NeuronType.output));
+            _neurons.Add(new Neuron(_neuronCounter++, NeuronType.output,1));
         }
 
         foreach(var neuronFrom in GetNeurons(NeuronType.input)){
@@ -62,9 +62,22 @@ public class NeuralNetwork
         return _neurons.Where(n => n.Type == type).ToList();
     }
 
+    private List<Neuron> GetRestNeurons(NeuronType type)
+    {
+        return _neurons.Where(n => n.Type != type).ToList();
+    }
+
     private bool IsEdgeExistInDatabase(int neuronFromId,int neuronToId)
     {
         return allEdges.Where(e => e.ConnectedFrom == neuronFromId && e.ConnectedTo == neuronToId).Count() == 1;
+    }
+
+    public void MutateConnections()
+    {
+        foreach(var neuron in GetNeurons(NeuronType.input))
+        {
+
+        }
     }
 
 }

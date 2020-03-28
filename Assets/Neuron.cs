@@ -14,14 +14,22 @@ public enum NeuronType
 [Serializable]
 public class Neuron
 {
+
+    int _level;
+
+    float _bias;
     [SerializeField]
     int _neuronID;
     [SerializeField]
     NeuronType _neuronType;
     public int NeuronID { get => _neuronID; set => _neuronID = value; }
     public NeuronType Type { get => _neuronType; set => _neuronType = value; }
-   
-    public Neuron(int neuronID, NeuronType neuronType)
+    public int Level { get => _level;}
+    public void LevelUp()
+    {
+        _level++;
+    }
+    public Neuron(int neuronID, NeuronType neuronType,int level)
     {
         _neuronID = neuronID;
         _neuronType = neuronType;
