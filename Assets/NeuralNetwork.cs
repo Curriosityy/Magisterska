@@ -22,18 +22,31 @@ public class NeuralNetwork
     {
         DisableConnections();
         MakeConnections();
+        
     }
 
     private void MakeConnections()
     {
-        throw new NotImplementedException();
+        for (int i = 0; i <= Neuron.MaxLevel; i++)
+        {
+            foreach (var fromNeuron in GetNeuronOfLevel(i))
+            {
+                foreach (var toNeuron in GetNeuronWithHigherLevel(i))
+                {
+                    if (UnityEngine.Random.Range(0f, 1f) <= NeatValues.addConnProbability)
+                    {
+                        AddNewConnection(fromNeuron, toNeuron);
+                    }
+                }
+            }
+        }
     }
 
     private void DisableConnections()
     {
         foreach(var connection in _connections)
         {
-            if(UnityEngine.Random.Range(0f,1f)>NeatValues.removeConnProbability)
+            if(UnityEngine.Random.Range(0f,1f) <= NeatValues.removeConnProbability)
             {
                 connection.IsActivated = false;
             }
@@ -56,10 +69,11 @@ public class NeuralNetwork
         foreach(var neuronFrom in GetNeurons(NeuronType.input)){
             foreach (var neuronTo in GetNeurons(NeuronType.output))
             {
-                if(UnityEngine.Random.Range(0f,1f)> NeatValues.addNodeProbability)
+                if(UnityEngine.Random.Range(0f,1f) <= NeatValues.addNodeProbability)
                     AddNewConnection(neuronFrom, neuronTo);
             }
         }
+        
     }
 
     private void AddNewConnection(Neuron neuronFrom, Neuron neuronTo)
@@ -69,6 +83,10 @@ public class NeuralNetwork
             var edge = new Edge(neuronFrom.NeuronID, neuronTo.NeuronID, Edge.innoNumber++, 1);
             _connections.Add(edge);
             allEdges.Add(new Edge(edge));
+        }
+        else if(!IsEdgeExistInThisNeuralNetwork(neuronFrom.NeuronID, neuronTo.NeuronID))
+        {
+            GetConnection(neuronFrom.NeuronID, neuronTo.NeuronID).IsActivated = true;
         }
         else
         {
@@ -93,9 +111,33 @@ public class NeuralNetwork
 
     private bool IsEdgeExistInDatabase(int neuronFromId,int neuronToId)
     {
-        return allEdges.Where(e => e.ConnectedFrom == neuronFromId && e.ConnectedTo == neuronToId).Count() == 1;
+        return allEdges.Where(e => e.ConnectedFrom == neuronFromId && e.ConnectedTo == neuronToId).Count() >= 1;
     }
 
+    private bool IsEdgeExistInThisNeuralNetwork(int neuronFrom, int neuronTo)
+    {
+        return _connections.Where(e => e.ConnectedFrom == neuronFrom && e.ConnectedTo == neuronTo).Count() >= 1;
+    }
+
+    private Edge GetConnection(int neuronFrom, int neuronTo)
+    {
+        return _connections.Where(e => e.ConnectedFrom == neuronFrom && e.ConnectedTo == neuronTo).First();
+    }
+
+    private List<Neuron> GetNeuronOfLevel(int level)
+    {
+        return _neurons.Where(n => n.Level == level).ToList();
+    }
+
+    private List<Neuron> GetNeuronWithHigherLevel(int level)
+    {
+        return _neurons.Where(n => n.Level > level).ToList();
+    }
+
+    private List<Edge> GetEnabledConnections()
+    {
+        return _connections.Where(e => e.IsActivated == true).ToList();
+    }
 
 
 }
