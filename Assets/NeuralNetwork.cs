@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class NeuralNetwork
 {
-    private int _maxLevel = 0;
+    private int _maxLevel = 1;
     int _neuronCounter = 0;
     [SerializeField] List<Neuron> _neurons;
     [SerializeField] List<Edge> _connections;
@@ -30,15 +30,29 @@ public class NeuralNetwork
 
     private void CreateNewNeurons()
     {
-        foreach (var edges in GetEnabledConnections())
+        foreach (var edge in GetEnabledConnections())
         {
             if(GetRand()<= NeatValues.addNodeProbability)
             {
-
+                edge.IsActivated = false;
+                if (!IsLevelGapBetweenConnectedNeuronsHigherThanOne(edge))
+                {
+                    LevelUpAllneuronsHighterThanLevel(GetNeuronOfId(edge.ConnectedFrom).Level);
+                }
+                var newNeuronId = _neuronCounter++;
+                var newNeuron = new Neuron(newNeuronId, NeuronType.hidden, GetNeuronOfId(edge.ConnectedFrom).Level + 1);
+                _neurons.Add(newNeuron);
+                AddNewConnection(GetNeuronOfId(edge.ConnectedFrom), newNeuron);
+                AddNewConnection(newNeuron, GetNeuronOfId(edge.ConnectedTo));
             }
         }
     }
-    
+
+    private bool IsLevelGapBetweenConnectedNeuronsHigherThanOne(Edge edge)
+    {
+        return GetNeuronOfId(edge.ConnectedFrom).Level != GetNeuronOfId(edge.ConnectedTo).Level - 1;
+    }
+
     private void MutateConnections()
     {
         DisableConnections();
@@ -197,6 +211,11 @@ public class NeuralNetwork
         {
             neuron.LevelUp(ref _maxLevel);
         }
+    }
+
+    private Neuron GetNeuronOfId(int id)
+    {
+        return _neurons.Where(n => n.NeuronID == id).First();
     }
 
 

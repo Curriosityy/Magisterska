@@ -34,8 +34,8 @@ public class Edge
         _isActivated = true;
     }
 
-    public int ConnectedFrom { get => _connectedFrom; }
-    public int ConnectedTo { get => _connectedTo; }
+    public int ConnectedFrom { get => _connectedFrom;}
+    public int ConnectedTo { get => _connectedTo;}
     public int Id { get => _id;}
     public double Weight { get => _weight; set => _weight = value; }
     public bool IsActivated { get => _isActivated; set => _isActivated = value; }

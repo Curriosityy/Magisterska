@@ -37,10 +37,6 @@ public class Neuron
         _neuronID = neuronID;
         _neuronType = neuronType;
         _level = level;
-        if(MaxLevel<level)
-        {
-            _maxLevel = level;
-        }
     }
 
 }
