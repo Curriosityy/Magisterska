@@ -20,13 +20,39 @@ public class NeuralNetwork
     {
         MutateConnections();
         MutateNeurons();
-
     }
 
     private void MutateNeurons()
     {
         DeleteNeurons();
         CreateNewNeurons();
+        MutateBias();
+    }
+
+    private void MutateBias()
+    {
+        var rand = GetRand();
+        foreach (var neuron in _neurons)
+        {
+            if (rand <= NeatValues.biasMutationProbability)
+            {
+                MutateBias(neuron);
+            }
+            else if (rand <= NeatValues.biasMutationProbability + NeatValues.biasRandomMutationProbability)
+            {
+                RandomizeBias(neuron);
+            }
+        }
+    }
+
+    private void RandomizeBias(Neuron neuron)
+    {
+        neuron.Bias = GetRand(NeatValues.minBias, NeatValues.maxBias);
+    }
+
+    private void MutateBias(Neuron neuron)
+    {
+        neuron.Bias += GetRand(NeatValues.minBias, NeatValues.maxBias)/3;
     }
 
     private void DeleteNeurons()

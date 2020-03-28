@@ -15,7 +15,7 @@ public enum NeuronType
 public class Neuron
 {
     int _level;
-    float _bias;
+    float _bias=1;
     [SerializeField]
     int _neuronID;
     [SerializeField]
@@ -23,6 +23,7 @@ public class Neuron
     public int NeuronID { get => _neuronID; set => _neuronID = value; }
     public NeuronType Type { get => _neuronType; set => _neuronType = value; }
     public int Level { get => _level;}
+    public float Bias { get => _bias; set => _bias = value; }
 
     public void LevelUp(ref int maxLevel)
     {
@@ -37,6 +38,7 @@ public class Neuron
         _neuronID = neuronID;
         _neuronType = neuronType;
         _level = level;
+        _bias = 1;
     }
 
 }
