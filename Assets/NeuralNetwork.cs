@@ -10,20 +10,40 @@ public class NeuralNetwork
     int _neuronInputSize = 20;
     int _neuronOutputSize = 2;
     [SerializeField] List<Neuron> _neurons;
-    [SerializeField] List<Edge> _connection;
+    [SerializeField] List<Edge> _connections;
     public List<Neuron> Neurons { get => _neurons;}
-    public List<Edge> Connection { get => _connection; }
+    public List<Edge> Connection { get => _connections; }
 
     //Lista do przechowywania wszystkich istniejących edgów.
     public static List<Edge> allEdges = new List<Edge>();
 
 
+    public void MutateConnections()
+    {
+        DisableConnections();
+        MakeConnections();
+    }
 
+    private void MakeConnections()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void DisableConnections()
+    {
+        foreach(var connection in _connections)
+        {
+            if(UnityEngine.Random.Range(0f,1f)>NeatValues.removeConnProbability)
+            {
+                connection.IsActivated = false;
+            }
+        }
+    }
 
     public NeuralNetwork()
     {
         _neurons = new List<Neuron>();
-        _connection = new List<Edge>();
+        _connections = new List<Edge>();
         for(int i=0;i<NeatValues.inputNeutonSize;i++)
         {
             _neurons.Add(new Neuron(_neuronCounter++, NeuronType.input,0));
@@ -47,12 +67,12 @@ public class NeuralNetwork
         if (!IsEdgeExistInDatabase(neuronFrom.NeuronID, neuronTo.NeuronID))
         {
             var edge = new Edge(neuronFrom.NeuronID, neuronTo.NeuronID, Edge.innoNumber++, 1);
-            _connection.Add(edge);
+            _connections.Add(edge);
             allEdges.Add(new Edge(edge));
         }
         else
         {
-            _connection.Add(new Edge(GetEdgeFromStaticList(neuronFrom.NeuronID, neuronTo.NeuronID)));
+            _connections.Add(new Edge(GetEdgeFromStaticList(neuronFrom.NeuronID, neuronTo.NeuronID)));
         }
     }
 
@@ -76,12 +96,6 @@ public class NeuralNetwork
         return allEdges.Where(e => e.ConnectedFrom == neuronFromId && e.ConnectedTo == neuronToId).Count() == 1;
     }
 
-    public void MutateConnections()
-    {
-        foreach(var neuron in GetNeurons(NeuronType.input))
-        {
 
-        }
-    }
 
 }
