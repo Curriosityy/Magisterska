@@ -17,12 +17,41 @@ public class NeuralNetwork
     //Lista do przechowywania wszystkich istniejących edgów.
     public static List<Edge> allEdges = new List<Edge>();
 
-
-    public void MutateConnections()
+    public void MutateNeuralNetwork()
+    {
+        MutateConnections();
+    }
+    private void MutateConnections()
     {
         DisableConnections();
         MakeConnections();
-        
+        MutateWeights();
+    }
+
+    private void MutateWeights()
+    {
+        var rand = UnityEngine.Random.Range(0f, 1f);
+        foreach (var connection in GetEnabledConnections())
+        {
+            if (rand <= NeatValues.weightMutationProbability)
+            {
+                MutateWeight(connection);
+            }
+            else if (rand <= NeatValues.weightMutationProbability + NeatValues.weightRandomMutationProbability)
+            {
+                RandomizeWeight(connection);
+            }
+        }
+    }
+
+    private void RandomizeWeight(Edge connection)
+    {
+        connection.Weight = UnityEngine.Random.Range(NeatValues.minWeight, NeatValues.maxWeight);
+    }
+
+    private void MutateWeight(Edge connection)
+    {
+        connection.Weight += (UnityEngine.Random.Range(NeatValues.minWeight, NeatValues.maxWeight)/3);
     }
 
     private void MakeConnections()
