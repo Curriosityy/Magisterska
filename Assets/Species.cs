@@ -88,7 +88,7 @@ public class Species
         return matchesFound;
     }
 
-    public bool CompareWithFirst(AIControler testSubject)
+    public bool CompareWithFirst(NeuralNetwork testSubject)
     {
 
         /*if (_individuals[0].Compare(testSubject))

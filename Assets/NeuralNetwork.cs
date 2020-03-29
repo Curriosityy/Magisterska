@@ -10,6 +10,7 @@ public class NeuralNetwork
     private float _fitnes=0;
     private float _adjustedFitness=0;
     int _neuronCounter = 0;
+    private int _generation = 0;
     [SerializeField] List<Neuron> _neurons;
     [SerializeField] List<Edge> _connections;
     public List<Neuron> Neurons { get => _neurons;}
@@ -20,6 +21,7 @@ public class NeuralNetwork
     public List<Edge> Connection { get => _connections; }
     public float AdjustedFitness { get => _adjustedFitness; set => _adjustedFitness = value; }
     public float Fitnes { get => _fitnes; set => _fitnes = value; }
+    public int Generation { get => _generation; set => _generation = value; }
 
 
     //Lista do przechowywania wszystkich istniejących edgów.
@@ -313,10 +315,10 @@ public class NeuralNetwork
         edgesCount = neat1.Connection.Count;
         for (int i = edgesCount - 1; i > 0; i--)
         {
-            if (neat2.DoesInnovNumberExist(/*Connection[i].innovnum*/ 1))
+            if (neat2.DoesInnovNumberExist(Connection[i].Id))
             {
                 excessJoin = false;
-                int connID = neat2.getEgdeId(/*Connection[i].innovnum*/1);
+                int connID = neat2.getEgdeId(Connection[i].Id);
                 weightDiff += Math.Abs(neat1.Connection[i].Weight-neat2.Connection[connID].Weight);
             }
             else
@@ -333,7 +335,7 @@ public class NeuralNetwork
         }
         foreach(var diffCon in neat2.Connection)
         {
-            if (!neat1.DoesInnovNumberExist(1 /*diffCon.Innovnum*/))
+            if (!neat1.DoesInnovNumberExist(diffCon.Id))
             {
                 disJoins += 1;
             }
@@ -353,7 +355,7 @@ public class NeuralNetwork
     {
         for(int i = 0; i < Connection.Count; i += 1)
         {
-            if (/*Connection[i].innoNumber==innovNum*/ true)
+            if (Connection[i].Id == innovNum)
             {
                 return i;
             }
@@ -364,7 +366,7 @@ public class NeuralNetwork
     {
         foreach (var edge in Connection)
         {
-            if (/*Connection.innoNumber == innovNum*/ true)//trzeba dodac innov number polaczenia
+            if (edge.Id == innovNum)
             {
                 return true;
             }
