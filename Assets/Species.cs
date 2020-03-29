@@ -24,6 +24,17 @@ public class Species
         for(int i = 0; i < NeatValues.populationSize; i += 1)
         {
             _individuals.Add(new AIControler());
+            /// <summary>
+            /// Nie możesz dodawać ai controlera przez new, to jest monobehaviour czyli obiekt w świecie unity.
+            /// AiControler posiada w sobie sieć neat, która jest tworzona podczas tworzenia Ai w świecie.
+            /// Poprzez AiControler.NeuralNetwork możesz się dostać do sieci neuronowej.
+            /// Lista wszystkich AiControlerów jest w PopulationGenerator, później (jeżeli chcemy pisać ze sztuką unity)
+            /// dostęp powinien być przeniesiony do klasy AIManager.
+            /// Manager jest to klasa, która powinna dawać dostęp do obiektów.
+            /// IMO, species powinieneś tworzyć puste, a potem w population czy gdzieś przypisywać do species dany obiekt, lub
+            /// tworzysz tutaj początkową populacje NeuralNetworków, którą później musisz przypisać do AiControlera tak jak gadaliśmy ostatnio.
+            /// Wtedy listą będzie NeuralNetwork.
+            /// </summary>
         }
     }
     public Species(AIControler existing)
