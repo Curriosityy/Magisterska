@@ -12,11 +12,11 @@ public class Edge
     int _id;
     public static int innoNumber = 0;
     [SerializeField]
-    double _weight;
+    float _weight;
     [SerializeField]
     private bool _isActivated;
 
-    public Edge(int connectedFrom, int connectedTo, int id, double weight)
+    public Edge(int connectedFrom, int connectedTo, int id, float weight)
     {
         _connectedFrom = connectedFrom;
         _connectedTo = connectedTo;
@@ -34,9 +34,9 @@ public class Edge
         _isActivated = true;
     }
 
-    public int ConnectedFrom { get => _connectedFrom; }
-    public int ConnectedTo { get => _connectedTo; }
+    public int ConnectedFrom { get => _connectedFrom;}
+    public int ConnectedTo { get => _connectedTo;}
     public int Id { get => _id;}
-    public double Weight { get => _weight; set => _weight = value; }
+    public float Weight { get => _weight; set => _weight = value; }
     public bool IsActivated { get => _isActivated; set => _isActivated = value; }
 }

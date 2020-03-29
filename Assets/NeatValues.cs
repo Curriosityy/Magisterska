@@ -19,8 +19,12 @@ public static class NeatValues {
         _specieCount += 1;
     }
 
-
-    //Population
+    public const int inputNeutonSize = 20;
+    public const int outputNeuronSize = 2;
+    //Population 
+    /// <summary>
+    /// Population size powinno być parzyste
+    /// </summary>
     public const int populationSize=50;
     public const int generationTreshhold=9999;
     public const int fitnessTreshold=9999;
