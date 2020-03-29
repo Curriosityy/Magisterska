@@ -72,8 +72,8 @@ public class Species
                 }
             }
         }
-
-        return child;*/
+        */
+        return child;
     }
     public int CompareWithAll(AIControler testSubject)
     {
