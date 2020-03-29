@@ -45,21 +45,35 @@ public class Species
         _individuals.Add(existing);
     }
     
-    public AIControler Crossover(AIControler child)
+    public NeuralNetwork Crossover(NeuralNetwork child)
     {
-        //wybierz 2 osobnikow z populacji
-        /*AIControler parent1 =_individuals[rnd.Next(0,_individuals.Count-1)];
-        AIControler parent2 = _individuals[rnd.Next(0, _individuals.Count - 1)];
-        if (parent1.GetFitness() >= parent2.GetFitness())
+      
+        /*
+         NeuralNetwork parent1 =_individuals[rnd.Next(0,_individuals.Count-1)];
+         NeuralNetwork parent2 = _individuals[rnd.Next(0, _individuals.Count - 1)];
+         NeuralNetwork temp;
+         if (parent1.GetFitness() < parent2.GetFitness())
+         {
+             temp=parent1;
+             parent1=parent2;
+             parent2=temp;
+         }
+
+         
+        child = new NeuralNetwork(parent1);
+        for (int i = 0; i < child.Connection.Count; i += 1)
         {
-            child=parent2.Crossover(child, parent2);
+            if (parent2.DoesInnovNumberExist(child.Connection[i].Id))
+            {
+                if (rnd.Next(3) < 2)
+                {
+                    int edgePos=parent2.getEgdeId(child.Connection[i].Id);
+                    child.Connection[i] = new Edge(child.Connection[edgePos]);
+                }
+            }
         }
-        else
-        {
-            child=parent2.Crossover(child, parent1);
-        }
-        */
-        return child;
+
+        return child;*/
     }
     public int CompareWithAll(AIControler testSubject)
     {

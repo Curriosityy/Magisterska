@@ -7,6 +7,8 @@ using UnityEngine;
 public class NeuralNetwork
 {
     private int _maxLevel = 1;
+    private float _fitnes=0;
+    private float _adjustedFitness=0;
     int _neuronCounter = 0;
     [SerializeField] List<Neuron> _neurons;
     [SerializeField] List<Edge> _connections;
@@ -16,6 +18,8 @@ public class NeuralNetwork
     public int NeuronCounter { get => _neuronCounter; set => _neuronCounter = value; }
 
     public List<Edge> Connection { get => _connections; }
+    public float AdjustedFitness { get => _adjustedFitness; set => _adjustedFitness = value; }
+    public float Fitnes { get => _fitnes; set => _fitnes = value; }
 
 
     //Lista do przechowywania wszystkich istniejących edgów.
@@ -242,7 +246,7 @@ public class NeuralNetwork
     public NeuralNetwork(NeuralNetwork networkToCopy)
     {
         _neurons = new List<Neuron>();
-        _connection = new List<Edge>();
+        _connections = new List<Edge>();
         _neuronCounter = networkToCopy.NeuronCounter;
         foreach (var neuron in networkToCopy.Neurons)
         {
@@ -250,7 +254,7 @@ public class NeuralNetwork
         }
         foreach (var connection in networkToCopy.Connection)
         {
-            _connection.Add(new Edge(connection));
+            _connections.Add(new Edge(connection));
         }
 
 
@@ -356,7 +360,7 @@ public class NeuralNetwork
         }
         return 0;
     }
-    private bool DoesInnovNumberExist(int innovNum)
+    public bool DoesInnovNumberExist(int innovNum)
     {
         foreach (var edge in Connection)
         {

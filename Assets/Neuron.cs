@@ -57,6 +57,8 @@ public class Neuron
     {
         _neuronID = neuronToCopy.NeuronID;
         _neuronType = neuronToCopy.Type;
+        _level = neuronToCopy.Level;
+        _bias = neuronToCopy.Bias;
     }
 
 
