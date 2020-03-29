@@ -13,10 +13,25 @@ public class NeuralNetwork
     [SerializeField] List<Edge> _connection;
     public List<Neuron> Neurons { get => _neurons;}
     public List<Edge> Connection { get => _connection; }
+    public int NeuronCounter { get => _neuronCounter; set => _neuronCounter = value; }
 
     //Lista do przechowywania wszystkich istniejących edgów.
     public static List<Edge> allEdges = new List<Edge>();
+    public NeuralNetwork(NeuralNetwork networkToCopy)
+    {
+        _neurons = new List<Neuron>();
+        _connection = new List<Edge>();
+        _neuronCounter = networkToCopy.NeuronCounter;
+        foreach(var neuron in networkToCopy.Neurons)
+        {
+            _neurons.Add(new Neuron(neuron));
+        }
+        foreach (var connection in networkToCopy.Connection)
+        {
+            _connection.Add(new Edge(connection));
+        }
 
+    }
     public NeuralNetwork()
     {
         _neurons = new List<Neuron>();
