@@ -7,6 +7,7 @@ public class Species
     private int _specieID;
     private List<AIControler> _individuals;
     private float _avgFitness;
+    private float _maxfitness;
     private float _adjFitness;
     private float _stagnationCount=0;
     System.Random rnd = new System.Random();
@@ -15,12 +16,14 @@ public class Species
     public int SpecieID { get => _specieID; set => _specieID = value; }
     public float AdjFitness { get => _adjFitness; }
     public float StagnationCount { get => _stagnationCount;}
+    public float Maxfitness { get => _maxfitness; set => _maxfitness = value; }
 
     public Species()
     {
         NeatValues.IncreaseSpecie();
         _specieID = NeatValues.SpecieCount;
         _individuals = new List<AIControler>();
+        _maxfitness = 0;
         for(int i = 0; i < NeatValues.populationSize; i += 1)
         {
             _individuals.Add(new AIControler());
@@ -39,6 +42,7 @@ public class Species
     }
     public Species(AIControler existing)
     {
+        _maxfitness = 0;
         NeatValues.IncreaseSpecie();
         _specieID = NeatValues.SpecieCount;
         _individuals = new List<AIControler>();
@@ -128,28 +132,32 @@ public class Species
         float fitness = 0f;
         foreach (var individual in _individuals)
         {
-            //fitness += individual.GetFitness();
+            //fitness += individual.Fitness;
         
         }
         fitness = fitness / _individuals.Count;
         CheckStagnation(fitness);
         _avgFitness = fitness; 
     }
-    public void GetTotalAdjustedFitness()
+    public void GetSpecieAdjustedFitness()
     {
         float adjustedFitness = 0f;
         foreach (var individual in _individuals)
         {
-            //adjustedFitness += individual.GetAdjFitness();
+            //adjustedFitness += individual.AdjustedFitness;
         }
        
         _adjFitness = adjustedFitness;
     }
     private void CheckStagnation(float newfitness)
     {
-        if (_adjFitness > newfitness)
+        if (_maxfitness > newfitness)
         {
             _stagnationCount += 1;
+        }
+        else
+        {
+            _maxfitness = newfitness;
         }
     }
 

@@ -7,7 +7,7 @@ using UnityEngine;
 public class NeuralNetwork
 {
     private int _maxLevel = 1;
-    private float _fitnes=0;
+    private float _fitness=0;
     private float _adjustedFitness=0;
     int _neuronCounter = 0;
     private int _generation = 0;
@@ -20,7 +20,7 @@ public class NeuralNetwork
 
     public List<Edge> Connection { get => _connections; }
     public float AdjustedFitness { get => _adjustedFitness; set => _adjustedFitness = value; }
-    public float Fitnes { get => _fitnes; set => _fitnes = value; }
+    public float Fitness { get => _fitness; set => _fitness = value; }
     public int Generation { get => _generation; set => _generation = value; }
 
 

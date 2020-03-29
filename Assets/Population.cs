@@ -14,6 +14,31 @@ public class Population
         _species = new List<Species>();
         _species.Add(new Species());
     }
+    public void removeStaleSpecies()
+    {
+        for(int i = 0; i < Species.Count; i += 1)
+        {
+            if (Species[i].StagnationCount > NeatValues.maxStagnation)
+            {
+                Species.RemoveAt(i);
+            }
+        }
+    }
+    public void CalculateAdjustedFitness()
+    {/*
+        for(int i = 0; i < neats.Count; i += 1)
+        {
+            int sh = 0;
+            for(int j = 0; j < neats.Count; j += 1)
+            {
+                if (neats[j].Compare(neats[i]))
+                {
+                    sh += 1;
+                }
+            }
+            neats[i].AdjustedFitness = neats[i].Fitness / sh;
+        }*/
+    }
     public bool assignToSpecie(NeuralNetwork candidate)
     {
         foreach(var specie in Species)
