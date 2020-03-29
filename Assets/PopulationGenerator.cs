@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PopulationGenerator : MonoBehaviour
 {
-    [SerializeField] int _boards;
-    [SerializeField] AIControler _aiPrefab;
+    [SerializeField] GameObject _aiPrefab;
     [SerializeField] BoardDictionary _boardPrefab;
 
 
@@ -19,13 +18,13 @@ public class PopulationGenerator : MonoBehaviour
         var boardHolder = new GameObject("BoardHolder");
         var population  = Population.Instance;
 
-        for(int i=0;i<_boards*2;i++)
+        for(int i=0;i< NeatValues.populationSize; i++)
         {
             var ai = Instantiate(_aiPrefab, aiHolder.transform);
-            population.Species[0].AddIndividual(ai);
+            population.Species[0].AddIndividual(ai.GetComponent<AIControler>());
             _aiList.Add(ai.gameObject);
         }
-        for(int i=0;i<_boards;i++)
+        for(int i=0;i< NeatValues.populationSize / 2; i++)
         {
             var board = Instantiate(_boardPrefab, new Vector3(i*10,0,0), Quaternion.identity, boardHolder.transform);
             _boardList.Add(board.gameObject);

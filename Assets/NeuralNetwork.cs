@@ -16,6 +16,53 @@ public class NeuralNetwork
     //Lista do przechowywania wszystkich istniejących edgów.
     public static List<Edge> allEdges = new List<Edge>();
 
+    public void CalculateNeuralNetworkValue(int []inputs,out float[] outputs)
+    {
+        ClearNeuronValues();
+        List<Edge> edges;
+        List<Neuron> neurons;
+        SetInputValues(inputs);
+        for(int i=0;i<_maxLevel;i++)
+        {
+            neurons = GetNeuronOfLevel(i);
+            if(i>0)
+            {
+                neurons.ForEach(n => n.UseActivationFunction());
+            }
+            foreach(var neuron in neurons)
+            {
+                edges = GetAllEnabledConnectionFromNeuron(neuron.NeuronID);
+                foreach(var edge in edges)
+                {
+                    GetNeuronOfId(edge.ConnectedTo).SumValue(neuron.Value,edge.Weight);
+                }
+            }
+        }
+        SetOutputValues(out outputs);
+
+    }
+
+    private void ClearNeuronValues()
+    {
+        _neurons.ForEach(n => n.Value = 0);
+    }
+
+    private void SetOutputValues(out float[] outputs)
+    {
+        outputs = new float[NeatValues.outputNeuronSize];
+        var neurons = GetNeurons(NeuronType.output);
+        neurons.ForEach(n => n.UseActivationFunction());
+        for(int i=0;i< outputs.Length; i++)
+        {
+            outputs[i] = neurons[i].Value;
+        }
+    }
+
+    private void SetInputValues(int[] inputs)
+    {
+        GetNeurons(NeuronType.input).ForEach(n => n.Value = inputs[n.NeuronID]);
+    }
+
     public void MutateNeuralNetwork()
     {
         MutateConnections();
@@ -27,6 +74,12 @@ public class NeuralNetwork
         DeleteNeurons();
         CreateNewNeurons();
         MutateBias();
+    }
+    private void MutateConnections()
+    {
+        DisableConnections();
+        MakeConnections();
+        MutateWeights();
     }
 
     private void MutateBias()
@@ -98,12 +151,6 @@ public class NeuralNetwork
         return GetNeuronOfId(edge.ConnectedFrom).Level != GetNeuronOfId(edge.ConnectedTo).Level - 1;
     }
 
-    private void MutateConnections()
-    {
-        DisableConnections();
-        MakeConnections();
-        MutateWeights();
-    }
 
     private void MutateWeights()
     {
@@ -262,6 +309,15 @@ public class NeuralNetwork
     private Neuron GetNeuronOfId(int id)
     {
         return _neurons.FirstOrDefault(n => n.NeuronID == id);
+    }
+
+    private List<Edge> GetAllConnectionFromNeuron(int id)
+    {
+        return _connections.Where(e => e.ConnectedFrom == id).ToList();
+    }
+    private List<Edge> GetAllEnabledConnectionFromNeuron(int id)
+    {
+        return _connections.Where(e => e.ConnectedFrom == id && e.IsActivated==true).ToList();
     }
 
 
