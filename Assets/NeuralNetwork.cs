@@ -321,7 +321,7 @@ public class NeuralNetwork
             }
             else
             {
-                if (excessJoin == true)
+                if (excessJoin)
                 {
                     excessJoins += 1;
                 }
