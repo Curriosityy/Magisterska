@@ -14,7 +14,24 @@ public class Population
         _species = new List<Species>();
         _species.Add(new Species());
     }
-
+    public bool assignToSpecie(NeuralNetwork candidate)
+    {
+        foreach(var specie in Species)
+        {
+            if (specie.CompareWithFirst(candidate))
+            {
+               /* specie.AddIndividual(candidate);*/
+                return true;
+            }
+            
+        }
+        CreateSpecie(candidate);
+        return false;
+    }
+    private void CreateSpecie(NeuralNetwork candidate)
+    {
+        _species.Add(new Species(/*candidate*/));
+    }
     public static Population Instance {
         get
         {
