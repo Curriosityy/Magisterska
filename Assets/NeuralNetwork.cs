@@ -13,8 +13,9 @@ public class NeuralNetwork
     private int _generation = 0;
     [SerializeField] List<Neuron> _neurons;
     [SerializeField] List<Edge> _connections;
+    //trzeba dodac polaczenia poczatkowe
     public List<Neuron> Neurons { get => _neurons;}
-
+    
     
     public int NeuronCounter { get => _neuronCounter; set => _neuronCounter = value; }
 
@@ -28,12 +29,12 @@ public class NeuralNetwork
     public static List<Edge> allEdges = new List<Edge>();
  
 
-    public void CalculateNeuralNetworkValue(int []inputs,out float[] outputs)
+    public float CalculateNeuralNetworkValue(int input)
     {
         ClearNeuronValues();
         List<Edge> edges;
         List<Neuron> neurons;
-        SetInputValues(inputs);
+        SetInputValues(input);
         for(int i=0;i<_maxLevel;i++)
         {
             neurons = GetNeuronOfLevel(i);
@@ -50,7 +51,7 @@ public class NeuralNetwork
                 }
             }
         }
-        SetOutputValues(out outputs);
+        return SetOutputValues();
 
     }
 
@@ -58,21 +59,22 @@ public class NeuralNetwork
     {
         _neurons.ForEach(n => n.Value = 0);
     }
-
-    private void SetOutputValues(out float[] outputs)
+    //zmienilem
+    private float SetOutputValues()
     {
-        outputs = new float[NeatValues.outputNeuronSize];
+        float output = 0f;
         var neurons = GetNeurons(NeuronType.output);
         neurons.ForEach(n => n.UseActivationFunction());
-        for(int i=0;i< outputs.Length; i++)
+        for(int i=0;i<1; i++)
         {
-            outputs[i] = neurons[i].Value;
+            output = neurons[i].Value;
         }
+        return output;
     }
 
-    private void SetInputValues(int[] inputs)
+    private void SetInputValues(int input)
     {
-        GetNeurons(NeuronType.input).ForEach(n => n.Value = inputs[n.NeuronID]);
+        GetNeurons(NeuronType.input).ForEach(n => n.Value = input);
     }
 
     public void MutateNeuralNetwork()
@@ -225,6 +227,7 @@ public class NeuralNetwork
 
     public NeuralNetwork()
     {
+        _generation = NeatValues.GenerationCount;
         _neurons = new List<Neuron>();
         _connections = new List<Edge>();
         for(int i=0;i<NeatValues.inputNeutonSize;i++)

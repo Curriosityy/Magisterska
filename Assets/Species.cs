@@ -5,14 +5,14 @@ using UnityEngine;
 public class Species
 {
     private int _specieID;
-    private List<AIControler> _individuals;
+    private List<NeuralNetwork> _individuals = new List<NeuralNetwork>();
     private float _avgFitness;
     private float _maxfitness;
     private float _adjFitness;
     private float _stagnationCount=0;
     System.Random rnd = new System.Random();
     public float AvgFitness { get => _avgFitness;}
-    public List<AIControler> Individuals { get => _individuals; }
+    public List<NeuralNetwork> Individuals { get => _individuals; }
     public int SpecieID { get => _specieID; set => _specieID = value; }
     public float AdjFitness { get => _adjFitness; }
     public float StagnationCount { get => _stagnationCount;}
@@ -20,13 +20,13 @@ public class Species
 
     public Species()
     {
-        NeatValues.IncreaseSpecie();
+        
         _specieID = NeatValues.SpecieCount;
-        _individuals = new List<AIControler>();
+        _individuals = new List<NeuralNetwork>();
         _maxfitness = 0;
         for(int i = 0; i < NeatValues.populationSize; i += 1)
         {
-            _individuals.Add(new AIControler());
+            _individuals.Add(new NeuralNetwork());
             /// <summary>
             /// Nie możesz dodawać ai controlera przez new, to jest monobehaviour czyli obiekt w świecie unity.
             /// AiControler posiada w sobie sieć neat, która jest tworzona podczas tworzenia Ai w świecie.
@@ -40,23 +40,22 @@ public class Species
             /// </summary>
         }
     }
-    public Species(AIControler existing)
+    public Species(NeuralNetwork existing)
     {
         _maxfitness = 0;
-        NeatValues.IncreaseSpecie();
         _specieID = NeatValues.SpecieCount;
-        _individuals = new List<AIControler>();
         _individuals.Add(existing);
+        
     }
     
     public NeuralNetwork Crossover(NeuralNetwork child)
     {
       
-        /*
+        
          NeuralNetwork parent1 =_individuals[rnd.Next(0,_individuals.Count-1)];
          NeuralNetwork parent2 = _individuals[rnd.Next(0, _individuals.Count - 1)];
          NeuralNetwork temp;
-         if (parent1.GetFitness() < parent2.GetFitness())
+         if (parent1.Fitness < parent2.Fitness)
          {
              temp=parent1;
              parent1=parent2;
@@ -76,18 +75,18 @@ public class Species
                 }
             }
         }
-        */
+        
         return child;
     }
-    public int CompareWithAll(AIControler testSubject)
+    public int CompareWithAll(NeuralNetwork testSubject)
     {
         int matchesFound = 0;
         for(int i = 0; i < _individuals.Count; i += 1)
         {
-           /* if (_individuals[i].Compare(testSubject))
+            if (_individuals[i].Compare(testSubject))
             {
                 matchesFound += 1;
-            }*/
+            }
         }
         return matchesFound;
     }
@@ -95,14 +94,14 @@ public class Species
     public bool CompareWithFirst(NeuralNetwork testSubject)
     {
 
-        /*if (_individuals[0].Compare(testSubject))
+        if (_individuals[0].Compare(testSubject))
         {
             return true;
-        }*/
+        }
         return false;
     }
 
-    public void AddIndividual(AIControler individual)
+    public void AddIndividual(NeuralNetwork individual)
     {
         _individuals.Add(individual);
     }
@@ -115,14 +114,14 @@ public class Species
     {
         for(int i = 0; i < _individuals.Count; i += 1)
         {
-            if (/*_individuals[i].generation != NeatValues.GenerationCount*/true)
+            if (_individuals[i].Generation != NeatValues.GenerationCount)
             {
                 _individuals.RemoveAt(i);
             }
         }
     }
 
-    public AIControler GetFirstIndividual()
+    public NeuralNetwork GetFirstIndividual()
     {
         return _individuals[0];
     }
@@ -132,7 +131,7 @@ public class Species
         float fitness = 0f;
         foreach (var individual in _individuals)
         {
-            //fitness += individual.Fitness;
+            fitness += individual.Fitness;
         
         }
         fitness = fitness / _individuals.Count;
@@ -144,7 +143,7 @@ public class Species
         float adjustedFitness = 0f;
         foreach (var individual in _individuals)
         {
-            //adjustedFitness += individual.AdjustedFitness;
+            adjustedFitness += individual.AdjustedFitness;
         }
        
         _adjFitness = adjustedFitness;
@@ -180,7 +179,7 @@ public class Species
 
     }
 
-    public AIControler GetBestIndividual()
+    public NeuralNetwork GetBestIndividual()
     {
         SortIndividuals();
         return _individuals[0];
@@ -188,7 +187,7 @@ public class Species
 
     public void SortIndividuals()
     {
-        //_individuals.Sort((p1, p2) => p1.GetFitess().CompareTo(p2.GetFitess()));
+        _individuals.Sort((p1, p2) => p1.Fitness.CompareTo(p2.Fitness));
         _individuals.Reverse();
     }
 
@@ -199,7 +198,7 @@ public class Species
 
     public float GetIndividualFitness(int id)
     {
-        return 0f;//_individuals[id].GetFitness();
+        return _individuals[id].Fitness;
     }
 
 

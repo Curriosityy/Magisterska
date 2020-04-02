@@ -21,7 +21,7 @@ public class PopulationGenerator : MonoBehaviour
         for(int i=0;i< NeatValues.populationSize; i++)
         {
             var ai = Instantiate(_aiPrefab, aiHolder.transform);
-            population.Species[0].AddIndividual(ai.GetComponent<AIControler>());
+            //population.Species[0].AddIndividual(ai.GetComponent<AIControler>());
             _aiList.Add(ai.gameObject);
         }
         for(int i=0;i< NeatValues.populationSize / 2; i++)

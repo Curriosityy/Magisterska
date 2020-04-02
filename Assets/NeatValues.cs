@@ -19,8 +19,8 @@ public static class NeatValues {
         _specieCount += 1;
     }
 
-    public const int inputNeutonSize = 20;
-    public const int outputNeuronSize = 2;
+    public const int inputNeutonSize = 1;
+    public const int outputNeuronSize = 1;
     //Population 
     /// <summary>
     /// Population size powinno być parzyste
@@ -41,18 +41,18 @@ public static class NeatValues {
     public const float addConnProbability=0.8f;
     public const float removeConnProbability=0.3f;
     public const float changeConnStatusProbability=0.3f;
-    public const float addNodeProbability=0.5f;
+    public const float addNodeProbability=0.2f;
     public const float removeNodeProbability=0.2f;
     //Node
     public const float minBias=-1f;
     public const float maxBias=1f;
-    public const float biasMutationProbability=0.5f;
+    public const float biasMutationProbability=0.8f;
     public const float biasRandomMutationProbability=0.1f;
 
     //Connection
     public const float minWeight=-1f;
     public const float maxWeight=1f;
-    public const float weightMutationProbability=0.5f;
+    public const float weightMutationProbability=0.8f;
     public const float weightRandomMutationProbability=0.1f;
 
    
