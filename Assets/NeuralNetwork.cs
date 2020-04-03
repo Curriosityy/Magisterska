@@ -6,6 +6,7 @@ using UnityEngine;
 [Serializable]
 public class NeuralNetwork
 {
+    System.Random _rand;
     private int _maxLevel = 1;
     private float _fitness=0;
     private float _adjustedFitness=0;
@@ -238,11 +239,11 @@ public class NeuralNetwork
         {
             _neurons.Add(new Neuron(_neuronCounter++, NeuronType.output,1));
         }
-        var rand = new System.Random();
-        foreach(var neuronFrom in GetNeurons(NeuronType.input)){
+        _rand = new System.Random();
+        foreach (var neuronFrom in GetNeurons(NeuronType.input)){
             foreach (var neuronTo in GetNeurons(NeuronType.output))
             {
-                if(rand.Next(0,100) <= NeatValues.addNodeProbability*100)
+                //if(_rand.Next(0,100) <= NeatValues.addNodeProbability*100)
                     AddNewConnection(neuronFrom, neuronTo);
             }
         }
@@ -269,7 +270,7 @@ public class NeuralNetwork
     {
         if (!IsEdgeExistInDatabase(neuronFrom.NeuronID, neuronTo.NeuronID))
         {
-            var edge = new Edge(neuronFrom.NeuronID, neuronTo.NeuronID, Edge.innoNumber++, 1);
+            var edge = new Edge(neuronFrom.NeuronID, neuronTo.NeuronID, Edge.innoNumber++, (float)_rand.NextDouble());
             _connections.Add(edge);
             allEdges.Add(new Edge(edge));
         }
