@@ -318,7 +318,7 @@ public class NeuralNetwork
         edgesCount = neat1.Connection.Count;
         for (int i = edgesCount - 1; i > 0; i--)
         {
-            if (neat2.DoesInnovNumberExist(Connection[i].Id))
+            if (neat2.DoesInnovNumberExist(neat1.Connection[i].Id))
             {
                 excessJoin = false;
                 int connID = neat2.getEgdeId(Connection[i].Id);

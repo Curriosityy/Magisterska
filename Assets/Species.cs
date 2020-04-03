@@ -75,7 +75,7 @@ public class Species
                 }
             }
         }
-        
+        child.MutateNeuralNetwork();
         return child;
     }
     public int CompareWithAll(NeuralNetwork testSubject)
@@ -126,7 +126,7 @@ public class Species
         return _individuals[0];
     }
 
-    public void GetAverageFitness()
+    public void CalculateAverageFitness()
     {
         float fitness = 0f;
         foreach (var individual in _individuals)
@@ -137,8 +137,9 @@ public class Species
         fitness = fitness / _individuals.Count;
         CheckStagnation(fitness);
         _avgFitness = fitness; 
+
     }
-    public void GetSpecieAdjustedFitness()
+    public void CalculateSpecieAdjustedFitness()
     {
         float adjustedFitness = 0f;
         foreach (var individual in _individuals)
@@ -157,6 +158,7 @@ public class Species
         else
         {
             _maxfitness = newfitness;
+            _stagnationCount = 0;
         }
     }
 
