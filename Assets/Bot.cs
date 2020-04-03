@@ -34,9 +34,9 @@ public class Bot
         {
             IsAlive = false;
             
-            if (NeatValues.BestFitness < Brain.Fitness)
+            if (NeatValues.BestFitness < Fitness)
             {
-                NeatValues.BestFitness = Brain.Fitness;
+                NeatValues.BestFitness = Fitness;
             }
         }
         else
@@ -46,8 +46,8 @@ public class Bot
              Distance = 400 - Position;
              float neatres=Brain.CalculateNeuralNetworkValue(22);
            
-            Debug.Log("Nearest: "+neatres);
-            if (neatres == 1)
+            //Debug.Log("Nearest: "+neatres);
+            if (neatres ==0)
             {
                 Jump();
             }
@@ -59,6 +59,4 @@ public class Bot
         Position -= 50;
     }
     // Update is called once per frame
-    
-    
 }

@@ -269,7 +269,7 @@ public class NeuralNetwork
     {
         if (!IsEdgeExistInDatabase(neuronFrom.NeuronID, neuronTo.NeuronID))
         {
-            var edge = new Edge(neuronFrom.NeuronID, neuronTo.NeuronID, Edge.innoNumber++, (float)_rand.NextDouble());
+            var edge = new Edge(neuronFrom.NeuronID, neuronTo.NeuronID, Edge.innoNumber++, NeatValues.minWeight + (float)_rand.NextDouble() * (NeatValues.maxWeight - NeatValues.minWeight));
             _connections.Add(edge);
             allEdges.Add(new Edge(edge));
         }
@@ -280,7 +280,7 @@ public class NeuralNetwork
         }
         else
         {
-            _connections.Add(new Edge(GetEdgeFromStaticList(neuronFrom.NeuronID, neuronTo.NeuronID), (float)_rand.NextDouble()));
+            _connections.Add(new Edge(GetEdgeFromStaticList(neuronFrom.NeuronID, neuronTo.NeuronID), NeatValues.minWeight+(float)_rand.NextDouble()*(NeatValues.maxWeight-NeatValues.minWeight)));
         }
     }
 

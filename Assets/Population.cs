@@ -27,22 +27,33 @@ public class Population
     }
     public void run()
     {
-      //  for (int j = 0; j < 500; j += 1)
-       // {
 
+        //speciate generation
+        //remove old generation
+        //add networks to controllers
+        //evaluate
+        //calculate genomes fitness and adjusted fitness
+        //culling weak networks from species
+        //check stagnation and delete weak species (if memebers < 2 or stagnation > 15)
+        //Calculate specie adjusted fitness
+        //crossover -> mutation -> add offsping to population
+        
+
+
+        for (int j = 0; j < 500; j += 1)
+        {
             for (int i = 0; i < Bots.Count; i += 1)
             {
                 Bots[i].CheckPos();
-           
-            
+            }
         }
-       // }
         for (int i = 0; i < Bots.Count; i += 1)
-        {
-           Debug.Log(Bots[i].Fitness);
-           Debug.Log(Bots[i].Brain.Connection.Count);
-           
-        }
+         {
+            //Debug.Log(Bots[i].Fitness);
+            //Debug.Log(Bots[i].Brain.Connection.Count);
+
+         }
+        Debug.Log(NeatValues.BestFitness);
 
 
     }
@@ -81,6 +92,16 @@ public class Population
         Debug.Log(Species.Count);
         Debug.Log(Species[0].Individuals.Count);
 
+    }
+    public void RemoveOldGenerationMembers()
+    {
+        for (int i = 0; i < _generation.Count; i += 1)
+        {
+            if (_generation[i].Generation != NeatValues.GenerationCount)
+            {
+                _generation.RemoveAt(i);
+            }
+        }
     }
     public bool CheckGenerationStatus()
     {
