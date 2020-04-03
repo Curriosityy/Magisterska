@@ -45,7 +45,8 @@ public class Bot
              Position += 1;
              Distance = 400 - Position;
              float neatres=Brain.CalculateNeuralNetworkValue(22);
-            Debug.Log(neatres);
+           
+            Debug.Log("Nearest: "+neatres);
             if (neatres == 1)
             {
                 Jump();

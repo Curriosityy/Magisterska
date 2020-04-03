@@ -39,8 +39,9 @@ public class Population
        // }
         for (int i = 0; i < Bots.Count; i += 1)
         {
-          // Debug.Log(Bots[i].Fitness);
+           Debug.Log(Bots[i].Fitness);
            Debug.Log(Bots[i].Brain.Connection.Count);
+           
         }
 
 
