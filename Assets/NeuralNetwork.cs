@@ -30,7 +30,7 @@ public class NeuralNetwork
     public static List<Edge> allEdges = new List<Edge>();
  
 
-    public float CalculateNeuralNetworkValue(int input)
+    public float CalculateNeuralNetworkValue(float input)
     {
         ClearNeuronValues();
         List<Edge> edges;
@@ -73,7 +73,7 @@ public class NeuralNetwork
         return output;
     }
 
-    private void SetInputValues(int input)
+    private void SetInputValues(float input)
     {
         GetNeurons(NeuronType.input).ForEach(n => n.Value = input);
     }

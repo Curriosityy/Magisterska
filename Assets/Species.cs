@@ -10,6 +10,7 @@ public class Species
     private float _maxfitness;
     private float _adjFitness;
     private float _stagnationCount=0;
+
     System.Random rnd = new System.Random();
     public float AvgFitness { get => _avgFitness;}
     public List<NeuralNetwork> Individuals { get => _individuals; }
@@ -48,10 +49,9 @@ public class Species
         
     }
     
-    public NeuralNetwork Crossover(NeuralNetwork child)
+    public NeuralNetwork Crossover()
     {
-      
-        
+     
          NeuralNetwork parent1 =_individuals[rnd.Next(0,_individuals.Count-1)];
          NeuralNetwork parent2 = _individuals[rnd.Next(0, _individuals.Count - 1)];
          NeuralNetwork temp;
@@ -63,7 +63,7 @@ public class Species
          }
 
          
-        child = new NeuralNetwork(parent1);
+        var child = new NeuralNetwork(parent1);
         for (int i = 0; i < child.Connection.Count; i += 1)
         {
             if (parent2.DoesInnovNumberExist(child.Connection[i].Id))
@@ -138,7 +138,7 @@ public class Species
         CheckStagnation(fitness);
         _avgFitness = fitness; 
     }
-    public void GetSpecieAdjustedFitness()
+    public void SetSpecieAdjustedFitness()
     {
         float adjustedFitness = 0f;
         foreach (var individual in _individuals)

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,93 +8,128 @@ public class Population
     private bool _isInitialized;
     private List<Species> _species;
     private List<NeuralNetwork> _generation;
-    private List<NeuralNetwork> _newGeneration;
-    private List<Bot> _bots;
-    public List<Species> Species { get => _species;}
+
+
+    public List<NeuralNetwork> Generation { get => _generation; }
+    public List<Species> Species { get => _species; }
     private static Population _instance;
     private Population()
     {
-        
-        //_isInitialized = false;
         _species = new List<Species>();
         _generation = new List<NeuralNetwork>();
-        _newGeneration = new List<NeuralNetwork>();
-        _bots = new List<Bot>();
         CreateRandomPopulation();
         AssignOldGeneration();
-        AssignNeats();
-        run();
-        //_species.Add(new Species());
+        int a = 0;
     }
+
+    public void GenerateNextPopulation()
+    {
+        Debug.Log("GeneratingNewPopulation");
+        CalculateAdjustedFitness();
+        KillWorstIndividualsInAllSpecies();
+        DeleteWorstSpecies();
+        GenerateNewPopulation();
+        MutateEveryone();
+        AssignOldGeneration();
+    }
+
+    private void MutateEveryone()
+    {
+        foreach(var species in _species)
+        {
+            foreach(var neat in species.Individuals)
+            {
+                neat.MutateNeuralNetwork();
+            }
+        }
+    }
+
+    private void GenerateNewPopulation()
+    {
+        var sum = SumAdjFittnes();
+        List<NeuralNetwork> newGeneration = new List<NeuralNetwork>();
+        int kidsCounter;
+        foreach(var species in _species)
+        {
+            kidsCounter = Mathf.RoundToInt((sum / species.AdjFitness) * NeatValues.populationSize);
+            for(int i=0;i<kidsCounter;i++)
+            {
+                newGeneration.Add(species.Crossover());
+            }
+        }
+        _species.Clear();
+        _generation.Clear();
+        _generation.AddRange(newGeneration);
+        for(int i=_generation.Count-1;i>=NeatValues.populationSize;i--)
+        {
+            _generation.RemoveAt(i);
+        }
+    }
+
+    private float SumAdjFittnes()
+    {
+        float sum = 0;
+        foreach(var species in _species)
+        {
+            species.SetSpecieAdjustedFitness();
+            sum += species.AdjFitness;
+        }
+        return sum;
+    }
+
+
     public void run()
     {
 
         //speciate generation
         //remove old generation
         //add networks to controllers
-        //evaluate
-        //calculate genomes fitness and adjusted fitness
-        //culling weak networks from species
+        //evaluate - puszczenie w grze i zbieranie punkciorów
+        //calculate genomes fitness and adjusted fitness - tu metoda CalculateAdjustedFitness()
+        //culling weak networks from species - KillWorstIndividuals()
         //check stagnation and delete weak species (if memebers < 2 or stagnation > 15)
-        //Calculate specie adjusted fitness
+        //Calculate species adjusted fitness
         //crossover -> mutation -> add offsping to population
-        
+    }
 
-
-        for (int j = 0; j < 500; j += 1)
+    private void KillWorstIndividualsInAllSpecies()
+    {
+        foreach(var species in _species)
         {
-            for (int i = 0; i < Bots.Count; i += 1)
+            species.KillWorstIndividuals();
+        }
+    }
+
+    private void DeleteWorstSpecies()
+    {
+        
+        for(int i= _species.Count-1; i>=0;i--) 
+        {
+            if(_species[i].Individuals.Count<NeatValues.minSpieceSize || _species[i].StagnationCount>NeatValues.maxStagnation)
             {
-                Bots[i].CheckPos();
+                _species.Remove(_species[i]);
             }
         }
-        for (int i = 0; i < Bots.Count; i += 1)
-         {
-            //Debug.Log(Bots[i].Fitness);
-            //Debug.Log(Bots[i].Brain.Connection.Count);
-
-         }
-        Debug.Log(NeatValues.BestFitness);
-
-
     }
 
-    public void CreateRandomPopulation()
+    
+
+    private void CreateRandomPopulation()
     {
-        for(int i = 0; i < NeatValues.populationSize; i += 1)
+        for (int i = 0; i < NeatValues.populationSize; i += 1)
         {
             _generation.Add(new NeuralNetwork());
-            _bots.Add(new Bot());
         }
-        _newGeneration = _generation;
-        //Debug.Log(Generation.Count);
-       
     }
-    public void AssignOldGeneration()
+    private void AssignOldGeneration()
     {
         foreach (var generationMemeber in Generation)
         {
-            assignToSpecie(generationMemeber);
-            //Debug.Log("ASSIGNING");
+            AssignToSpecie(generationMemeber);
         }
-        Debug.Log(Species.Count);
-        Debug.Log(Species[0].Individuals.Count);
-        
-       
-
     }
-    public void AssignNeats()
-    {
-        for (int i=0;i<Bots.Count;i+=1)
-        {
-            Bots[i].Brain = Generation[i];
-            //Debug.Log("ASSIGNING");
-        }
-        Debug.Log(Species.Count);
-        Debug.Log(Species[0].Individuals.Count);
 
-    }
-    public void RemoveOldGenerationMembers()
+    private void RemoveOldGenerationMembers()
     {
         for (int i = 0; i < _generation.Count; i += 1)
         {
@@ -103,21 +139,10 @@ public class Population
             }
         }
     }
-    public bool CheckGenerationStatus()
-    {
-        foreach(var bot in Bots)
-        {
-            if (bot.IsAlive)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
 
-    public void removeStaleSpecies()
+    private void RemoveStaleSpecies()
     {
-        for(int i = 0; i < Species.Count; i += 1)
+        for (int i = 0; i < Species.Count; i += 1)
         {
             if (Species[i].StagnationCount > NeatValues.maxStagnation)
             {
@@ -125,12 +150,12 @@ public class Population
             }
         }
     }
-    public void CalculateAdjustedFitness()
+    private void CalculateAdjustedFitness()
     {
-        for(int i = 0; i < Generation.Count; i += 1)
+        for (int i = 0; i < Generation.Count; i += 1)
         {
             int sh = 0;
-            for(int j = 0; j < Generation.Count; j += 1)
+            for (int j = 0; j < Generation.Count; j += 1)
             {
                 if (Generation[j].Compare(Generation[i]))
                 {
@@ -141,16 +166,15 @@ public class Population
         }
     }
 
-    public bool assignToSpecie(NeuralNetwork candidate)
+    private bool AssignToSpecie(NeuralNetwork candidate)
     {
-        foreach(var specie in Species)
+        foreach (var specie in Species)
         {
             if (specie.CompareWithFirst(candidate))
             {
                 specie.AddIndividual(candidate);
                 return true;
             }
-            
         }
         CreateSpecie(candidate);
         return false;
@@ -161,10 +185,11 @@ public class Population
         NeatValues.IncreaseSpecie();
         _species.Add(new Species(candidate));
     }
-    public static Population Instance {
+    public static Population Instance
+    {
         get
         {
-            if(_instance==null)
+            if (_instance == null)
             {
                 _instance = new Population();
             }
@@ -173,9 +198,5 @@ public class Population
 
     }
 
-    
-    public List<NeuralNetwork> Generation { get => _generation; set => _generation = value; }
-    public List<NeuralNetwork> NewGeneration { get => _newGeneration; set => _newGeneration = value; }
-    public List<Bot> Bots { get => _bots; set => _bots = value; }
 }
 

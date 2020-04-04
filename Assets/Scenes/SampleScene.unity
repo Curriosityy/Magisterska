@@ -1287,8 +1287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a84d9d101ca9ad41834eebe4d03f77b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _boards: 25
-  _aiPrefab: {fileID: 6101425002495769852, guid: c1e0bfd01fecb64458eb588e8f66da56,
+  _aiPrefab: {fileID: 642756767648232054, guid: c1e0bfd01fecb64458eb588e8f66da56,
     type: 3}
   _boardPrefab: {fileID: 7603970207603806617, guid: 33204f529c3d8714a8634db81c91f0a9,
     type: 3}
