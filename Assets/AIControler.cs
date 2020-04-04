@@ -55,7 +55,10 @@ public class AIControler : MonoBehaviour
                 distToObstacle += 5;
                 _points += 10;
             }
-            _points += 1;
+            else
+            {
+                _points -= 1;
+            }
             StartCoroutine(JumpExhaust());
         }  
     }

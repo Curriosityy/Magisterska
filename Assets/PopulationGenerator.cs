@@ -50,8 +50,9 @@ public class PopulationGenerator : MonoBehaviour
         timer += Time.deltaTime;
         if(timer>=gameTimer || AreAllAiDead())
         {
-            Debug.Log("GameEnd");
+            Debug.Log("GameEnd, old best fitness "+NeatValues.BestFitness);
             AssignPointsToNeat();
+            Debug.Log("New best fitness "+NeatValues.BestFitness);
             Population.Instance.GenerateNextPopulation();
             AssignNeatToAi();
             timer = 0;
@@ -64,6 +65,8 @@ public class PopulationGenerator : MonoBehaviour
         foreach (var ai in _aiList)
         {
             ai.NeuralNetwork.Fitness = ai.Points;
+            if (NeatValues.BestFitness < ai.Points)
+                NeatValues.BestFitness = ai.Points;
         }
     }
 
