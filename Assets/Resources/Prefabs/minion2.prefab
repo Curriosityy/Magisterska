@@ -106,8 +106,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiControling: {fileID: 0}
-  _speed: 2
-  _jumpHeight: 1
+  _speed: 5
+  _jumpHeight: 3
   _isJumping: 0
 --- !u!54 &5284674599236934579
 Rigidbody:

@@ -56,7 +56,9 @@ public class AIControler : MonoBehaviour
 
     private void CalculateMove()
     {
-        var value = _neuralNetwork.CalculateNeuralNetworkValue(_controledMinion.GetDistanceToNextObstacle());
+        float[] inputValue;
+        _controledMinion.GetDistanceToNextObstacle(out inputValue);
+        var value = _neuralNetwork.CalculateNeuralNetworkValue(inputValue);
         if (Mathf.RoundToInt(value)==1)
             _controledMinion.Jump();
     }

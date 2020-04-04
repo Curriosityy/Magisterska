@@ -50,7 +50,7 @@ public class PopulationGenerator : MonoBehaviour
         var pos = _spawnPoint.position;
         for (int i=0;i<40;i++)
         {
-            pos.x += UnityEngine.Random.Range(12,16);
+            pos.x += UnityEngine.Random.Range(6,9);
             Instantiate(obstaclePrefab, pos, Quaternion.identity, boardHolder.transform);
         }
     }

@@ -19,7 +19,7 @@ public static class NeatValues {
         _specieCount += 1;
     }
 
-    public const int inputNeutonSize = 1;
+    public const int inputNeutonSize = 2;
     public const int outputNeuronSize = 1;
     //Population 
     /// <summary>
@@ -36,7 +36,7 @@ public static class NeatValues {
     public const float excessjoinsCoefficiant=1f;
     public const float survivingRate=0.4f;
     public const int minSpieceSize=2;
-    public const float simularityTreshhold=2f;
+    public const float simularityTreshhold=1f;
     //Genome
     public const float addConnProbability=0.8f;
     public const float removeConnProbability=0.3f;

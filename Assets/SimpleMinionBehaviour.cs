@@ -7,7 +7,7 @@ public class SimpleMinionBehaviour : MonoBehaviour
 {
     public AIControler aiControling;
     [SerializeField] float _speed = 3;
-    [SerializeField] float _jumpHeight = 4;
+    [SerializeField] float _jumpHeight = 2;
     [SerializeField] bool _isJumping = false;
     float _points;
     bool _isAlive = true;
@@ -20,11 +20,8 @@ public class SimpleMinionBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _jumpHeight = 4;
-        _speed = 5;
         _points = 0;
         _isJumping = false;
-
         _isAlive = true;
     }
     public void Restart()
@@ -52,23 +49,25 @@ public class SimpleMinionBehaviour : MonoBehaviour
             _points += 10;
         }
     }
-    public float GetDistanceToNextObstacle()
+    public void GetDistanceToNextObstacle(out float[] hitted)
     {
-        RaycastHit hit;
-        if(Physics.Raycast(transform.position,Vector3.right,out hit,Mathf.Infinity,LayerMask.GetMask("Default")))
+        var target = Physics.RaycastAll(transform.position, Vector3.right, 20f, LayerMask.GetMask("Default"));
+        hitted = new float[NeatValues.inputNeutonSize];
+        for(int i=0;i< NeatValues.inputNeutonSize;i++)
         {
-            if(hit.transform.tag=="Obstacle")
+            if (target.Length > i)
             {
-                return Vector3.SqrMagnitude(transform.position - hit.transform.position);
+                hitted[i] = Vector3.SqrMagnitude(target[i].transform.position - transform.position);
+                Debug.DrawLine(transform.position, target[i].transform.position);
+            }else
+            {
+                hitted[i] = 300;
             }
-        }
-        return 100;
-        
+        }        
     }
 
     public void Die()
     {
-        _points -= 20;
         _isAlive = false;
     }
 
@@ -88,7 +87,7 @@ public class SimpleMinionBehaviour : MonoBehaviour
         {
             _jump = true;
             _isJumping = true;
-            _points -= 25;
+            _points -= 5;
         }
     }
 
