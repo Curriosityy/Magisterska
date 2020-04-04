@@ -54,7 +54,7 @@ public class AIControler : MonoBehaviour
     {
         var value = _neuralNetwork.CalculateNeuralNetworkValue(_controledMinion.GetDistanceToNextObstacle());
         Debug.Log(value);
-        if (value >= 5)
+        if (value >= 1)
             _controledMinion.Jump();
     }
 

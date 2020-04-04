@@ -69,9 +69,11 @@ public class Species
             if (parent2.DoesInnovNumberExist(child.Connection[i].Id))
             {
                 if (rnd.Next(3) < 2)
-                {
+                { 
+                    
                     int edgePos=parent2.getEgdeId(child.Connection[i].Id);
-                    child.Connection[i] = new Edge(child.Connection[edgePos]);
+                    
+                    child.Connection[i] = new Edge(parent2.Connection[edgePos]);
                 }
             }
         }

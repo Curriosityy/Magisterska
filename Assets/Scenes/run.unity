@@ -197,7 +197,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 952406284}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0.6, y: 1, z: -60.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -391,6 +391,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8483539237190270843, guid: 3bc98984e6a1acc408372ea0dd6ce500,
+        type: 3}
+      propertyPath: _spawnPoint
+      value: 
+      objectReference: {fileID: 1055984714}
+    - target: {fileID: 8483539237190270843, guid: 3bc98984e6a1acc408372ea0dd6ce500,
+        type: 3}
+      propertyPath: obstaclePrefab
+      value: 
+      objectReference: {fileID: 9043313588598697192, guid: f9949636c074cc74086ab6daa5e17b36,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bc98984e6a1acc408372ea0dd6ce500, type: 3}
 --- !u!1 &1977941795
@@ -478,8 +489,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1977941795}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 100, y: 1, z: 1}
+  m_LocalPosition: {x: 280.81, y: -0.5, z: 0}
+  m_LocalScale: {x: 662, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3

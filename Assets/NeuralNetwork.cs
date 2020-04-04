@@ -141,6 +141,7 @@ public class NeuralNetwork
     {
         _neurons.Remove(GetNeuronOfId(id));
         _connections.RemoveAll(e => e.ConnectedTo == id);
+        _connections.RemoveAll(e => e.ConnectedFrom == id);
     }
 
     private void CreateNewNeurons()
@@ -165,6 +166,16 @@ public class NeuralNetwork
 
     private bool IsLevelGapBetweenConnectedNeuronsHigherThanOne(Edge edge)
     {
+        if(GetNeuronOfId(edge.ConnectedFrom)==null)
+        {
+            GetNeuronOfId(edge.ConnectedFrom);
+        }
+        if(GetNeuronOfId(edge.ConnectedTo)==null)
+        {
+            GetNeuronOfId(edge.ConnectedTo);
+        }
+
+
         return GetNeuronOfId(edge.ConnectedFrom).Level != GetNeuronOfId(edge.ConnectedTo).Level - 1;
     }
 
@@ -296,7 +307,7 @@ public class NeuralNetwork
     {
         return _neurons.Where(n => n.Type == type).ToList();
     }
-    
+
     public bool Compare(NeuralNetwork neatToCompare)
     {
         bool excessJoin = true;
@@ -317,19 +328,15 @@ public class NeuralNetwork
             neat2 = this;
         }
 
-        if(a==1)
-        {
-            a = 0;
-        }
-        a = 1;
+
         edgesCount = neat1.Connection.Count;
         for (int i = edgesCount - 1; i > 0; i--)
         {
-            if (neat2.DoesInnovNumberExist(Connection[i].Id))
+            if (neat2.DoesInnovNumberExist(neat1.Connection[i].Id))
             {
                 excessJoin = false;
-                int connID = neat2.getEgdeId(Connection[i].Id);
-                weightDiff += Math.Abs(neat1.Connection[i].Weight-neat2.Connection[connID].Weight);
+                int connID = neat2.getEgdeId(neat1.Connection[i].Id);
+                weightDiff += Math.Abs(neat1.Connection[i].Weight - neat2.Connection[connID].Weight);
             }
             else
             {
@@ -343,16 +350,16 @@ public class NeuralNetwork
                 }
             }
         }
-        foreach(var diffCon in neat2.Connection)
+        foreach (var diffCon in neat2.Connection)
         {
             if (!neat1.DoesInnovNumberExist(diffCon.Id))
             {
                 disJoins += 1;
             }
         }
-        float delta = (NeatValues.excessjoinsCoefficiant * excessJoins) / edgesCount + 
+        float delta = (NeatValues.excessjoinsCoefficiant * excessJoins) / edgesCount +
             (NeatValues.disjoinsCoefficiant * disJoins) / edgesCount + NeatValues.weightCoefficiant * (float)weightDiff;
-        if (delta<NeatValues.simularityTreshhold)
+        if (delta < NeatValues.simularityTreshhold)
         {
             return true;
         }
