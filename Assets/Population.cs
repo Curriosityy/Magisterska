@@ -2,13 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 public class Population
 {
     private bool _isInitialized;
     private List<Species> _species;
     private List<NeuralNetwork> _generation;
-
+    private List<NeuralNetwork> _oldGeneration;
 
     public List<NeuralNetwork> Generation { get => _generation; }
     public List<Species> Species { get => _species; }
@@ -17,8 +17,9 @@ public class Population
     {
         _species = new List<Species>();
         _generation = new List<NeuralNetwork>();
+        _oldGeneration = new List<NeuralNetwork>();
         CreateRandomPopulation();
-        AssignOldGeneration();
+        AssignGeneration();
     }
 
     public void GenerateNextPopulation()
@@ -29,7 +30,6 @@ public class Population
         DeleteWorstSpecies();
         GenerateNewPopulation();
         MutateEveryone();
-        AssignOldGeneration();
     }
 
     private void MutateEveryone()
@@ -55,13 +55,23 @@ public class Population
                 newGeneration.Add(species.Crossover());
             }
         }
-        _species.Clear();
-        _generation.Clear();
-        _generation.AddRange(newGeneration);
-        for (int i = _generation.Count - 1; i >= NeatValues.populationSize; i--)
+        //_species.Clear();
+        _oldGeneration.Clear();
+
+        foreach (var species in _species)
         {
-            _generation.RemoveAt(i);
+            _oldGeneration.AddRange(species.Individuals);
         }
+        _generation.Clear();
+        NeuralNetwork neat;
+        for (int i=0;i<NeatValues.populationSize-_oldGeneration.Count;i++)
+        {
+            neat = newGeneration[UnityEngine.Random.Range(0, newGeneration.Count)];
+            _generation.Add(neat);
+            newGeneration.Remove(neat);
+        }
+        AssignGeneration();
+        _generation.AddRange(_oldGeneration);
     }
 
     private float SumAdjFittnes()
@@ -119,7 +129,7 @@ public class Population
             _generation.Add(new NeuralNetwork());
         }
     }
-    private void AssignOldGeneration()
+    private void AssignGeneration()
     {
         NeatValues.IncreaseGeneration();
         foreach (var generationMemeber in Generation)
