@@ -35,13 +35,12 @@ public class Population
 
     private void MutateEveryone()
     {
-        foreach(var species in _species)
+
+        foreach (var neat in _generation)
         {
-            foreach(var neat in species.Individuals)
-            {
-                neat.MutateNeuralNetwork();
-            }
+            neat.MutateNeuralNetwork();
         }
+
     }
 
     private void GenerateNewPopulation()
@@ -49,10 +48,10 @@ public class Population
         var sum = SumAdjFittnes();
         List<NeuralNetwork> newGeneration = new List<NeuralNetwork>();
         int kidsCounter;
-        foreach(var species in _species)
+        foreach (var species in _species)
         {
             kidsCounter = Mathf.RoundToInt((sum / species.AdjFitness) * NeatValues.populationSize);
-            for(int i=0;i<kidsCounter;i++)
+            for (int i = 0; i < kidsCounter; i++)
             {
                 newGeneration.Add(species.Crossover());
             }
@@ -60,7 +59,7 @@ public class Population
         _species.Clear();
         _generation.Clear();
         _generation.AddRange(newGeneration);
-        for(int i=_generation.Count-1;i>=NeatValues.populationSize;i--)
+        for (int i = _generation.Count - 1; i >= NeatValues.populationSize; i--)
         {
             _generation.RemoveAt(i);
         }
@@ -69,7 +68,7 @@ public class Population
     private float SumAdjFittnes()
     {
         float sum = 0;
-        foreach(var species in _species)
+        foreach (var species in _species)
         {
             species.SetSpecieAdjustedFitness();
             sum += species.AdjFitness;
@@ -94,7 +93,7 @@ public class Population
 
     private void KillWorstIndividualsInAllSpecies()
     {
-        foreach(var species in _species)
+        foreach (var species in _species)
         {
             species.KillWorstIndividuals();
         }
@@ -102,17 +101,17 @@ public class Population
 
     private void DeleteWorstSpecies()
     {
-        
-        for(int i= _species.Count-1; i>=0;i--) 
+
+        for (int i = _species.Count - 1; i >= 0; i--)
         {
-            if(_species[i].Individuals.Count<NeatValues.minSpieceSize || _species[i].StagnationCount>NeatValues.maxStagnation)
+            if (_species[i].Individuals.Count < NeatValues.minSpieceSize || _species[i].StagnationCount > NeatValues.maxStagnation)
             {
                 _species.Remove(_species[i]);
             }
         }
     }
 
-    
+
 
     private void CreateRandomPopulation()
     {

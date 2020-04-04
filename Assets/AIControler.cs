@@ -4,79 +4,58 @@ using UnityEngine;
 
 public class AIControler : MonoBehaviour
 {
-    [SerializeField]private NeuralNetwork _neuralNetwork;
+    [SerializeField] private NeuralNetwork _neuralNetwork;
+    [SerializeField] private GameObject _minionPrefab;
+    [SerializeField] private SimpleMinionBehaviour _controledMinion;
+    public Transform spawnPoint;
 
-    [SerializeField] bool _isAlive=true;
-    [SerializeField] float speed = 1;
-    [SerializeField] float distToObstacle=5;
-    [SerializeField] float jumpExh = 1;
-    [SerializeField] int _points = 0;
     bool canJump = true;
     public NeuralNetwork NeuralNetwork { get => _neuralNetwork; set => _neuralNetwork = value; }
-    public int Points { get => _points; }
-    public bool IsAlive { get => _isAlive; }
+    public float Points
+    {
+        get
+        {
+            if (_controledMinion != null)
+                return _controledMinion.Points;
+            return 0;
+        }
+    }
+    public bool IsAlive {
+        get
+        {
+            if (_controledMinion != null)
+                return _controledMinion.IsAlive;
+            return false;
+
+        }
+    }
 
     public void Restart()
     {
         Debug.Log("Restart");
         StopAllCoroutines();
-        _isAlive = true;
-        distToObstacle = 5;
-        _points = 0;
-        canJump = true;
+        if(_controledMinion!=null)
+        {
+            Destroy(_controledMinion.gameObject);
+        }
+        _controledMinion = Instantiate(_minionPrefab, spawnPoint.position,Quaternion.identity,null).GetComponent<SimpleMinionBehaviour>();
     }
 
     private void Update()
     {
-        if(IsAlive)
+        if(IsAlive && !_controledMinion.IsJumping)
         {
-            distToObstacle -= speed * Time.deltaTime;
             CalculateMove();
-            if (distToObstacle <= 0)
-            {
-                _isAlive = false;
-                _points -= 10;
-            }
-
         }
 
     }
 
-
-    
-
-    void Jump()
-    {
-        if (canJump)
-        {
-            Debug.Log("Jump");
-            if (distToObstacle <= 1f && distToObstacle >= 0.5f)
-            {
-                distToObstacle += 5;
-                _points += 10;
-            }
-            else
-            {
-                _points -= 1;
-            }
-            StartCoroutine(JumpExhaust());
-        }  
-    }
-
     private void CalculateMove()
     {
-        var value = _neuralNetwork.CalculateNeuralNetworkValue(distToObstacle);
-        if (value >= 1)
-            Jump();
+        var value = _neuralNetwork.CalculateNeuralNetworkValue(_controledMinion.GetDistanceToNextObstacle());
+        Debug.Log(value);
+        if (value >= 5)
+            _controledMinion.Jump();
     }
-
-
-    IEnumerator JumpExhaust()
-    {
-        canJump = false;
-        yield return new WaitForSeconds(jumpExh);
-        canJump = true;
-    }
-
 
 }

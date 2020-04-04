@@ -43,3 +43,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 799dc90bb2d803749a15675c760cda9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _neuralNetwork:
+    _neurons:
+    - _neuronID: 0
+      _neuronType: 0
+    - _neuronID: 1
+      _neuronType: 2
+    _connections:
+    - _connectedFrom: 0
+      _connectedTo: 1
+      _id: 0
+      _weight: 0.8735932
+      _isActivated: 1
+  _minionPrefab: {fileID: 8548910140251340102, guid: 89edcd1f7a5b3f348ade4923f4924f47,
+    type: 3}
+  _isAlive: 1
+  speed: 1
+  distToObstacle: 5
+  jumpExh: 1
+  _points: 0

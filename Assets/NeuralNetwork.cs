@@ -6,6 +6,7 @@ using UnityEngine;
 [Serializable]
 public class NeuralNetwork
 {
+    int a = 0;
     static System.Random _rand = new System.Random();
     private int _maxLevel = 1;
     private float _fitness=0;
@@ -80,6 +81,7 @@ public class NeuralNetwork
 
     public void MutateNeuralNetwork()
     {
+        int a = 0;
         MutateConnections();
         MutateNeurons();
     }
@@ -99,7 +101,7 @@ public class NeuralNetwork
 
     private void MutateBias()
     {
-        var rand = GetRand();
+        var rand = _rand.NextDouble();
         foreach (var neuron in _neurons)
         {
             if (rand <= NeatValues.biasMutationProbability)
@@ -115,12 +117,12 @@ public class NeuralNetwork
 
     private void RandomizeBias(Neuron neuron)
     {
-        neuron.Bias = GetRand(NeatValues.minBias, NeatValues.maxBias);
+        neuron.Bias = Random(NeatValues.minBias, NeatValues.maxBias);
     }
 
     private void MutateBias(Neuron neuron)
     {
-        neuron.Bias += GetRand(NeatValues.minBias, NeatValues.maxBias)/3;
+        neuron.Bias += Random(NeatValues.minBias, NeatValues.maxBias)/3;
     }
 
     private void DeleteNeurons()
@@ -128,7 +130,7 @@ public class NeuralNetwork
         var hiddenNeuronList = GetNeurons(NeuronType.hidden);
         for(int i = 0;i<hiddenNeuronList.Count;i++)
         {
-            if (GetRand() <= NeatValues.removeNodeProbability)
+            if (Random() <= NeatValues.removeNodeProbability)
             {
                 RemoveNeuronOfId(hiddenNeuronList[i].NeuronID);
             }
@@ -145,7 +147,7 @@ public class NeuralNetwork
     {
         foreach (var edge in GetEnabledConnections())
         {
-            if(GetRand()<= NeatValues.addNodeProbability)
+            if(Random()<= NeatValues.addNodeProbability)
             {
                 edge.IsActivated = false;
                 if (!IsLevelGapBetweenConnectedNeuronsHigherThanOne(edge))
@@ -169,7 +171,7 @@ public class NeuralNetwork
 
     private void MutateWeights()
     {
-        var rand = GetRand();
+        var rand = Random();
         foreach (var connection in GetEnabledConnections())
         {
             if (rand <= NeatValues.weightMutationProbability)
@@ -183,19 +185,15 @@ public class NeuralNetwork
         }
     }
 
-    private static float GetRand(float x=0f, float y=1f)
-    {
-        return UnityEngine.Random.Range(x, y);
-    }
 
     private void RandomizeWeight(Edge connection)
     {
-        connection.Weight = GetRand(NeatValues.minWeight, NeatValues.maxWeight);
+        connection.Weight = Random(NeatValues.minWeight, NeatValues.maxWeight);
     }
 
     private void MutateWeight(Edge connection)
     {
-        connection.Weight += (GetRand(NeatValues.minWeight, NeatValues.maxWeight)/3);
+        connection.Weight += (Random(NeatValues.minWeight, NeatValues.maxWeight)/3);
     }
 
     private void MakeConnections()
@@ -206,7 +204,7 @@ public class NeuralNetwork
             {
                 foreach (var toNeuron in GetNeuronWithHigherLevel(i))
                 {
-                    if (GetRand() <= NeatValues.addConnProbability)
+                    if (Random() <= NeatValues.addConnProbability)
                     {
                         AddNewConnection(fromNeuron, toNeuron);
                     }
@@ -219,7 +217,7 @@ public class NeuralNetwork
     {
         foreach(var connection in _connections)
         {
-            if(GetRand() <= NeatValues.removeConnProbability)
+            if(Random() <= NeatValues.removeConnProbability)
             {
                 connection.IsActivated = false;
             }
@@ -269,7 +267,7 @@ public class NeuralNetwork
     {
         if (!IsEdgeExistInDatabase(neuronFrom.NeuronID, neuronTo.NeuronID))
         {
-            var edge = new Edge(neuronFrom.NeuronID, neuronTo.NeuronID, Edge.innoNumber++, NeatValues.minWeight + (float)_rand.NextDouble() * (NeatValues.maxWeight - NeatValues.minWeight));
+            var edge = new Edge(neuronFrom.NeuronID, neuronTo.NeuronID, Edge.innoNumber++, Random(NeatValues.minWeight, NeatValues.maxWeight));
             _connections.Add(edge);
             allEdges.Add(new Edge(edge));
         }
@@ -280,8 +278,13 @@ public class NeuralNetwork
         }
         else
         {
-            _connections.Add(new Edge(GetEdgeFromStaticList(neuronFrom.NeuronID, neuronTo.NeuronID), NeatValues.minWeight+(float)_rand.NextDouble()*(NeatValues.maxWeight-NeatValues.minWeight)));
+            _connections.Add(new Edge(GetEdgeFromStaticList(neuronFrom.NeuronID, neuronTo.NeuronID), Random(NeatValues.minWeight, NeatValues.maxWeight)));
         }
+    }
+
+    private static float Random(float min=0,float max=1)
+    {
+        return min + (float)_rand.NextDouble() * (max - min);
     }
 
     private Edge GetEdgeFromStaticList(int neuronFromId, int neuronToId)
@@ -314,7 +317,11 @@ public class NeuralNetwork
             neat2 = this;
         }
 
-
+        if(a==1)
+        {
+            a = 0;
+        }
+        a = 1;
         edgesCount = neat1.Connection.Count;
         for (int i = edgesCount - 1; i > 0; i--)
         {

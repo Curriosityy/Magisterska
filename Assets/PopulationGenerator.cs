@@ -8,7 +8,10 @@ public class PopulationGenerator : MonoBehaviour
 {
     [SerializeField] GameObject _aiPrefab;
     [SerializeField] BoardDictionary _boardPrefab;
+    [SerializeField] Transform _spawnPoint;
 
+    public GameObject obstaclePrefab;
+    
     float gameTimer = 30;
     float timer;
     //Obie listy mogą zostać wykożystane do ustawiania bitew między AI
@@ -17,21 +20,39 @@ public class PopulationGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         var aiHolder = new GameObject("AiHolder");
         var boardHolder = new GameObject("BoardHolder");
-        var population  = Population.Instance;
-        for(int i=0;i< NeatValues.populationSize; i++)
+        var population = Population.Instance;
+        for (int i = 0; i < NeatValues.populationSize; i++)
         {
             var ai = Instantiate(_aiPrefab, aiHolder.transform);
             //population.Species[0].AddIndividual(ai.GetComponent<AIControler>());
+            ai.GetComponent<AIControler>().spawnPoint = _spawnPoint;
             _aiList.Add(ai.GetComponent<AIControler>());
         }
-        for(int i=0;i< NeatValues.populationSize / 2; i++)
+        GenerateMap(boardHolder);
+        //GenerateBoards(boardHolder);
+        AssignNeatToAi();
+    }
+
+    private void GenerateBoards(GameObject boardHolder)
+    {
+        for (int i = 0; i < NeatValues.populationSize / 2; i++)
         {
-            var board = Instantiate(_boardPrefab, new Vector3(i*10,0,0), Quaternion.identity, boardHolder.transform);
+            var board = Instantiate(_boardPrefab, new Vector3(i * 10, 0, 0), Quaternion.identity, boardHolder.transform);
             _boardList.Add(board.gameObject);
         }
-        AssignNeatToAi();
+    }
+
+    private void GenerateMap(GameObject boardHolder)
+    {
+        var pos = _spawnPoint.position;
+        for (int i=0;i<40;i++)
+        {
+            pos.x += UnityEngine.Random.Range(8,12);
+            Instantiate(obstaclePrefab, pos, Quaternion.identity, boardHolder.transform);
+        }
     }
 
     void AssignNeatToAi()
@@ -40,8 +61,8 @@ public class PopulationGenerator : MonoBehaviour
         var neats = Population.Instance.Generation;
         for(int i=0;i<neats.Count;i++)
         {
-            _aiList[i].Restart();
             _aiList[i].NeuralNetwork = neats[i];
+            _aiList[i].Restart();
         }
     }
 
