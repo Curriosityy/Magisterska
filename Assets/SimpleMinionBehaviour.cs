@@ -69,6 +69,7 @@ public class SimpleMinionBehaviour : MonoBehaviour
     public void Die()
     {
         _isAlive = false;
+        //_points -= 10;
     }
 
     // Update is called once per frame
@@ -76,7 +77,7 @@ public class SimpleMinionBehaviour : MonoBehaviour
     {
         if(_isAlive)
         {
-            _points += Time.deltaTime;
+            _points += Time.deltaTime*10;
             transform.Translate(_speed * Time.deltaTime, 0, 0);
         }
     }
@@ -87,7 +88,7 @@ public class SimpleMinionBehaviour : MonoBehaviour
         {
             _jump = true;
             _isJumping = true;
-            _points -= 5;
+            _points += 5;
         }
     }
 

@@ -59,7 +59,7 @@ public class AIControler : MonoBehaviour
         float[] inputValue;
         _controledMinion.GetDistanceToNextObstacle(out inputValue);
         var value = _neuralNetwork.CalculateNeuralNetworkValue(inputValue);
-        if (Mathf.RoundToInt(value)==1)
+        if (Mathf.RoundToInt(value)>=1)
             _controledMinion.Jump();
     }
 

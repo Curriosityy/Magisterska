@@ -176,7 +176,7 @@ public class Species
     public void KillWorstIndividuals()
     {
         SortIndividuals();
-        int remaining=Mathf.CeilToInt(_individuals.Count-1*NeatValues.survivingRate);
+        int remaining=Mathf.CeilToInt((_individuals.Count-1)*NeatValues.survivingRate);
         _individuals = _individuals.GetRange(0, remaining);
 
     }

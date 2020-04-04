@@ -34,11 +34,11 @@ public static class NeatValues {
     public const float weightCoefficiant=0.4f;
     public const float disjoinsCoefficiant=1f;
     public const float excessjoinsCoefficiant=1f;
-    public const float survivingRate=0.5f;
+    public const float survivingRate=0.4f;
     public const int minSpieceSize=2;
-    public const float simularityTreshhold=4f;
+    public const float simularityTreshhold=0.6f;
     //Genome
-    public const float addConnProbability=0.8f;
+    public const float addConnProbability=0.6f;
     public const float removeConnProbability=0.1f;
     public const float changeConnStatusProbability=0.3f;
     public const float addNodeProbability=0.1f;
