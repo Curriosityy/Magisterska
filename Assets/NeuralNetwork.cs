@@ -81,7 +81,6 @@ public class NeuralNetwork
 
     public void MutateNeuralNetwork()
     {
-        int a = 0;
         MutateConnections();
         MutateNeurons();
     }
@@ -127,14 +126,18 @@ public class NeuralNetwork
 
     private void DeleteNeurons()
     {
-        var hiddenNeuronList = GetNeurons(NeuronType.hidden);
-        for(int i = 0;i<hiddenNeuronList.Count;i++)
+        
+        if (Random() <= NeatValues.removeNodeProbability)
         {
-            if (Random() <= NeatValues.removeNodeProbability)
+            var hiddenNeuronList = GetNeurons(NeuronType.hidden);
+            if(hiddenNeuronList.Count>0)
             {
-                RemoveNeuronOfId(hiddenNeuronList[i].NeuronID);
+                RemoveNeuronOfId(hiddenNeuronList[UnityEngine.Random.Range(0, hiddenNeuronList.Count)].NeuronID);
             }
+            
         }
+       
+       
     }
 
     private void RemoveNeuronOfId(int id)
@@ -146,10 +149,12 @@ public class NeuralNetwork
 
     private void CreateNewNeurons()
     {
-        foreach (var edge in GetEnabledConnections())
+        if (Random() <= NeatValues.addNodeProbability)
         {
-            if(Random()<= NeatValues.addNodeProbability)
+            var enabledConn = GetEnabledConnections();
+            if(enabledConn.Count>0)
             {
+                var edge = enabledConn[UnityEngine.Random.Range(0, enabledConn.Count)];
                 edge.IsActivated = false;
                 if (!IsLevelGapBetweenConnectedNeuronsHigherThanOne(edge))
                 {
@@ -161,6 +166,7 @@ public class NeuralNetwork
                 AddNewConnection(GetNeuronOfId(edge.ConnectedFrom), newNeuron);
                 AddNewConnection(newNeuron, GetNeuronOfId(edge.ConnectedTo));
             }
+            
         }
     }
 
@@ -207,20 +213,32 @@ public class NeuralNetwork
         connection.Weight += (Random(NeatValues.minWeight, NeatValues.maxWeight)/3);
     }
 
+    //private void MakeConnections()
+    //{
+    //    for (int i = 0; i <= _maxLevel; i++)
+    //    {
+    //        foreach (var fromNeuron in GetNeuronOfLevel(i))
+    //        {
+    //            foreach (var toNeuron in GetNeuronWithHigherLevel(i))
+    //            {
+    //                if (Random() <= NeatValues.addConnProbability)
+    //                {
+    //                    AddNewConnection(fromNeuron, toNeuron);
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
+
     private void MakeConnections()
     {
-        for (int i = 0; i <= _maxLevel; i++)
+        if (Random() <= NeatValues.addConnProbability)
         {
-            foreach (var fromNeuron in GetNeuronOfLevel(i))
-            {
-                foreach (var toNeuron in GetNeuronWithHigherLevel(i))
-                {
-                    if (Random() <= NeatValues.addConnProbability)
-                    {
-                        AddNewConnection(fromNeuron, toNeuron);
-                    }
-                }
-            }
+            var nodes = GetNeuronsWithOutType(NeuronType.output);
+            var neuronFrom = nodes[UnityEngine.Random.Range(0, nodes.Count)];
+            nodes = GetNeuronWithHigherLevel(neuronFrom.Level);
+            var neuronTo = nodes[UnityEngine.Random.Range(0, nodes.Count)];
+            AddNewConnection(neuronFrom,neuronTo);
         }
     }
 
@@ -391,7 +409,7 @@ public class NeuralNetwork
         return false;
     }
 
-    private List<Neuron> GetRestNeurons(NeuronType type)
+    private List<Neuron> GetNeuronsWithOutType(NeuronType type)
     {
         return _neurons.Where(n => n.Type != type).ToList();
     }

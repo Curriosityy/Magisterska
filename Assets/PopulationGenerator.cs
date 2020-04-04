@@ -11,8 +11,8 @@ public class PopulationGenerator : MonoBehaviour
     [SerializeField] Transform _spawnPoint;
 
     public GameObject obstaclePrefab;
-    
-    float gameTimer = 15;
+
+    [SerializeField] float _gameTimer = 15;
     float timer;
     //Obie listy mogą zostać wykożystane do ustawiania bitew między AI
     List<GameObject> _boardList = new List<GameObject>();
@@ -27,12 +27,10 @@ public class PopulationGenerator : MonoBehaviour
         for (int i = 0; i < NeatValues.populationSize; i++)
         {
             var ai = Instantiate(_aiPrefab, aiHolder.transform);
-            //population.Species[0].AddIndividual(ai.GetComponent<AIControler>());
             ai.GetComponent<AIControler>().spawnPoint = _spawnPoint;
             _aiList.Add(ai.GetComponent<AIControler>());
         }
         GenerateMap(boardHolder);
-        //GenerateBoards(boardHolder);
         AssignNeatToAi();
     }
 
@@ -57,7 +55,6 @@ public class PopulationGenerator : MonoBehaviour
 
     void AssignNeatToAi()
     {
-        Debug.Log("AssignNeatToAi");
         var neats = Population.Instance.Generation;
         for(int i=0;i<neats.Count;i++)
         {
@@ -69,11 +66,9 @@ public class PopulationGenerator : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        if(timer>=gameTimer || AreAllAiDead())
+        if(timer>=_gameTimer || AreAllAiDead())
         {
-            Debug.Log("GameEnd, old best fitness "+NeatValues.BestFitness);
             AssignPointsToNeat();
-            Debug.Log("New best fitness "+NeatValues.BestFitness);
             Population.Instance.GenerateNextPopulation();
             AssignNeatToAi();
             timer = 0;
@@ -82,11 +77,8 @@ public class PopulationGenerator : MonoBehaviour
 
     private void AssignPointsToNeat()
     {
-        Debug.Log("AssignPoints");
         foreach (var ai in _aiList)
         {
-            
-                
             ai.NeuralNetwork.Fitness = ai.Points;
             if (ai.IsAlive)
                 ai.NeuralNetwork.Fitness += 100;

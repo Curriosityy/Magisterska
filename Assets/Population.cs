@@ -30,12 +30,18 @@ public class Population
         DeleteWorstSpecies();
         GenerateNewPopulation();
         MutateEveryone();
+        AssignGeneration();
+        _generation.AddRange(_oldGeneration);
     }
 
     private void MutateEveryone()
     {
 
         foreach (var neat in _generation)
+        {
+            neat.MutateNeuralNetwork();
+        }
+        foreach(var neat in _oldGeneration)
         {
             neat.MutateNeuralNetwork();
         }
@@ -70,8 +76,7 @@ public class Population
             _generation.Add(neat);
             newGeneration.Remove(neat);
         }
-        AssignGeneration();
-        _generation.AddRange(_oldGeneration);
+        
     }
 
     private float SumAdjFittnes()
