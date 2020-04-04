@@ -105,9 +105,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43355875464ed4543afd170c8b4258be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aiControling: {fileID: 0}
   _speed: 2
   _jumpHeight: 1
-  isJumping: 0
+  _isJumping: 0
 --- !u!54 &5284674599236934579
 Rigidbody:
   m_ObjectHideFlags: 0

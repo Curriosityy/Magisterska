@@ -12,7 +12,7 @@ public class PopulationGenerator : MonoBehaviour
 
     public GameObject obstaclePrefab;
     
-    float gameTimer = 30;
+    float gameTimer = 15;
     float timer;
     //Obie listy mogą zostać wykożystane do ustawiania bitew między AI
     List<GameObject> _boardList = new List<GameObject>();
@@ -50,7 +50,7 @@ public class PopulationGenerator : MonoBehaviour
         var pos = _spawnPoint.position;
         for (int i=0;i<40;i++)
         {
-            pos.x += UnityEngine.Random.Range(8,12);
+            pos.x += UnityEngine.Random.Range(12,16);
             Instantiate(obstaclePrefab, pos, Quaternion.identity, boardHolder.transform);
         }
     }
@@ -85,9 +85,13 @@ public class PopulationGenerator : MonoBehaviour
         Debug.Log("AssignPoints");
         foreach (var ai in _aiList)
         {
+            
+                
             ai.NeuralNetwork.Fitness = ai.Points;
-            if (NeatValues.BestFitness < ai.Points)
-                NeatValues.BestFitness = ai.Points;
+            if (ai.IsAlive)
+                ai.NeuralNetwork.Fitness += 100;
+            if (NeatValues.BestFitness < ai.NeuralNetwork.Fitness)
+                NeatValues.BestFitness = ai.NeuralNetwork.Fitness;
         }
     }
 

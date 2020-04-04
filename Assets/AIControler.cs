@@ -32,13 +32,17 @@ public class AIControler : MonoBehaviour
 
     public void Restart()
     {
-        Debug.Log("Restart");
         StopAllCoroutines();
-        if(_controledMinion!=null)
+        if(_controledMinion==null)
         {
-            Destroy(_controledMinion.gameObject);
+            _controledMinion = Instantiate(_minionPrefab, spawnPoint.position, Quaternion.identity, null).GetComponent<SimpleMinionBehaviour>();
+            _controledMinion.aiControling = this;
         }
-        _controledMinion = Instantiate(_minionPrefab, spawnPoint.position,Quaternion.identity,null).GetComponent<SimpleMinionBehaviour>();
+        else
+        {
+            _controledMinion.Restart();
+        }
+        
     }
 
     private void Update()
@@ -53,8 +57,7 @@ public class AIControler : MonoBehaviour
     private void CalculateMove()
     {
         var value = _neuralNetwork.CalculateNeuralNetworkValue(_controledMinion.GetDistanceToNextObstacle());
-        Debug.Log(value);
-        if (value >= 1)
+        if (Mathf.RoundToInt(value)==1)
             _controledMinion.Jump();
     }
 

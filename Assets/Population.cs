@@ -19,7 +19,6 @@ public class Population
         _generation = new List<NeuralNetwork>();
         CreateRandomPopulation();
         AssignOldGeneration();
-        int a = 0;
     }
 
     public void GenerateNextPopulation()
@@ -101,7 +100,7 @@ public class Population
 
     private void DeleteWorstSpecies()
     {
-
+        
         for (int i = _species.Count - 1; i >= 0; i--)
         {
             if (_species[i].Individuals.Count < NeatValues.minSpieceSize || _species[i].StagnationCount > NeatValues.maxStagnation)
@@ -122,6 +121,7 @@ public class Population
     }
     private void AssignOldGeneration()
     {
+        NeatValues.IncreaseGeneration();
         foreach (var generationMemeber in Generation)
         {
             AssignToSpecie(generationMemeber);
