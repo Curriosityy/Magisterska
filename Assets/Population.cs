@@ -75,7 +75,7 @@ public class Population
         int kidsCounter;
         foreach (var species in _species)
         {
-            kidsCounter = Mathf.RoundToInt((sum / species.AdjFitness) * NeatValues.populationSize);
+            kidsCounter = Mathf.RoundToInt(( species.AdjFitness / sum) * NeatValues.populationSize);
             for (int i = 0; i < kidsCounter; i++)
             {
                 newGeneration.Add(species.Crossover());
