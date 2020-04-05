@@ -9,7 +9,7 @@ public class Population
     private List<Species> _species;
     private List<NeuralNetwork> _generation;
     private List<NeuralNetwork> _oldGeneration;
-
+    List<NeuralNetwork> best;
     public List<NeuralNetwork> Generation { get => _generation; }
     public List<Species> Species { get => _species; }
     private static Population _instance;
@@ -31,6 +31,8 @@ public class Population
         DeleteWorstSpecies();
         GenerateNewPopulation();
         MutateEveryone();
+        takebest();
+        _generation=_generation.Concat(best).ToList();
         AssignGeneration();
         DeleteOldGenrationFromSpecies();
         ConnectSpieciesWithOneIndividual();
@@ -81,7 +83,18 @@ public class Population
         }
 
     }
-
+  
+    public void takebest()
+    {
+        
+        best = new List<NeuralNetwork>();
+        
+        foreach (var species in _species)
+        {
+            best.Add(species.Individuals[0]);
+        }
+        
+    }
     private void GenerateNewPopulation()
     { 
         var sum = SumAdjFittnes();
@@ -90,7 +103,8 @@ public class Population
         foreach (var species in _species)
         {
             kidsCounter = Mathf.RoundToInt((species.AdjFitness / sum) * NeatValues.populationSize);
-            for (int i = 0; i < kidsCounter; i++)
+            
+            for (int i = 0; i < kidsCounter-1; i++)
             {
                 newGeneration.Add(species.Crossover());
             }
