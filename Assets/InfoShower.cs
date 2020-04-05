@@ -24,7 +24,7 @@ public class InfoShower : MonoBehaviour
         gatunki2Text.text = "";
         foreach (var species in Population.Instance.Species)
         {
-            gatunki2Text.text += " " + species.Individuals.Count;
+            gatunki2Text.text += species.Individuals.Count+" stagnation "+species.StagnationCount + "\n ";
         }
 
 

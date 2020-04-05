@@ -67,7 +67,7 @@ public class Population
     //}
 
 
-
+        
     private void GenerateNewPopulation()
     {
         var sum = SumAdjFittnes();
@@ -89,6 +89,7 @@ public class Population
         }
         _generation.Clear();
         NeuralNetwork neat;
+        Debug.Log("old count:" + _oldGeneration.Count + " new count:" + newGeneration.Count);
         for (int i = 0; i < NeatValues.populationSize - _oldGeneration.Count; i++)
         {
             neat = newGeneration[UnityEngine.Random.Range(0, newGeneration.Count)];
@@ -127,8 +128,9 @@ public class Population
     private void KillWorstIndividualsInAllSpecies()
     {
         foreach (var species in _species)
-        {
+        { 
             species.KillWorstIndividuals();
+            species.GetAverageFitness();
         }
     }
 

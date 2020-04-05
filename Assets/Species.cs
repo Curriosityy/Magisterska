@@ -95,12 +95,7 @@ public class Species
 
     public bool CompareWithFirst(NeuralNetwork testSubject)
     {
-
-        if (_individuals[0].Compare(testSubject))
-        {
-            return true;
-        }
-        return false;
+        return _individuals[0].Compare(testSubject);
     }
 
     public void AddIndividual(NeuralNetwork individual)

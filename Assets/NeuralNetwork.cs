@@ -40,7 +40,7 @@ public class NeuralNetwork
         for(int i=0;i<_maxLevel;i++)
         {
             neurons = GetNeuronOfLevel(i);
-            if(i>0)
+            if(i>0 && neurons.Count>0)
             {
                 neurons.ForEach(n => n.UseActivationFunction());
             }
@@ -66,6 +66,7 @@ public class NeuralNetwork
     {
         float output = 0f;
         var neurons = GetNeurons(NeuronType.output);
+        Debug.Log("used activation on=" + neurons[0].Type);
         neurons.ForEach(n => n.UseActivationFunction());
         for(int i=0;i<1; i++)
         {
