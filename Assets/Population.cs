@@ -33,7 +33,23 @@ public class Population
         MutateEveryone();
         AssignGeneration();
         DeleteOldGenrationFromSpecies();
+        ConnectSpieciesWithOneIndividual();
+
        // _generation.AddRange(_oldGeneration);
+    }
+
+    private void ConnectSpieciesWithOneIndividual()
+    {
+        var list = _species.Where(s => s.Individuals.Count == 1).ToList();
+        for(int i=0;i<list.Count;i+=2)
+        {
+            if(list.Count>i+1)
+            {
+                list[i].AddIndividual(list[i + 1].Individuals[0]);
+                list[i + 1].Individuals.RemoveAt(0);
+            }
+        }
+        DeleteEmptySpecies();
     }
 
     private void DeleteOldGenrationFromSpecies()
@@ -67,7 +83,7 @@ public class Population
     }
 
     private void GenerateNewPopulation()
-    {
+    { 
         var sum = SumAdjFittnes();
         List<NeuralNetwork> newGeneration = new List<NeuralNetwork>();
         int kidsCounter;
