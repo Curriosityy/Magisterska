@@ -230,7 +230,12 @@ public class Population
                     sh += 1;
                 }
             }
-            Generation[i].AdjustedFitness = Generation[i].Fitness / sh;
+            if (Generation[i].Fitness > 0)
+            {
+                Generation[i].AdjustedFitness = Generation[i].Fitness / sh;
+                //Debug.Log("SH: " + sh + " gen count " + Generation.Count + "fiteness " + Generation[i].Fitness + "adjusted fitness " + Generation[i].AdjustedFitness);
+            }
+            
         }
     }
 

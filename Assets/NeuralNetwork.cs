@@ -66,7 +66,7 @@ public class NeuralNetwork
     {
         float output = 0f;
         var neurons = GetNeurons(NeuronType.output);
-        Debug.Log("used activation on=" + neurons[0].Type);
+        //Debug.Log("used activation on=" + neurons[0].Type);
         neurons.ForEach(n => n.UseActivationFunction());
         for(int i=0;i<1; i++)
         {
@@ -213,7 +213,7 @@ public class NeuralNetwork
 
     private void MutateWeight(Edge connection)
     {
-        connection.Weight += (Random(NeatValues.minWeight, NeatValues.maxWeight)/3);
+        connection.Weight += (Random(NeatValues.minWeight, NeatValues.maxWeight)/10);
     }
 
     //private void MakeConnections()
@@ -380,7 +380,8 @@ public class NeuralNetwork
             }
         }
         float delta = (NeatValues.excessjoinsCoefficiant * excessJoins) / edgesCount +
-            (NeatValues.disjoinsCoefficiant * disJoins) / edgesCount + NeatValues.weightCoefficiant * (float)weightDiff;
+            (NeatValues.disjoinsCoefficiant * disJoins) / edgesCount + (NeatValues.weightCoefficiant * (float)weightDiff);
+        //Debug.Log("DELTA = " + delta+ "DIS = " + disJoins+ "edge = " + edgesCount + "exe = " + excessJoins+ "weight = " + weightDiff);
         if (delta < NeatValues.simularityTreshhold)
         {
             return true;

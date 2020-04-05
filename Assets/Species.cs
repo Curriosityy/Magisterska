@@ -11,7 +11,7 @@ public class Species
     private float _adjFitness;
     private float _stagnationCount=0;
 
-    System.Random rnd = new System.Random();
+   
     public float AvgFitness { get => _avgFitness;}
     public List<NeuralNetwork> Individuals { get => _individuals; }
     public int SpecieID { get => _specieID; set => _specieID = value; }
@@ -51,26 +51,33 @@ public class Species
     
     public NeuralNetwork Crossover()
     {
-     
-         NeuralNetwork parent1 =_individuals[rnd.Next(0,_individuals.Count-1)];
-         NeuralNetwork parent2 = _individuals[rnd.Next(0, _individuals.Count - 1)];
-         NeuralNetwork temp;
-         if (parent1.Fitness < parent2.Fitness)
+        int ind1 = NeatValues.rnd.Next(0, _individuals.Count - 1);
+        
+        int ind2 = NeatValues.rnd.Next(0, _individuals.Count - 1);
+        //Debug.Log(ind1 + " d2: " + ind2);
+       
+        NeuralNetwork parent1 =_individuals[ind1];
+        NeuralNetwork parent2 = _individuals[ind2];
+        NeuralNetwork temp;
+        
+
+        if (parent1.Fitness < parent2.Fitness)
          {
              temp=parent1;
              parent1=parent2;
              parent2=temp;
          }
+        
+        //Debug.Log("krzyzuje" + parent1.Fitness + " Z " + parent2.Fitness + " INDEX 1: " + ind1 + " INDEX 2: " + ind2 + "Population size " + _individuals.Count);
 
-         
         var child = new NeuralNetwork(parent1);
         
         for (int i = 0; i < child.Connection.Count; i += 1)
         {
             if (parent2.DoesInnovNumberExist(child.Connection[i].Id))
             {
-                if (rnd.Next(3) < 2)
-                { 
+                if (NeatValues.rnd.Next(0,6) < 2)
+                {
                     
                     int edgePos=parent2.getEgdeId(child.Connection[i].Id);
                     
