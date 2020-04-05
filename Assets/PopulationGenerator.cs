@@ -61,7 +61,7 @@ public class PopulationGenerator : MonoBehaviour
     void AssignNeatToAi()
     {
         var neats = Population.Instance.Generation;
-        for(int i=0;i<neats.Count;i++)
+        for(int i=0;i<NeatValues.populationSize;i++)
         {
             _aiList[i].NeuralNetwork = neats[i];
             _aiList[i].Restart();

@@ -25,13 +25,35 @@ public class Population
     public void GenerateNextPopulation()
     {
         Debug.Log("GeneratingNewPopulation");
+        NeatValues.IncreaseGeneration();
         CalculateAdjustedFitness();
         KillWorstIndividualsInAllSpecies();
         DeleteWorstSpecies();
         GenerateNewPopulation();
         MutateEveryone();
         AssignGeneration();
-        _generation.AddRange(_oldGeneration);
+        DeleteOldGenrationFromSpecies();
+       // _generation.AddRange(_oldGeneration);
+    }
+
+    private void DeleteOldGenrationFromSpecies()
+    {
+        foreach(var species in Species)
+        {
+            for(int i=species.Individuals.Count-1;i>=0;i--)
+            {
+                if(species.Individuals[i].Generation!=NeatValues.GenerationCount)
+                {
+                    species.Individuals.RemoveAt(i);
+                }
+            }
+        }
+        DeleteEmptySpecies();
+    }
+
+    private void DeleteEmptySpecies()
+    {
+        Species.RemoveAll(s => s.Individuals.Count == 0);
     }
 
     private void MutateEveryone()
@@ -44,30 +66,6 @@ public class Population
 
     }
 
-    //private void GenerateNewPopulation()
-    //{
-    //    var sum = SumAdjFittnes();
-    //    List<NeuralNetwork> newGeneration = new List<NeuralNetwork>();
-    //    int kidsCounter;
-    //    foreach (var species in _species)
-    //    {
-    //        kidsCounter = Mathf.RoundToInt((sum / species.AdjFitness) * NeatValues.populationSize);
-    //        for (int i = 0; i < kidsCounter; i++)
-    //        {
-    //            newGeneration.Add(species.Crossover());
-    //        }
-    //    }
-    //    _species.Clear();
-    //    _generation.Clear();
-    //    _generation.AddRange(newGeneration);
-    //    for (int i = _generation.Count - 1; i >= NeatValues.populationSize; i--)
-    //    {
-    //        _generation.RemoveAt(i);
-    //    }
-    //}
-
-
-        
     private void GenerateNewPopulation()
     {
         var sum = SumAdjFittnes();
@@ -75,29 +73,48 @@ public class Population
         int kidsCounter;
         foreach (var species in _species)
         {
-            kidsCounter = Mathf.RoundToInt(( species.AdjFitness / sum) * NeatValues.populationSize);
+            kidsCounter = Mathf.RoundToInt((species.AdjFitness / sum) * NeatValues.populationSize);
             for (int i = 0; i < kidsCounter; i++)
             {
                 newGeneration.Add(species.Crossover());
             }
         }
-        _oldGeneration.Clear();
-
-        foreach (var species in _species)
-        {
-            _oldGeneration.AddRange(species.Individuals);
-        }
         _generation.Clear();
-        NeuralNetwork neat;
-        Debug.Log("old count:" + _oldGeneration.Count + " new count:" + newGeneration.Count);
-        for (int i = 0; i < NeatValues.populationSize - _oldGeneration.Count; i++)
-        {
-            neat = newGeneration[UnityEngine.Random.Range(0, newGeneration.Count)];
-            _generation.Add(neat);
-            newGeneration.Remove(neat);
-        }
-
+        _generation.AddRange(newGeneration);
     }
+
+
+
+    //private void GenerateNewPopulation()
+    //{
+    //    var sum = SumAdjFittnes();
+    //    List<NeuralNetwork> newGeneration = new List<NeuralNetwork>();
+    //    int kidsCounter;
+    //    foreach (var species in _species)
+    //    {
+    //        kidsCounter = Mathf.RoundToInt(( species.AdjFitness / sum) * NeatValues.populationSize);
+    //        for (int i = 0; i < kidsCounter; i++)
+    //        {
+    //            newGeneration.Add(species.Crossover());
+    //        }
+    //    }
+    //    _oldGeneration.Clear();
+
+    //    foreach (var species in _species)
+    //    {
+    //        _oldGeneration.AddRange(species.Individuals);
+    //    }
+    //    _generation.Clear();
+    //    NeuralNetwork neat;
+    //    Debug.Log("old count:" + _oldGeneration.Count + " new count:" + newGeneration.Count);
+    //    for (int i = 0; i < NeatValues.populationSize - _oldGeneration.Count; i++)
+    //    {
+    //        neat = newGeneration[UnityEngine.Random.Range(0, newGeneration.Count)];
+    //        _generation.Add(neat);
+    //        newGeneration.Remove(neat);
+    //    }
+
+    //}
 
     private float SumAdjFittnes()
     {
@@ -136,14 +153,15 @@ public class Population
 
     private void DeleteWorstSpecies()
     {
-        
-        for (int i = _species.Count - 1; i >= 0; i--)
-        {
-            if (_species[i].Individuals.Count < NeatValues.minSpieceSize || _species[i].StagnationCount > NeatValues.maxStagnation)
-            {
-                _species.Remove(_species[i]);
-            }
-        }
+
+        _species.RemoveAll(s => s.Individuals.Count < NeatValues.minSpieceSize || s.StagnationCount > NeatValues.maxStagnation);
+        //for (int i = _species.Count - 1; i >= 0; i--)
+        //{
+        //    if (_species[i].Individuals.Count < NeatValues.minSpieceSize || _species[i].StagnationCount > NeatValues.maxStagnation)
+        //    {
+        //        _species.Remove(_species[i]);
+        //    }
+        //}
     }
 
 
@@ -157,7 +175,6 @@ public class Population
     }
     private void AssignGeneration()
     {
-        NeatValues.IncreaseGeneration();
         foreach (var generationMemeber in Generation)
         {
             AssignToSpecie(generationMemeber);

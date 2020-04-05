@@ -64,6 +64,7 @@ public class Species
 
          
         var child = new NeuralNetwork(parent1);
+        
         for (int i = 0; i < child.Connection.Count; i += 1)
         {
             if (parent2.DoesInnovNumberExist(child.Connection[i].Id))
@@ -154,6 +155,7 @@ public class Species
         else
         {
             _maxfitness = newfitness;
+            _stagnationCount = 0;
         }
     }
 

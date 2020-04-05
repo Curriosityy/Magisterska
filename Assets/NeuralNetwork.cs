@@ -101,9 +101,10 @@ public class NeuralNetwork
 
     private void MutateBias()
     {
-        var rand = _rand.NextDouble();
+        float rand;
         foreach (var neuron in _neurons)
         {
+            rand = (float)_rand.NextDouble();
             if (rand <= NeatValues.biasMutationProbability)
             {
                 MutateBias(neuron);
@@ -189,9 +190,10 @@ public class NeuralNetwork
 
     private void MutateWeights()
     {
-        var rand = Random();
+        float rand;
         foreach (var connection in GetEnabledConnections())
         {
+            rand = Random();
             if (rand <= NeatValues.weightMutationProbability)
             {
                 MutateWeight(connection);
@@ -278,6 +280,7 @@ public class NeuralNetwork
     }
     public NeuralNetwork(NeuralNetwork networkToCopy)
     {
+        _generation = NeatValues.GenerationCount;
         _neurons = new List<Neuron>();
         _connections = new List<Edge>();
         _neuronCounter = networkToCopy.NeuronCounter;

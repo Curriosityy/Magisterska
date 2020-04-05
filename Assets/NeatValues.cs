@@ -31,29 +31,29 @@ public static class NeatValues {
     public const int activationFunction=1; // 1=ReLu
     //public const float linearActivFunValue = 1f;
     //Speciation
-    public const int maxStagnation=5;
-    public const float weightCoefficiant=0.4f;
+    public const int maxStagnation=15;
+    public const float weightCoefficiant=0.6f;
     public const float disjoinsCoefficiant=1f;
     public const float excessjoinsCoefficiant=1f;
     public const float survivingRate=0.4f;
     public const int minSpieceSize=2;
     public const float simularityTreshhold=.9f;
     //Genome
-    public const float addConnProbability=0.6f;
+    public const float addConnProbability=0.5f;
     public const float removeConnProbability=0.2f;
-    public const float changeConnStatusProbability=0.3f;
+    public const float changeConnStatusProbability=0.1f;
     public const float addNodeProbability=0.2f;
     public const float removeNodeProbability=0.1f;
     //Node
     public const float minBias=-1f;
     public const float maxBias=1f;
-    public const float biasMutationProbability=0.6f;
+    public const float biasMutationProbability=0.3f;
     public const float biasRandomMutationProbability=0.1f;
 
     //Connection
     public const float minWeight=-1f;
     public const float maxWeight=1f;
-    public const float weightMutationProbability=0.6f;
+    public const float weightMutationProbability=0.3f;
     public const float weightRandomMutationProbability=0.1f;
 
    
