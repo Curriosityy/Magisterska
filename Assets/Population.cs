@@ -33,7 +33,7 @@ public class Population
        // MutateEveryone();
         AssignGeneration();
         DeleteOldGenrationFromSpecies();
-        ConnectSpieciesWithOneIndividual();
+        //ConnectSpieciesWithOneIndividual();
 
        // _generation.AddRange(_oldGeneration);
     }
@@ -90,7 +90,6 @@ public class Population
         int eliteCount;
         foreach (var species in _species)
         {
-
             kidsCounter = Mathf.RoundToInt((species.AdjFitness / sum) * NeatValues.populationSize);
             eliteCount = Mathf.CeilToInt(species.Individuals.Count* NeatValues.elitismRate);
             for (int i = 0; i < kidsCounter; i++)
@@ -113,8 +112,6 @@ public class Population
                         Debug.Log("sexual");
                     }
                 }
-               
-                
             }
         }
         
