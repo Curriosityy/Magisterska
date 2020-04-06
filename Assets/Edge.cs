@@ -16,13 +16,13 @@ public class Edge
     [SerializeField]
     private bool _isActivated;
 
-    public Edge(int connectedFrom, int connectedTo, int id, float weight)
+    public Edge(int connectedFrom, int connectedTo, int id, float weight, bool activated=true)
     {
         _connectedFrom = connectedFrom;
         _connectedTo = connectedTo;
         _id = id;
         _weight = weight;
-        _isActivated = true;
+        _isActivated = activated;
     }
 
     public Edge(Edge edge)
@@ -32,6 +32,10 @@ public class Edge
         _id = edge.Id;
         _weight = edge.Weight;
         _isActivated = edge._isActivated;
+    }
+    public Edge()
+    {
+      
     }
 
     public Edge(Edge edge, float weight)
@@ -43,9 +47,9 @@ public class Edge
         _isActivated = edge._isActivated;
     }
 
-    public int ConnectedFrom { get => _connectedFrom;}
-    public int ConnectedTo { get => _connectedTo;}
-    public int Id { get => _id;}
+    public int ConnectedFrom { get => _connectedFrom; set => _connectedFrom=value; }
+    public int ConnectedTo { get => _connectedTo; set => _connectedTo = value; }
+    public int Id { get => _id; set => _id = value; }
     public float Weight { get => _weight; set => _weight = value; }
     public bool IsActivated { get => _isActivated; set => _isActivated = value; }
 }

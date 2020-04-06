@@ -25,7 +25,7 @@ public class Neuron
     NeuronType _neuronType;
     public int NeuronID { get => _neuronID; set => _neuronID = value; }
     public NeuronType Type { get => _neuronType; set => _neuronType = value; }
-    public int Level { get => _level;}
+    public int Level { get => _level; set => _level = value; }
     public float Bias { get => _bias; set => _bias = value; }
     public float Value { get => _value; set => _value = value; }
     
@@ -79,6 +79,10 @@ public class Neuron
         _neuronType = neuronToCopy.Type;
         _level = neuronToCopy.Level;
         _bias = neuronToCopy.Bias;
+    }
+    public Neuron()
+    {
+       
     }
 
 

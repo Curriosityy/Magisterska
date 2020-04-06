@@ -8,7 +8,7 @@ public class NeuralNetwork
 {
     int a = 0;
     static System.Random _rand = new System.Random();
-    private int _maxLevel = 1;
+    public int _maxLevel = 1;
     private float _fitness=0;
     private float _adjustedFitness=0;
     int _neuronCounter = 0;
@@ -21,13 +21,13 @@ public class NeuralNetwork
     
     
     public int NeuronCounter { get => _neuronCounter; set => _neuronCounter = value; }
-
+    public int MaxLevel { get => _maxLevel; }
     public List<Edge> Connection { get => _connections; }
     public float AdjustedFitness { get => _adjustedFitness; set => _adjustedFitness = value; }
     public float Fitness { get => _fitness; set => _fitness = value; }
     public int Generation { get => _generation; set => _generation = value; }
     public Color Color { get => _color;}
-    int MaxLevel { get => _maxLevel;}
+    
 
 
 

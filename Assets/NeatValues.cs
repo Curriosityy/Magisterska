@@ -40,7 +40,7 @@ public static class NeatValues {
     public const float elitismRate = 0.1f;
     public const float asexualReproductionProbability = 0.2f;
     public const int minSpieceSize=2;
-    public const float simularityTreshhold=2f;
+    public const float simularityTreshhold=1f;
     //Genome
     public const float addConnProbability=0.4f;
     public const float removeConnProbability=0.2f;
