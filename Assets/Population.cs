@@ -97,8 +97,13 @@ public class Population
             {
                 if (i < eliteCount)
                 {
-                    newGeneration.Add(species.GetIndividualOfId(i));
-                    Debug.Log("adding elite");
+                    var spec = species.GetBestIndividual();
+                    newGeneration.Add(new NeuralNetwork(spec, Color.red));
+                    //string s="";
+                    //spec.Connection.ForEach(c => s+=c.Weight.ToString());
+                    //string s2 = "";
+                    //newGeneration.Last().Connection.ForEach(c => s2 += c.Weight.ToString());
+                    //Debug.Log("adding elite "+s+" Elite added "+s2);
                 }
                 else
                 {
@@ -177,15 +182,22 @@ public class Population
     public void run()
     {
 
-        //speciate generation
-        //remove old generation
-        //add networks to controllers
-        //evaluate - puszczenie w grze i zbieranie punkciorów
-        //calculate genomes fitness and adjusted fitness - tu metoda CalculateAdjustedFitness()
-        //culling weak networks from species - KillWorstIndividuals()
-        //check stagnation and delete weak species (if memebers < 2 or stagnation > 15)
-        //Calculate species adjusted fitness
-        //crossover -> mutation -> add offsping to population
+        //1.speciate generation
+        //2.remove old generation
+        //3.add networks to controllers
+        //loop
+        //{
+            //evaluate - puszczenie w grze i zbieranie punkciorów
+            //calculate genomes fitness and adjusted fitness - tu metoda CalculateAdjustedFitness()
+            //culling weak networks from species - KillWorstIndividuals()
+            //check stagnation and delete weak species (if memebers < 2 or stagnation > 15)
+            //Calculate species adjusted fitness
+            //crossover -> mutation -> add offsping to population
+            //speciate generation
+            //remove old generation
+            //add networks to controllers
+        //}
+
     }
 
     private void KillWorstIndividualsInAllSpecies()

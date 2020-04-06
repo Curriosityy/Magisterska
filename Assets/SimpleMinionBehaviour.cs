@@ -58,18 +58,21 @@ public class SimpleMinionBehaviour : MonoBehaviour
             if (target.Length > i)
             {
                 hitted[i] = Vector3.SqrMagnitude(target[i].transform.position - transform.position);
-                Debug.DrawLine(transform.position, target[i].transform.position);
+                var vec = transform.position;
+                vec.y += i;
+                Debug.DrawLine(transform.position, target[i].transform.position,i%2==0?Color.red:Color.blue);
             }else
             {
                 hitted[i] = 300;
             }
-        }        
+        }
+        Array.Sort(hitted);
     }
 
     public void Die()
     {
         _isAlive = false;
-        _points -= 10;
+        //_points -= 10;
     }
 
     // Update is called once per frame
@@ -88,7 +91,7 @@ public class SimpleMinionBehaviour : MonoBehaviour
         {
             _jump = true;
             _isJumping = true;
-            _points -= 5;
+           // _points -= 5;
         }
     }
 

@@ -26,6 +26,7 @@ public class Neuron
     public int Level { get => _level;}
     public float Bias { get => _bias; set => _bias = value; }
     public float Value { get => _value; set => _value = value; }
+    
 
     public void SumValue(float value,float weight)
     {
@@ -62,6 +63,13 @@ public class Neuron
         _neuronType = neuronType;
         _level = level;
         _bias = 1;
+    }
+    public Neuron(int neuronID, NeuronType neuronType, int level,float bias)
+    {
+        _neuronID = neuronID;
+        _neuronType = neuronType;
+        _level = level;
+        _bias = bias;
     }
     public Neuron(Neuron neuronToCopy)
     {

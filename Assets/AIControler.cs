@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class AIControler : MonoBehaviour
@@ -20,7 +21,8 @@ public class AIControler : MonoBehaviour
             return 0;
         }
     }
-    public bool IsAlive {
+    public bool IsAlive
+    {
         get
         {
             if (_controledMinion != null)
@@ -33,7 +35,7 @@ public class AIControler : MonoBehaviour
     public void Restart()
     {
         StopAllCoroutines();
-        if(_controledMinion==null)
+        if (_controledMinion == null)
         {
             _controledMinion = Instantiate(_minionPrefab, spawnPoint.position, Quaternion.identity, null).GetComponent<SimpleMinionBehaviour>();
             _controledMinion.aiControling = this;
@@ -41,13 +43,14 @@ public class AIControler : MonoBehaviour
         else
         {
             _controledMinion.Restart();
+            _controledMinion.GetComponent<Renderer>().material.color = _neuralNetwork.Color;
         }
-        
+
     }
 
     private void Update()
     {
-        if(IsAlive && !_controledMinion.IsJumping)
+        if (IsAlive && !_controledMinion.IsJumping)
         {
             CalculateMove();
         }
@@ -57,9 +60,17 @@ public class AIControler : MonoBehaviour
     private void CalculateMove()
     {
         float[] inputValue;
+
+
         _controledMinion.GetDistanceToNextObstacle(out inputValue);
         var value = _neuralNetwork.CalculateNeuralNetworkValue(inputValue);
-        if (Mathf.RoundToInt(value)>=1)
+
+        if (Selection.activeGameObject == _controledMinion.gameObject)
+        {
+            Debug.Log(inputValue[0]+", " +inputValue[1]+" equals = " +value);
+        }
+
+        if (Mathf.RoundToInt(value) >= 1)
             _controledMinion.Jump();
     }
 

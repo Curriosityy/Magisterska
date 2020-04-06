@@ -15,6 +15,7 @@ public class NeuralNetwork
     private int _generation = 0;
     [SerializeField] List<Neuron> _neurons;
     [SerializeField] List<Edge> _connections;
+    Color _color;
     //trzeba dodac polaczenia poczatkowe
     public List<Neuron> Neurons { get => _neurons;}
     
@@ -25,6 +26,7 @@ public class NeuralNetwork
     public float AdjustedFitness { get => _adjustedFitness; set => _adjustedFitness = value; }
     public float Fitness { get => _fitness; set => _fitness = value; }
     public int Generation { get => _generation; set => _generation = value; }
+    public Color Color { get => _color;}
 
 
     //Lista do przechowywania wszystkich istniejących edgów.
@@ -163,7 +165,7 @@ public class NeuralNetwork
                     LevelUpAllneuronsHighterThanLevel(GetNeuronOfId(edge.ConnectedFrom).Level);
                 }
                 var newNeuronId = _neuronCounter++;
-                var newNeuron = new Neuron(newNeuronId, NeuronType.hidden, GetNeuronOfId(edge.ConnectedFrom).Level + 1);
+                var newNeuron = new Neuron(newNeuronId, NeuronType.hidden, GetNeuronOfId(edge.ConnectedFrom).Level + 1,Random(NeatValues.minBias,NeatValues.maxBias));
                 _neurons.Add(newNeuron);
                 AddNewConnection(GetNeuronOfId(edge.ConnectedFrom), newNeuron);
                 AddNewConnection(newNeuron, GetNeuronOfId(edge.ConnectedTo));
@@ -276,7 +278,7 @@ public class NeuralNetwork
                     AddNewConnection(neuronFrom, neuronTo);
             }
         }
-        
+        _color = Color.blue;
     }
     public NeuralNetwork(NeuralNetwork networkToCopy)
     {
@@ -284,6 +286,7 @@ public class NeuralNetwork
         _neurons = new List<Neuron>();
         _connections = new List<Edge>();
         _neuronCounter = networkToCopy.NeuronCounter;
+        _maxLevel = networkToCopy._maxLevel;
         foreach (var neuron in networkToCopy.Neurons)
         {
             _neurons.Add(new Neuron(neuron));
@@ -292,9 +295,29 @@ public class NeuralNetwork
         {
             _connections.Add(new Edge(connection));
         }
-
-
+        _color = Color.white;
     }
+
+    public NeuralNetwork(NeuralNetwork networkToCopy,Color color)
+    {
+        _generation = NeatValues.GenerationCount;
+        _neurons = new List<Neuron>();
+        _connections = new List<Edge>();
+        _neuronCounter = networkToCopy.NeuronCounter;
+        _maxLevel = networkToCopy._maxLevel;
+        foreach (var neuron in networkToCopy.Neurons)
+        {
+            _neurons.Add(new Neuron(neuron));
+        }
+        foreach (var connection in networkToCopy.Connection)
+        {
+            _connections.Add(new Edge(connection));
+        }
+        _color = Color.red;
+    }
+
+
+
 
     private void AddNewConnection(Neuron neuronFrom, Neuron neuronTo)
     {

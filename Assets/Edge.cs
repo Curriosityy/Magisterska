@@ -31,7 +31,7 @@ public class Edge
         _connectedTo = edge.ConnectedTo;
         _id = edge.Id;
         _weight = edge.Weight;
-        _isActivated = true;
+        _isActivated = edge._isActivated;
     }
 
     public Edge(Edge edge, float weight)
@@ -40,7 +40,7 @@ public class Edge
         _connectedTo = edge.ConnectedTo;
         _id = edge.Id;
         _weight = weight;
-        _isActivated = true;
+        _isActivated = edge._isActivated;
     }
 
     public int ConnectedFrom { get => _connectedFrom;}
