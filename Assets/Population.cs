@@ -30,7 +30,7 @@ public class Population
         KillWorstIndividualsInAllSpecies();
         DeleteWorstSpecies();
         GenerateNewPopulation();
-        MutateEveryone();
+       // MutateEveryone();
         AssignGeneration();
         DeleteOldGenrationFromSpecies();
         ConnectSpieciesWithOneIndividual();
@@ -87,12 +87,42 @@ public class Population
         var sum = SumAdjFittnes();
         List<NeuralNetwork> newGeneration = new List<NeuralNetwork>();
         int kidsCounter;
+        int eliteCount;
         foreach (var species in _species)
         {
+
             kidsCounter = Mathf.RoundToInt((species.AdjFitness / sum) * NeatValues.populationSize);
+            eliteCount = Mathf.CeilToInt(species.Individuals.Count* NeatValues.elitismRate);
             for (int i = 0; i < kidsCounter; i++)
             {
-                newGeneration.Add(species.Crossover());
+                if (i < eliteCount)
+                {
+                    newGeneration.Add(species.GetIndividualOfId(i));
+                    Debug.Log("adding elite");
+                }
+                else
+                {
+                    if (NeatValues.rnd.NextDouble() < NeatValues.asexualReproductionProbability)
+                    {
+                        newGeneration.Add(species.AsexualReproduction());
+                        Debug.Log("asexual");
+                    }
+                    else
+                    {
+                        newGeneration.Add(species.Crossover());
+                        Debug.Log("sexual");
+                    }
+                }
+               
+                
+            }
+        }
+        
+        if (newGeneration.Count < NeatValues.populationSize)
+        {
+            for(int i=0;i< NeatValues.populationSize- newGeneration.Count; i += 1)
+            {
+                newGeneration.Add(new NeuralNetwork(newGeneration[NeatValues.rnd.Next(0, newGeneration.Count-1)]));
             }
         }
         _generation.Clear();

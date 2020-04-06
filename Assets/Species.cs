@@ -11,7 +11,7 @@ public class Species
     private float _adjFitness;
     private float _stagnationCount=0;
 
-    System.Random rnd = new System.Random();
+   
     public float AvgFitness { get => _avgFitness;}
     public List<NeuralNetwork> Individuals { get => _individuals; }
     public int SpecieID { get => _specieID; set => _specieID = value; }
@@ -52,8 +52,8 @@ public class Species
     public NeuralNetwork Crossover()
     {
      
-         NeuralNetwork parent1 =_individuals[rnd.Next(0,_individuals.Count-1)];
-         NeuralNetwork parent2 = _individuals[rnd.Next(0, _individuals.Count - 1)];
+         NeuralNetwork parent1 =_individuals[NeatValues.rnd.Next(0,_individuals.Count-1)];
+         NeuralNetwork parent2 = _individuals[NeatValues.rnd.Next(0, _individuals.Count - 1)];
          NeuralNetwork temp;
          if (parent1.Fitness < parent2.Fitness)
          {
@@ -64,12 +64,13 @@ public class Species
 
          
         var child = new NeuralNetwork(parent1);
+       
         
         for (int i = 0; i < child.Connection.Count; i += 1)
         {
             if (parent2.DoesInnovNumberExist(child.Connection[i].Id))
             {
-                if (rnd.Next(3) < 2)
+                if (NeatValues.rnd.Next(4) < 2)
                 { 
                     
                     int edgePos=parent2.getEgdeId(child.Connection[i].Id);
@@ -78,9 +79,25 @@ public class Species
                 }
             }
         }
-        
+        child.MutateNeuralNetwork();
         return child;
     }
+    public NeuralNetwork AsexualReproduction()
+    {
+        NeuralNetwork parent1 = _individuals[NeatValues.rnd.Next(0, _individuals.Count - 1)];
+        var child = new NeuralNetwork(parent1);
+        child.MutateNeuralNetwork();
+        return child;
+    }
+    public NeuralNetwork GetIndividualOfId(int i)
+    {
+        Debug.Log(Individuals.Count + " i " + i);
+        var individual = new NeuralNetwork(_individuals[i]);
+        
+        return individual;
+    }
+
+
     public int CompareWithAll(NeuralNetwork testSubject)
     {
         int matchesFound = 0;

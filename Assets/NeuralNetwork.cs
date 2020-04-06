@@ -66,7 +66,7 @@ public class NeuralNetwork
     {
         float output = 0f;
         var neurons = GetNeurons(NeuronType.output);
-        Debug.Log("used activation on=" + neurons[0].Type);
+        //Debug.Log("used activation on=" + neurons[0].Type);
         neurons.ForEach(n => n.UseActivationFunction());
         for(int i=0;i<1; i++)
         {

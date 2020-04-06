@@ -6,6 +6,7 @@ public static class NeatValues {
     private static int _generationCount = 0;
     private static int _specieCount=0;
     private static float _bestFitness = 0;
+    public static System.Random rnd = new System.Random();
     public static int SpecieCount { get => _specieCount; }
     public static float BestFitness { get => _bestFitness; set => _bestFitness = value; }
     public static int GenerationCount { get => _generationCount;}
@@ -35,9 +36,11 @@ public static class NeatValues {
     public const float weightCoefficiant=0.5f;
     public const float disjoinsCoefficiant=1f;
     public const float excessjoinsCoefficiant=1f;
-    public const float survivingRate=0.2f;
+    public const float survivingRate=0.5f;
+    public const float elitismRate = 0.2f;
+    public const float asexualReproductionProbability = 0.2f;
     public const int minSpieceSize=2;
-    public const float simularityTreshhold=2f;
+    public const float simularityTreshhold=5f;
     //Genome
     public const float addConnProbability=0.5f;
     public const float removeConnProbability=0.2f;
