@@ -191,8 +191,7 @@ public class Species
     {
         SortIndividuals();
         int remaining=Mathf.CeilToInt((_individuals.Count-1)*NeatValues.survivingRate);
-        _individuals = _individuals.GetRange(0, remaining);
-
+        _individuals = _individuals.GetRange(0, remaining); 
     }
 
     public NeuralNetwork GetBestIndividual()
@@ -203,8 +202,10 @@ public class Species
 
     public void SortIndividuals()
     {
+
         _individuals.Sort((p1, p2) => p1.Fitness.CompareTo(p2.Fitness));
         _individuals.Reverse();
+       
     }
 
     public int GetSpecieCount()

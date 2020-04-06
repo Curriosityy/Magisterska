@@ -27,6 +27,8 @@ public class NeuralNetwork
     public float Fitness { get => _fitness; set => _fitness = value; }
     public int Generation { get => _generation; set => _generation = value; }
     public Color Color { get => _color;}
+    int MaxLevel { get => _maxLevel;}
+
 
 
     //Lista do przechowywania wszystkich istniejących edgów.
@@ -56,6 +58,24 @@ public class NeuralNetwork
             }
         }
         return SetOutputValues();
+
+    }
+    public NeuralNetwork(NeuralNetwork networkToCopy)
+    {
+        _maxLevel = networkToCopy.MaxLevel;
+        _generation = NeatValues.GenerationCount;
+        _neurons = new List<Neuron>();
+        _connections = new List<Edge>();
+        _neuronCounter = networkToCopy.NeuronCounter;
+        foreach (var neuron in networkToCopy.Neurons)
+        {
+            _neurons.Add(new Neuron(neuron));
+        }
+        foreach (var connection in networkToCopy.Connection)
+        {
+            _connections.Add(new Edge(connection));
+        }
+
 
     }
 
@@ -280,6 +300,7 @@ public class NeuralNetwork
         }
         _color = Color.blue;
     }
+<<<<<<< HEAD
     public NeuralNetwork(NeuralNetwork networkToCopy)
     {
         _generation = NeatValues.GenerationCount;
@@ -315,6 +336,9 @@ public class NeuralNetwork
         }
         _color = Color.red;
     }
+=======
+   
+>>>>>>> 41670bf0cc9fd30a77a52a232b33823ca3761965
 
 
 
@@ -351,6 +375,12 @@ public class NeuralNetwork
     private List<Neuron> GetNeurons(NeuronType type)
     {
         return _neurons.Where(n => n.Type == type).ToList();
+    }
+    public int GetInnovRange()
+    {
+        int range = 0;
+
+        return range;
     }
 
     public bool Compare(NeuralNetwork neatToCompare)
