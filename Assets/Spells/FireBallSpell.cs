@@ -6,6 +6,8 @@ class FireBallSpell : Spell
 
     public override int ManaCost => 30;
 
+    public override SpellType Type => SpellType.Offensive;
+
     public override void Cast(Minion caster, string position)
     {
         //TODO in the future use assetbundle
@@ -17,7 +19,7 @@ class FireBallSpell : Spell
         Physics.IgnoreCollision(caster.GetComponentInChildren<Collider>(), fireball.GetComponentInChildren<Collider>());
         /*
          *          TODOD
-         * scorch mana and play come cool particles
+         * play come cool particles
          */
         fireball.GetComponent<FireBall>().Initialize(Object.FindObjectOfType<BoardDictionary>().Board[position].transform.position);
     }
