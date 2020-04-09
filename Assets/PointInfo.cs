@@ -24,8 +24,10 @@ public class PointInfo : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Collided "+other.name);
         if(other.transform.tag=="Obstacle")
         {
+            Debug.Log("Obstacle in");
             _walkable = false;
             if(other.GetComponent<Minion>()!=null)
             {
@@ -40,6 +42,7 @@ public class PointInfo : MonoBehaviour
     {
         if (other.transform.tag == "Obstacle")
         {
+            Debug.Log("Obstacle out");
             _walkable = true;
             _aiInfo = 0;
         }
@@ -57,5 +60,14 @@ public class PointInfo : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (!_walkable)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawCube(transform.position, new Vector3(0.7f, 0.7f, 0.7f));
+        }
     }
 }

@@ -16,7 +16,6 @@ public abstract class Spell
         canCast = false;
         if (caster.GetComponent<MinionMana>().Statistics < ManaCost)
             return;
-        caster.GetComponent<MinionMana>().BurnMana(ManaCost);
         canCast = true;
     }
 }

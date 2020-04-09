@@ -48,6 +48,8 @@ public class BoardDictionary : MonoBehaviour
                 BoxCollider bc= temp.AddComponent<BoxCollider>();
                 bc.size = new Vector3 (1,1,1);
                 bc.isTrigger = true;
+                //Rigidbody rb = temp.AddComponent<Rigidbody>();
+                //
                 //temp.AddComponent<Rigidbody>();
                 _board.Add(position, temp);
                 

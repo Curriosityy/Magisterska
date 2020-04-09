@@ -10,6 +10,7 @@ public class PathFinder : MonoBehaviour
     }
     public static List<GameObject> FindPath(GameObject targetLocation, GameObject startingPosition, BoardDictionary bd)
     {
+        //TODO if target location is occupied go to closer location
         List<GameObject> openlist = new List<GameObject>();
         List<GameObject> closedlist = new List<GameObject>();
         List<GameObject> path = new List<GameObject>();
@@ -57,7 +58,8 @@ public class PathFinder : MonoBehaviour
             openlist.Remove(currentbest);
             closedlist.Add(tempc);
             EvaluateRoute(openlist, tempc);
-            currentbest= openlist[SelectBest(openlist)];
+            int aa = SelectBest(openlist);
+            currentbest = openlist[aa];
             //Debug.Log("Current best:"+ currentbest.name);
         }
         path=RecreatePath(targetLocation.name,startingPosition.name,bd);

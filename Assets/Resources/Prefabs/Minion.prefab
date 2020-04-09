@@ -488,6 +488,7 @@ GameObject:
   - component: {fileID: 5299004918738501227}
   - component: {fileID: 595373379689026507}
   - component: {fileID: 3629667637929790650}
+  - component: {fileID: -1652805260266672925}
   m_Layer: 0
   m_Name: Minion
   m_TagString: Obstacle
@@ -504,7 +505,7 @@ Transform:
   m_GameObject: {fileID: 8289378699829051058}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children:
   - {fileID: 5335311133690406763}
   - {fileID: 5724506001882217668}
@@ -522,7 +523,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5299004918738501227
 MonoBehaviour:
@@ -541,7 +542,7 @@ MonoBehaviour:
   _text: {fileID: 4329002164965235116, guid: 49e53d5ea787f5645ada250d092d8c7b, type: 3}
   _minionCanvas: {fileID: 7654563141621150251}
   _textColor: {r: 0.2216981, g: 0.2216981, b: 1, a: 1}
-  _manaPerSec: 10
+  _manaPerSec: 1
 --- !u!114 &595373379689026507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -571,3 +572,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f455f84b3107ff478563b2e5b634f3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &-1652805260266672925
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8289378699829051058}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 46
+  m_CollisionDetection: 0

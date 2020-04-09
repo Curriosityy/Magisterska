@@ -9,9 +9,14 @@ public class FireBall : MonoBehaviour
     [SerializeField] private float _speed=1f;
     private float _timer = 0;
     Vector3 _positionToFly;
+    private Vector3 _flyingVector;
+
+    public Vector3 FlyingVector { get => _flyingVector; }
+
     public void Initialize(Vector3 position)
     {
         _positionToFly = position;
+        _flyingVector = (position - transform.position).normalized;
         StartCoroutine("FlyToPosition");
     }
     private void OnCollisionEnter(Collision collision)
@@ -38,8 +43,8 @@ public class FireBall : MonoBehaviour
         _timer = 0;
         while(_positionToFly!=transform.position)
         {
-            _timer += _speed * Time.deltaTime;
-            transform.position = Vector3.Lerp(oldPos, _positionToFly, _timer);
+            //_timer += ;
+            transform.position = Vector3.MoveTowards(transform.position, _positionToFly, _speed*Time.deltaTime);
             yield return null;
             
         }

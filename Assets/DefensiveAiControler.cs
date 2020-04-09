@@ -14,7 +14,6 @@ public class DefensiveAiControler : MonoBehaviour
     public Transform spawnPoint;
     private Transform _board;
 
-
     public void AssignToBoard(Transform board)
     {
         _board = board;
@@ -73,23 +72,34 @@ public class DefensiveAiControler : MonoBehaviour
     private void CalculateMove()
     {
         List<float> inputValue = new List<float>();
-        inputValue.AddRange(GetTableValues());
+        //inputValue.AddRange();
         var cmPos = _controledMinion.transform.position;
         
         var closest = Physics.OverlapBox(cmPos, new Vector3(7, 1, 7), Quaternion.identity).Where(c=>c.tag=="Attack").OrderBy(c => (c.transform.position - cmPos).sqrMagnitude).FirstOrDefault();
         if(closest!=null)
         {
             var vec = closest.transform.position - cmPos;
+            var vec2 = closest.GetComponent<FireBall>().FlyingVector;
+            var vecmag = vec.magnitude;
             Debug.DrawLine(cmPos, closest.transform.position, Color.red);
-            inputValue.Add(vec.sqrMagnitude);
-            inputValue.Add(Mathf.Atan2(vec.z, vec.x));
+            inputValue.Add(vecmag);
+
+            float ivalue = Vector3.Dot(vec, vec2) / (vecmag * vec2.magnitude);
+            if (Selection.activeGameObject == _controledMinion.gameObject)
+            {
+                Debug.Log(ivalue);
+            }
+            inputValue.Add(ivalue);
         }
         else
         {
             inputValue.Add(float.PositiveInfinity);
             inputValue.Add(float.PositiveInfinity);
         }
-        
+        int pos = ((int)_controledMinion.GetComponent<Minion>().Position[0] - 65) + (int)_controledMinion.GetComponent<Minion>().Position[1] - 49;
+        inputValue.Add(_controledMinion.GetComponent<MinionMana>().Statistics);
+        inputValue.Add(_controledMinion.GetComponent<MinionHealth>().Statistics);
+        inputValue.Add(pos);
         var value = _neuralNetwork.CalculateNeuralNetworkValue(inputValue.ToArray());
 
         value[0] = Mathf.RoundToInt(value[0]);

@@ -8,7 +8,7 @@ class WalkSpell : Spell
 
     public override string SpellName => "walk";
 
-    public override int ManaCost => 5;
+    public override int ManaCost => 10;
 
     public override SpellType Type => SpellType.Defensive;
 
@@ -22,8 +22,18 @@ class WalkSpell : Spell
             return;
         var bd = caster.transform.parent.GetComponent<BoardDictionary>();
         path=PathFinder.FindPath(bd.Board[position], caster.getminionpos,bd);
-        path.Reverse();
-        caster.MoveTo(path);
+        if (path.Count>0)
+        {
+            caster.GetComponent<MinionMana>().BurnMana(ManaCost);
+
+            path.Reverse();
+            caster.MoveTo(path);
+        }
+        else
+        {
+            int a = 3;
+        }
+
         //caster.transform.position = pos.transform.position;
 
         

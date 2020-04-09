@@ -16,10 +16,10 @@ public class Minion : MonoBehaviour
     {
         get { return minionposition; }
     }
-    private float _points;
-
+    private float _timer;
+    private int spellCasted = 1;
     public bool IsDoingSomething { get => _isDoingSomething; }
-    public float Points { get => _points + GetComponent<MinionHealth>().Statistics; set=>_points=value; }
+    public float Points { get => spellCasted==1?0:(GetComponent<MinionHealth>().Statistics /spellCasted)*100 + _timer; set => _timer = value; }
     public bool IsAlive { get =>GetComponent<MinionHealth>().Statistics>0; }
     public string Position { get => position; }
 
@@ -33,8 +33,9 @@ public class Minion : MonoBehaviour
     {
         if(IsAlive)
         {
-            _points += Time.deltaTime * 10;
+            _timer += Time.deltaTime * 10;
         }
+
     }
     public void Restart(int restartPoint)
     {
@@ -52,10 +53,12 @@ public class Minion : MonoBehaviour
         transform.position = minionposition.transform.position;
         GetComponent<MinionMana>().Restart();
         GetComponent<MinionHealth>().Restart();
-        _points = 0;
+        _timer = 0;
+        spellCasted = 1;
     }
     public void MoveTo(List<GameObject> path)
     {
+        spellCasted++;
         coroutine = Walk(path);
         StartCoroutine(coroutine);
     }
@@ -80,6 +83,7 @@ public class Minion : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position,path[i].transform.position,speed*Time.deltaTime);
             if (Vector3.Distance(transform.position, path[i].transform.position)<0.01f)
             {
+                position = path[i].GetComponent<PointInfo>().name;
                 i += 1;
             }
             yield return null;
