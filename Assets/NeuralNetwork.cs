@@ -359,18 +359,100 @@ public class NeuralNetwork
     public int GetInnovRange()
     {
         int range = 0;
-
+        foreach(var conn in Connection)
+        {
+            if (conn.Id > range)
+            {
+                range = conn.Id;
+            }
+        }
         return range;
     }
-
+    
+    public int GetExcessJoins(NeuralNetwork neatToCompare)
+    {
+        int range = neatToCompare.GetInnovRange();
+        int excessJoins = 0;
+        foreach(var conn in Connection)
+        {
+            if (conn.Id > range)
+            {
+                excessJoins += 1;
+            }
+        }
+        return excessJoins;
+    }
+    public int GetDisJoins(NeuralNetwork neatToCompare)
+    {
+        int range = neatToCompare.GetInnovRange();
+        int disJoins = 0;
+        foreach (var conn in Connection)
+        {
+            if (!neatToCompare.DoesInnovNumberExist(conn.Id))
+            {
+                if (conn.Id <= range)
+                {
+                    disJoins += 1;
+                }
+            }
+           
+        }
+        return disJoins;
+    }
+    public float GetWeightDiff(NeuralNetwork neatToCompare)
+    {
+        float weightDiff = 0;
+        foreach (var conn in Connection)
+        {
+            if (neatToCompare.DoesInnovNumberExist(conn.Id))
+            {
+                int connID = neatToCompare.getEgdeId(conn.Id);
+                weightDiff += Math.Abs(conn.Weight - neatToCompare.Connection[connID].Weight);
+            }
+        }
+        return weightDiff;
+    }
+    public int getMathingEdges(NeuralNetwork neatToCompare)
+    {
+        int edges = 0;
+        foreach (var conn in Connection)
+        {
+            if (neatToCompare.DoesInnovNumberExist(conn.Id))
+            {
+                edges += 1;
+            }
+        }
+        return edges;
+    }
     public bool Compare(NeuralNetwork neatToCompare)
     {
-        bool excessJoin = true;
+       
         int excessJoins = 0;
         int disJoins = 0;
         int edgesCount = 0;
         Double weightDiff = 0f;
-        NeuralNetwork neat1;
+        if (GetInnovRange() >= neatToCompare.GetInnovRange())
+        {
+            excessJoins= GetExcessJoins(neatToCompare);
+        }
+        else
+        {
+            excessJoins = neatToCompare.GetExcessJoins(this);
+        }
+        disJoins += neatToCompare.GetDisJoins(this);
+        disJoins += GetDisJoins(neatToCompare);
+        if (neatToCompare.Connection.Count >= Connection.Count)
+        {
+            edgesCount = neatToCompare.getMathingEdges(this);
+            weightDiff = neatToCompare.GetWeightDiff(this);
+        }
+        else
+        {
+            edgesCount = getMathingEdges(neatToCompare);
+            weightDiff = GetWeightDiff(neatToCompare);
+        }
+       
+       /* NeuralNetwork neat1;
         NeuralNetwork neat2;
         if (Connection.Count >= neatToCompare.Connection.Count)
         {
@@ -411,9 +493,10 @@ public class NeuralNetwork
             {
                 disJoins += 1;
             }
-        }
+        }*/
         float delta = (NeatValues.excessjoinsCoefficiant * excessJoins) / edgesCount +
             (NeatValues.disjoinsCoefficiant * disJoins) / edgesCount + NeatValues.weightCoefficiant * (float)weightDiff;
+        Debug.Log("delta" + delta +"edges "+edgesCount+ " excess joins "+excessJoins+ " wynik "+ (NeatValues.excessjoinsCoefficiant * excessJoins) / edgesCount + " disJoins "+ disJoins+ " wynik " + (NeatValues.disjoinsCoefficiant * disJoins) / edgesCount+ " weight diff "+weightDiff+" wynik " + NeatValues.weightCoefficiant * (float)weightDiff);
         if (delta < NeatValues.simularityTreshhold)
         {
             return true;
