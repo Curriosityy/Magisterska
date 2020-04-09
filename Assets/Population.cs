@@ -96,7 +96,11 @@ public class Population
         foreach (var species in _species)
         {
             kidsCounter = Mathf.RoundToInt((species.AdjFitness / sum) * NeatValues.populationSize);
-            eliteCount = Mathf.CeilToInt(species.Individuals.Count* NeatValues.elitismRate);
+            eliteCount = Mathf.CeilToInt(kidsCounter* NeatValues.elitismRate);
+            if (eliteCount > species.Individuals.Count - 1)
+            {
+                eliteCount = species.Individuals.Count - 1;
+            }
             for (int i = 0; i < kidsCounter; i++)
             {
                 if (i < eliteCount)
