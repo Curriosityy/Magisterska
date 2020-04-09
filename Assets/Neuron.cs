@@ -29,7 +29,6 @@ public class Neuron
     public float Bias { get => _bias; set => _bias = value; }
     public float Value { get => _value; set => _value = value; }
     
-
     public void SumValue(float value,float weight)
     {
         _value += (value * weight);

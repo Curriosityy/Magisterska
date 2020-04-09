@@ -35,4 +35,10 @@ public abstract class BarStatistic : MonoBehaviour
         _statistics = maxStat;
         CalculateBar();
     }
+
+    public virtual void Restart()
+    {
+        _statistics = maxStat;
+        CalculateBar();
+    }
 }

@@ -8,7 +8,7 @@ public class PathFinder : MonoBehaviour
     {
 
     }
-    public static List<GameObject> FindPath(GameObject targetLocation, GameObject startingPosition)
+    public static List<GameObject> FindPath(GameObject targetLocation, GameObject startingPosition, BoardDictionary bd)
     {
         List<GameObject> openlist = new List<GameObject>();
         List<GameObject> closedlist = new List<GameObject>();
@@ -16,7 +16,7 @@ public class PathFinder : MonoBehaviour
         startingPosition.GetComponent<PointInfo>().G = 0;
         openlist.Add(startingPosition);
         GameObject[,] array;
-        int size = GameObject.FindObjectOfType<BoardDictionary>().size;
+        int size = bd.size;
         //Debug.Log(size);
         array = new GameObject[size, size];
         int unicode;
@@ -28,7 +28,7 @@ public class PathFinder : MonoBehaviour
             {
                 char character = (char)unicode;
                 string text = character.ToString();
-                var temp = Object.FindObjectOfType<BoardDictionary>().Board[text + System.Convert.ToString(j)];
+                var temp = bd.Board[text + System.Convert.ToString(j)];
                 
                 array[i, j - 1] = temp;
                 array[i, j - 1].GetComponent<PointInfo>().setDist(targetLocation);
@@ -60,25 +60,25 @@ public class PathFinder : MonoBehaviour
             currentbest= openlist[SelectBest(openlist)];
             //Debug.Log("Current best:"+ currentbest.name);
         }
-        path=RecreatePath(targetLocation.name,startingPosition.name);
+        path=RecreatePath(targetLocation.name,startingPosition.name,bd);
         return path;
         //geting neighbours
         
     }
-    static List<GameObject> RecreatePath(string last,string first)
+    static List<GameObject> RecreatePath(string last,string first, BoardDictionary bd)
     {
        
         List<GameObject> path = new List<GameObject>();
         string curtile = last;
         while (curtile!=first)
         {
-            GameObject ctile = Object.FindObjectOfType<BoardDictionary>().Board[curtile];
+            GameObject ctile = bd.Board[curtile];
             path.Add(ctile);
-            Debug.Log("Current best:" + curtile);
+            //Debug.Log("Current best:" + curtile);
 
             curtile = ctile.GetComponent<PointInfo>().Camefrom.name;
         }
-        path.Add(Object.FindObjectOfType<BoardDictionary>().Board[first]);
+        path.Add(bd.Board[first]);
         return path;
 
     }
@@ -92,7 +92,7 @@ public class PathFinder : MonoBehaviour
                 olist[i].GetComponent<PointInfo>().Camefrom = curb;
                 olist[i].GetComponent<PointInfo>().G = g + 10;
                 olist[i].GetComponent<PointInfo>().F = olist[i].GetComponent<PointInfo>().G + olist[i].GetComponent<PointInfo>().H;
-                Debug.Log(olist[i].GetComponent<PointInfo>().G);
+               // Debug.Log(olist[i].GetComponent<PointInfo>().G);
             }
         }
     }

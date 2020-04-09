@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class PopulationGenerator : MonoBehaviour
+public class JumpingPopulationGenerator : MonoBehaviour
 {
     [SerializeField] GameObject _aiPrefab;
     [SerializeField] BoardDictionary _boardPrefab;
@@ -16,7 +16,7 @@ public class PopulationGenerator : MonoBehaviour
     float timer;
     //Obie listy mogą zostać wykożystane do ustawiania bitew między AI
     List<GameObject> _boardList = new List<GameObject>();
-    List<AIControler> _aiList = new List<AIControler>();
+    List<JumpingAIControler> _aiList = new List<JumpingAIControler>();
     // Start is called before the first frame update
     void Start()
     {
@@ -27,8 +27,8 @@ public class PopulationGenerator : MonoBehaviour
         for (int i = 0; i < NeatValues.populationSize; i++)
         {
             var ai = Instantiate(_aiPrefab, aiHolder.transform);
-            ai.GetComponent<AIControler>().spawnPoint = _spawnPoint;
-            _aiList.Add(ai.GetComponent<AIControler>());
+            ai.GetComponent<JumpingAIControler>().spawnPoint = _spawnPoint;
+            _aiList.Add(ai.GetComponent<JumpingAIControler>());
         }
         GenerateMap(boardHolder);
         AssignNeatToAi();

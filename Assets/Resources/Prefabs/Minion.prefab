@@ -490,7 +490,7 @@ GameObject:
   - component: {fileID: 3629667637929790650}
   m_Layer: 0
   m_Name: Minion
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -541,6 +541,7 @@ MonoBehaviour:
   _text: {fileID: 4329002164965235116, guid: 49e53d5ea787f5645ada250d092d8c7b, type: 3}
   _minionCanvas: {fileID: 7654563141621150251}
   _textColor: {r: 0.2216981, g: 0.2216981, b: 1, a: 1}
+  _manaPerSec: 10
 --- !u!114 &595373379689026507
 MonoBehaviour:
   m_ObjectHideFlags: 0

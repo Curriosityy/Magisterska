@@ -16,13 +16,13 @@ public class FireBall : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(string.Format("{0} Collided with {1}",gameObject.name,collision.collider.name));
+        //Debug.Log(string.Format("{0} Collided with {1}",gameObject.name,collision.collider.name));
         Explode();
     }
     private void Explode()
     {
         //TODO Cast some nice explosion effect.
-        var entityToDamage = Physics.SphereCastAll(transform.position, _expRange, Vector3.forward)
+        var entityToDamage = Physics.SphereCastAll(transform.position, _expRange, Vector3.back)
             .Where(entity => entity.collider.GetComponent<IDamageable>() != null)
             .Select(entity => entity.collider.GetComponent<IDamageable>());
         foreach (var entity in entityToDamage)
@@ -33,7 +33,7 @@ public class FireBall : MonoBehaviour
     }
     IEnumerator FlyToPosition()
     {
-        Debug.Log(string.Format("{0} FlyToPosition {1}", gameObject.name,_positionToFly));
+        //Debug.Log(string.Format("{0} FlyToPosition {1}", gameObject.name,_positionToFly));
         Vector3 oldPos = transform.position;
         _timer = 0;
         while(_positionToFly!=transform.position)

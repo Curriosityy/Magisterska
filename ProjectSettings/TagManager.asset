@@ -7,6 +7,7 @@ TagManager:
   - Minions
   - Obstacle
   - PointAdder
+  - Attack
   layers:
   - Default
   - TransparentFX

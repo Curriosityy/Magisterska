@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8334890278131279653}
   m_Layer: 0
   m_Name: FireBall
-  m_TagString: Untagged
+  m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc112d7ce34fd0e4fa55eef9567b5701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 50
+  _damage: 20
   _expRange: 1
   _speed: 1
 --- !u!135 &7908983893199727042

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SimpleMinionBehaviour : MonoBehaviour
 {
-    public AIControler aiControling;
+    public JumpingAIControler aiControling;
     [SerializeField] float _speed = 3;
     [SerializeField] float _jumpHeight = 2;
     [SerializeField] bool _isJumping = false;

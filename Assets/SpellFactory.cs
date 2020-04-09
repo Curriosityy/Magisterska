@@ -36,6 +36,7 @@ public static class SpellFactory
 
     public static IEnumerable<string> GetSpellsName()
     {
+        InitializeFactory();
         return _spellsByName.Keys;
     }
    

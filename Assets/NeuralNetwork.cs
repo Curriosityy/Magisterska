@@ -35,7 +35,7 @@ public class NeuralNetwork
     public static List<Edge> allEdges = new List<Edge>();
  
 
-    public float CalculateNeuralNetworkValue(float[] input)
+    public float[] CalculateNeuralNetworkValue(float[] input)
     {
         ClearNeuronValues();
         List<Edge> edges;
@@ -66,15 +66,15 @@ public class NeuralNetwork
         _neurons.ForEach(n => n.Value = 0);
     }
     //zmienilem
-    private float SetOutputValues()
+    private float[] SetOutputValues()
     {
-        float output = 0f;
+        float[] output = new float[NeatValues.outputNeuronSize];
         var neurons = GetNeurons(NeuronType.output);
         //Debug.Log("used activation on=" + neurons[0].Type);
         neurons.ForEach(n => n.UseActivationFunction());
-        for(int i=0;i<1; i++)
+        for(int i=0;i<NeatValues.outputNeuronSize; i++)
         {
-            output = neurons[i].Value;
+            output[i] = neurons[i].Value;
         }
         return output;
     }

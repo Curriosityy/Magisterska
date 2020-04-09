@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class MinionHealth : BarStatistic, IDamageable
 {
+    private bool _isAlive = true;
+
+    public bool IsAlive { get => _isAlive; set => _isAlive = value; }
+
     public void DealDamage(int damagage)
     {
         var oldHp = Statistics;
@@ -14,11 +18,19 @@ public class MinionHealth : BarStatistic, IDamageable
         {
             Die();
         }
-        Debug.Log(string.Format("{0} Took {1} DMG, HP Before {2} HP now {3}", gameObject.name, damagage, oldHp, Statistics));
+        //Debug.Log(string.Format("{0} Took {1} DMG, HP Before {2} HP now {3}", gameObject.name, damagage, oldHp, Statistics));
+    }
+
+    public override void Restart()
+    {
+        base.Restart();
+        _isAlive = true;
     }
 
     private void Die()
     {
-        //throw new NotImplementedException();
+        _isAlive = false;
     }
+
+    
 }

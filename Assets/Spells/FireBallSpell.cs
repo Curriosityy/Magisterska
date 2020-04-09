@@ -16,11 +16,11 @@ class FireBallSpell : Spell
             return;
         var prefab = Resources.Load("Prefabs/FireBall");
         var fireball = Object.Instantiate(prefab, caster.transform.position, Quaternion.identity) as GameObject;
-        Physics.IgnoreCollision(caster.GetComponentInChildren<Collider>(), fireball.GetComponentInChildren<Collider>());
+        Physics.IgnoreCollision(caster.GetComponent<Collider>(), fireball.GetComponent<Collider>());
         /*
          *          TODOD
          * play come cool particles
          */
-        fireball.GetComponent<FireBall>().Initialize(Object.FindObjectOfType<BoardDictionary>().Board[position].transform.position);
+        fireball.GetComponent<FireBall>().Initialize(caster.transform.parent.GetComponent<BoardDictionary>().Board[position].transform.position);
     }
 }

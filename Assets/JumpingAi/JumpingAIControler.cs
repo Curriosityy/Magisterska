@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class AIControler : MonoBehaviour
+public class JumpingAIControler : MonoBehaviour
 {
     [SerializeField] private NeuralNetwork _neuralNetwork;
     [SerializeField] private GameObject _minionPrefab;
-    [SerializeField] private SimpleMinionBehaviour _controledMinion;
+    private SimpleMinionBehaviour _controledMinion;
     public Transform spawnPoint;
 
     bool canJump = true;
@@ -42,6 +42,7 @@ public class AIControler : MonoBehaviour
         }
         else
         {
+            _controledMinion.aiControling = this;
             _controledMinion.Restart();
             _controledMinion.GetComponent<Renderer>().material.color = _neuralNetwork.Color;
         }
@@ -61,7 +62,6 @@ public class AIControler : MonoBehaviour
     {
         float[] inputValue;
 
-
         _controledMinion.GetDistanceToNextObstacle(out inputValue);
         var value = _neuralNetwork.CalculateNeuralNetworkValue(inputValue);
 
@@ -70,7 +70,7 @@ public class AIControler : MonoBehaviour
             Debug.Log(inputValue[0]+", " +inputValue[1]+" equals = " +value);
         }
 
-        if (Mathf.RoundToInt(value) >= 1)
+        if (Mathf.RoundToInt(value[0]) >= 1)
             _controledMinion.Jump();
     }
 
