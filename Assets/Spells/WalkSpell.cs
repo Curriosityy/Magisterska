@@ -8,7 +8,7 @@ class WalkSpell : Spell
 
     public override string SpellName => "walk";
 
-    public override int ManaCost => 10;
+    public override int ManaCost => 0;
 
     public override SpellType Type => SpellType.Defensive;
 

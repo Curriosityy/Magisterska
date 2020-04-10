@@ -19,7 +19,7 @@ public class Population
         _generation = new List<NeuralNetwork>();
         _oldGeneration = new List<NeuralNetwork>();
         CreateRandomPopulation();
-        //AssignGeneration();
+        AssignGeneration();
     }
 
     public void GenerateNextPopulation()
@@ -176,12 +176,6 @@ public class Population
         {
             _generation.Add(new NeuralNetwork());
         }
-        Species.Add(new Species(_generation[0]));
-        for (int i = 1; i < NeatValues.populationSize; i += 1)
-        {
-            Species[0].AddIndividual(_generation[i]);
-        }
-
     }
     private void AssignGeneration()
     {

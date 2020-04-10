@@ -18,11 +18,20 @@ public class Minion : MonoBehaviour
     }
     private float _timer;
     private int spellCasted = 1;
+    private int steps = 0;
     public bool IsDoingSomething { get => _isDoingSomething; }
-    public float Points { get => spellCasted==1?0:(GetComponent<MinionHealth>().Statistics /spellCasted)*100 + _timer; set => _timer = value; }
+    public float Points {
+        get {
+                if(steps>0)
+                {
+                    return (_timer * 10) / steps + GetComponent<MinionHealth>().Statistics;
+                }
+                return _timer;
+            }
+        set => _timer = value; }
     public bool IsAlive { get =>GetComponent<MinionHealth>().Statistics>0; }
     public string Position { get => position; }
-
+    //
     public void Start()
     {
         //Restart(1);
@@ -55,6 +64,7 @@ public class Minion : MonoBehaviour
         GetComponent<MinionHealth>().Restart();
         _timer = 0;
         spellCasted = 1;
+        steps = 0;
     }
     public void MoveTo(List<GameObject> path)
     {
@@ -85,6 +95,7 @@ public class Minion : MonoBehaviour
             {
                 position = path[i].GetComponent<PointInfo>().name;
                 i += 1;
+                steps++;
             }
             yield return null;
         }
