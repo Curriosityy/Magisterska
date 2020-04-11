@@ -27,14 +27,16 @@ public class FireBall : MonoBehaviour
     private void Explode()
     {
         //TODO Cast some nice explosion effect.
-        var entityToDamage = Physics.SphereCastAll(transform.position, _expRange, Vector3.back)
-            .Where(entity => entity.collider.GetComponent<IDamageable>() != null)
-            .Select(entity => entity.collider.GetComponent<IDamageable>());
+        var entityToDamage = Physics.OverlapSphere(transform.position, _expRange)
+            .Where(entity => entity.gameObject.GetComponent<IDamageable>() != null)
+            .Select(entity => entity.gameObject.GetComponent<IDamageable>());
         foreach (var entity in entityToDamage)
         {
             entity.DealDamage(_damage);
         }
-        Destroy(gameObject);
+        transform.position = new Vector3(0, 100000, 0);
+       
+        Destroy(gameObject,0.3f);
     }
     IEnumerator FlyToPosition()
     {
