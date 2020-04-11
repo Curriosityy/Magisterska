@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.Xml.Serialization;
+using System.IO;
+
 public class Population
 {
     private bool _isInitialized;
@@ -24,6 +27,7 @@ public class Population
 
     public void GenerateNextPopulation()
     {
+        
         Debug.Log("GeneratingNewPopulation");
         NeatValues.IncreaseGeneration();
         CalculateAdjustedFitness();
@@ -87,7 +91,11 @@ public class Population
         foreach (var species in _species)
         {
             kidsCounter = Mathf.RoundToInt((species.AdjFitness / sum) * NeatValues.populationSize);
-            eliteCount = Mathf.CeilToInt(species.Individuals.Count* NeatValues.elitismRate);
+            eliteCount = Mathf.CeilToInt(kidsCounter* NeatValues.elitismRate);
+            if (eliteCount > species.Individuals.Count - 1)
+            {
+                eliteCount = species.Individuals.Count - 1;
+            }
             for (int i = 0; i < kidsCounter; i++)
             {
                 if (i < eliteCount)
@@ -133,8 +141,8 @@ public class Population
     }
 
 
-    public void run()
-    {
+    //public void run()
+    //{
 
         //1.speciate generation
         //2.remove old generation
@@ -152,7 +160,7 @@ public class Population
             //add networks to controllers
         //}
 
-    }
+    //}
 
     private void KillWorstIndividualsInAllSpecies()
     {
@@ -223,7 +231,37 @@ public class Population
         CreateSpecie(candidate);
         return false;
     }
+    public void savePopulation()
+    {
+        string fileName = Application.streamingAssetsPath + "/XML/"+NeatValues.GenerationCount+".xml";
+        XmlSerializer serializer = new XmlSerializer(typeof(NeuralNetwork));
+        
+        using (FileStream stream = new FileStream(fileName, FileMode.Create))
+        {
+            serializer.Serialize(stream, _generation[0]);
+        }
 
+    }
+    public void loadPopulation(int gen=0)
+    {
+        List<NeuralNetwork> loadedPopulation = new List<NeuralNetwork>();
+        XmlSerializer serializer = new XmlSerializer(typeof(NeuralNetwork));
+        string fileName = Application.streamingAssetsPath + "/XML/"+gen+".xml";
+        using (FileStream stream = new FileStream(fileName, FileMode.Open))
+        {
+            var neat = serializer.Deserialize(stream);
+            NeuralNetwork loadedNeat = (NeuralNetwork)neat;
+            foreach(var conn in loadedNeat.Connection)
+            {
+                NeuralNetwork.allEdges.Add(new Edge(conn));
+            }
+            
+            for (int i = 0; i < NeatValues.populationSize; i += 1)
+            {
+                loadedPopulation.Add(new NeuralNetwork(loadedNeat));
+            }
+        }
+    }
     private void CreateSpecie(NeuralNetwork candidate)
     {
         NeatValues.IncreaseSpecie();
