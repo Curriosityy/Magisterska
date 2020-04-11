@@ -34,13 +34,13 @@ public static class NeatValues {
     //public const float linearActivFunValue = 1f;
     //Speciation
     public const int maxStagnation=40;
-    public const float weightCoefficiant=0.5f;
-    public const float disjoinsCoefficiant=1f;
-    public const float excessjoinsCoefficiant=1f;
     public const float survivingRate=0.4f;
     public const float elitismRate = 0.1f;
     public const float asexualReproductionProbability = 0.2f;
     public const int minSpieceSize=2;
+    public const float weightCoefficiant=0.5f;
+    public const float disjoinsCoefficiant=1f;
+    public const float excessjoinsCoefficiant=1f;
     public const float simularityTreshhold=910f;
     //Genome
     public const float addConnProbability=0.4f;

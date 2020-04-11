@@ -44,7 +44,7 @@ public class Minion : MonoBehaviour
         if(IsAlive)
         {
             _timer += Time.deltaTime * 10;
-            if(steps>50)
+            if(steps>DefensiveGameManager.Instance.maxSteps)
             {
                 GetComponent<MinionHealth>().DealDamage(100);
                 StopAllCoroutines();
