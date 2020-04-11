@@ -59,6 +59,10 @@ public class PathFinder : MonoBehaviour
             closedlist.Add(tempc);
             EvaluateRoute(openlist, tempc);
             int aa = SelectBest(openlist);
+            if(aa> openlist.Count)
+            {
+                return new List<GameObject>();
+            }
             currentbest = openlist[aa];
             //Debug.Log("Current best:"+ currentbest.name);
         }

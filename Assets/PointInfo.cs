@@ -21,30 +21,47 @@ public class PointInfo : MonoBehaviour
     public GameObject Camefrom { get => _camefrom; set => _camefrom = value; }
     public bool Walkable { get => _walkable; set => _walkable = value; }
     public int AiInfo { get => _aiInfo; set => _aiInfo = value; }
-
+    private List<GameObject> _overlapedGo;
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collided "+other.name);
-        if(other.transform.tag=="Obstacle")
+        //Debug.Log("Collided "+other.name);
+        if (other.transform.tag == "Obstacle")
         {
-            Debug.Log("Obstacle in");
+            //Debug.Log("Obstacle in");
             _walkable = false;
-            if(other.GetComponent<Minion>()!=null)
+            if (other.GetComponent<Minion>() != null)
             {
-                _aiInfo = 2;
-            }else if(other.GetComponent<DestroyBoxObj>()!=null)
+                _aiInfo += 2;
+            } else if (other.GetComponent<DestroyBoxObj>() != null)
             {
-                _aiInfo = 1;
+                _aiInfo += 1;
             }
+        } else
+        if (other.transform.tag == "Attack")
+        {
+            _aiInfo +=3;
         }
     }
     private void OnTriggerExit(Collider other)
     {
+
         if (other.transform.tag == "Obstacle")
         {
-            Debug.Log("Obstacle out");
+            //Debug.Log("Obstacle out");
             _walkable = true;
-            _aiInfo = 0;
+            if (other.GetComponent<Minion>() != null)
+            {
+                _aiInfo -= 2;
+            }
+            else if (other.GetComponent<DestroyBoxObj>() != null)
+            {
+                _aiInfo -= 1;
+            }
+        }
+        else
+        if (other.transform.tag == "Attack")
+        {
+            _aiInfo -= 3;
         }
     }
 

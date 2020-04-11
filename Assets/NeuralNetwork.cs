@@ -496,7 +496,7 @@ public class NeuralNetwork
         }*/
         float delta = (NeatValues.excessjoinsCoefficiant * excessJoins) / edgesCount +
             (NeatValues.disjoinsCoefficiant * disJoins) / edgesCount + NeatValues.weightCoefficiant * (float)weightDiff;
-        Debug.Log("delta" + delta +"edges "+edgesCount+ " excess joins "+excessJoins+ " wynik "+ (NeatValues.excessjoinsCoefficiant * excessJoins) / edgesCount + " disJoins "+ disJoins+ " wynik " + (NeatValues.disjoinsCoefficiant * disJoins) / edgesCount+ " weight diff "+weightDiff+" wynik " + NeatValues.weightCoefficiant * (float)weightDiff);
+        //Debug.Log("delta" + delta +"edges "+edgesCount+ " excess joins "+excessJoins+ " wynik "+ (NeatValues.excessjoinsCoefficiant * excessJoins) / edgesCount + " disJoins "+ disJoins+ " wynik " + (NeatValues.disjoinsCoefficiant * disJoins) / edgesCount+ " weight diff "+weightDiff+" wynik " + NeatValues.weightCoefficiant * (float)weightDiff);
         if (delta < NeatValues.simularityTreshhold)
         {
             return true;

@@ -16,6 +16,7 @@ public class MinionHealth : BarStatistic, IDamageable
         SpawnText(damagage);
         if (Statistics <= 0)
         {
+            Statistics = 0;
             Die();
         }
         //Debug.Log(string.Format("{0} Took {1} DMG, HP Before {2} HP now {3}", gameObject.name, damagage, oldHp, Statistics));

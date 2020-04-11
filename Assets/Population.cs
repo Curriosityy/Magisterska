@@ -28,7 +28,7 @@ public class Population
     public void GenerateNextPopulation()
     {
         
-        Debug.Log("GeneratingNewPopulation");
+        //Debug.Log("GeneratingNewPopulation");
         NeatValues.IncreaseGeneration();
         CalculateAdjustedFitness();
         KillWorstIndividualsInAllSpecies();
@@ -107,12 +107,12 @@ public class Population
                     if (NeatValues.rnd.NextDouble() < NeatValues.asexualReproductionProbability)
                     {
                         newGeneration.Add(species.AsexualReproduction());
-                        Debug.Log("asexual");
+                        //Debug.Log("asexual");
                     }
                     else
                     {
                         newGeneration.Add(species.Crossover());
-                        Debug.Log("sexual");
+                        //Debug.Log("sexual");
                     }
                 }
             }

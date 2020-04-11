@@ -44,21 +44,39 @@ public class SpellCasterTurret : MonoBehaviour
         if (_timeBetweenCast <= _timer && _target.IsAlive)
         {
             _timer -= _timeBetweenCast;
-            CastSpell(_attackSpells[UnityEngine.Random.Range(0, _attackSpells.Count)]);
+            StartCoroutine(DoSequence());
             _controledMinion.GetComponent<MinionMana>().Statistics = 100;
         }
     }
 
-    private void CastSpell(string v)
+    IEnumerator DoSequence()
+    {
+        Teleport();
+        yield return new WaitForSeconds(0.5f);
+        CastOffenciveSpell(_attackSpells[UnityEngine.Random.Range(0, _attackSpells.Count)]);
+    }
+
+    private void CastOffenciveSpell(string v)
     {
         var spell = SpellFactory.GetSpell(v);
-        int rand1 = UnityEngine.Random.Range((int)-1, 1);
-        int rand2 = UnityEngine.Random.Range((int)-1, 1);
         string pos = "";
-
-        pos += (char)Mathf.Clamp(((int)_target.Position[0] + rand1), 65, 65 + 7);
-        pos += (char)Mathf.Clamp(((int)_target.Position[1] + rand1), 49, 49 + 7);
-
+        if (UnityEngine.Random.Range(0, 1f) >= 0.5f)
+        {
+            pos = _target.Position;
+        }
+        else
+        {
+            pos += (char)(65 + UnityEngine.Random.Range(0, 7));
+            pos += (char)(49 + UnityEngine.Random.Range(0, 7));
+        }
+        spell.Cast(_controledMinion, pos);
+    }
+    private void Teleport()
+    {
+        var spell = SpellFactory.GetSpell("Teleport");
+        string pos = "";
+        pos += (char)(65 + UnityEngine.Random.Range(0, 7));
+        pos += (char)(49 + UnityEngine.Random.Range(0, 7));
         spell.Cast(_controledMinion, pos);
     }
 

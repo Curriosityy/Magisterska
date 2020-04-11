@@ -6,6 +6,7 @@ public class DefensiveGameManager : MonoBehaviour
 {
     [SerializeField] DefensivePopulationGenerator _dpg;
     [SerializeField] float _gameTimer;
+    public int maxSteps=20;
     float _timer;
     // Start is called before the first frame update
     void Start()

@@ -22,15 +22,16 @@ public class Minion : MonoBehaviour
     public bool IsDoingSomething { get => _isDoingSomething; }
     public float Points {
         get {
-                if(steps>0)
-                {
-                    return (_timer * 10) / steps + GetComponent<MinionHealth>().Statistics;
-                }
-                return _timer;
+            if(steps>0)
+            {
+                return _timer + GetComponent<MinionHealth>().Statistics*10+ steps*10;
             }
+            return 0;
+
+        }
         set => _timer = value; }
     public bool IsAlive { get =>GetComponent<MinionHealth>().Statistics>0; }
-    public string Position { get => position; }
+    public string Position { get => position; set => position = value; }
     //
     public void Start()
     {
@@ -43,6 +44,11 @@ public class Minion : MonoBehaviour
         if(IsAlive)
         {
             _timer += Time.deltaTime * 10;
+            if(steps>50)
+            {
+                GetComponent<MinionHealth>().DealDamage(100);
+                StopAllCoroutines();
+            }
         }
 
     }
@@ -58,6 +64,7 @@ public class Minion : MonoBehaviour
                 position = bd.SpawningPoint2;
                 break;
         }
+        StopAllCoroutines();
         minionposition = bd.Board[position];
         transform.position = minionposition.transform.position;
         GetComponent<MinionMana>().Restart();
@@ -65,6 +72,7 @@ public class Minion : MonoBehaviour
         _timer = 0;
         spellCasted = 1;
         steps = 0;
+        _isDoingSomething = false;
     }
     public void MoveTo(List<GameObject> path)
     {
