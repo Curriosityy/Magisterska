@@ -24,7 +24,7 @@ public class Minion : MonoBehaviour
         get {
             if(steps>0)
             {
-                return _timer + GetComponent<MinionHealth>().Statistics*10+ steps*10;
+                return _timer + GetComponent<MinionHealth>().Statistics * steps;
             }
             return 0;
 

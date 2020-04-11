@@ -109,19 +109,11 @@ public class DefensiveAiControler : MonoBehaviour
 
         var value = _neuralNetwork.CalculateNeuralNetworkValue(inputValue.ToArray());
 
-        if (Selection.activeGameObject == _controledMinion.gameObject)
-        {
-            string a = "";
-            foreach (var inp in inputValue)
-            {
-                a += inp.ToString() + " ";
-            }
-            Debug.Log(a + " equals = " + value[0] + ", " + value[1]);
-        }
 
         value[0] = Mathf.RoundToInt(value[0]);
         value[1] = Mathf.RoundToInt(value[1]);
         //Debug.Log(value[0] + " " + value[1]);
+        
         if(value[1]>= _tv.Length)
         {
             value[1] = _tv.Length - 1;
@@ -137,6 +129,15 @@ public class DefensiveAiControler : MonoBehaviour
         if (value[0] <=0)
         {
             value[0] = 0;
+        }
+        if (Selection.activeGameObject == _controledMinion.gameObject)
+        {
+            string a = "";
+            foreach (var inp in inputValue)
+            {
+                a += inp.ToString() + " ";
+            }
+            Debug.Log(a + " equals = " + value[0] + ", " + value[1]);
         }
 
 

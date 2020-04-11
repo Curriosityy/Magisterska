@@ -21,7 +21,7 @@ public static class NeatValues {
     }
 
     public const int inputNeutonSize = 7*7+1+1+3-2;
-    //public const int inputNeutonSize = 1 + 1 + 2 + 1;
+    //public const int inputNeutonSize = 1 + 1 + 1 + 1 + 1;
     public const int outputNeuronSize = 2;
     //Population 
     /// <summary>
@@ -41,22 +41,22 @@ public static class NeatValues {
     public const float elitismRate = 0.1f;
     public const float asexualReproductionProbability = 0.2f;
     public const int minSpieceSize=2;
-    public const float simularityTreshhold=32f;
+    public const float simularityTreshhold=910f;
     //Genome
     public const float addConnProbability=0.4f;
     public const float removeConnProbability=0.2f;
     public const float changeConnStatusProbability=0.1f;
-    public const float addNodeProbability=0.2f;
-    public const float removeNodeProbability=0.1f;
+    public const float addNodeProbability=0.6f;
+    public const float removeNodeProbability=0.4f;
     //Node
-    public const float minBias=-1f;
-    public const float maxBias= 1f;
+    public const float minBias=-30f;
+    public const float maxBias= 30f;
     public const float biasMutationProbability=0.5f;
     public const float biasRandomMutationProbability=0.1f;
 
     //Connection
-    public const float minWeight=-1f;
-    public const float maxWeight=1f;
+    public const float minWeight=-30f;
+    public const float maxWeight= 30f;
     public const float weightMutationProbability=0.5f;
     public const float weightRandomMutationProbability=0.1f;
 

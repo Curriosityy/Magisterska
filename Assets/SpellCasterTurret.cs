@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Linq;
 public class SpellCasterTurret : MonoBehaviour
 {
-    [SerializeField] float _timeBetweenCast = 2f;
+    [SerializeField] float _timeBetweenCast = 1f;
     float _timer = 0;
     List<string> _attackSpells;
 
