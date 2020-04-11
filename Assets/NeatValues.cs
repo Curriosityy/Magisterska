@@ -41,7 +41,7 @@ public static class NeatValues {
     public const float weightCoefficiant=0.5f;
     public const float disjoinsCoefficiant=1f;
     public const float excessjoinsCoefficiant=1f;
-    public const float simularityTreshhold=910f;
+    public const float simularityTreshhold=170f;
     //Genome
     public const float addConnProbability=0.4f;
     public const float removeConnProbability=0.2f;
@@ -49,14 +49,14 @@ public static class NeatValues {
     public const float addNodeProbability=0.6f;
     public const float removeNodeProbability=0.4f;
     //Node
-    public const float minBias=-30f;
-    public const float maxBias= 30f;
+    public const float minBias=-5f;
+    public const float maxBias= 5f;
     public const float biasMutationProbability=0.5f;
     public const float biasRandomMutationProbability=0.1f;
 
     //Connection
-    public const float minWeight=-30f;
-    public const float maxWeight= 30f;
+    public const float minWeight=-5f;
+    public const float maxWeight= 5f;
     public const float weightMutationProbability=0.5f;
     public const float weightRandomMutationProbability=0.1f;
 

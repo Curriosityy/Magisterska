@@ -8,7 +8,7 @@ public class DefensiveGameManager : MonoBehaviour
 
     [SerializeField] DefensivePopulationGenerator _dpg;
     [SerializeField] float _gameTimer;
-    public int maxSteps=20;
+    public int maxSteps=110;
     float _timer;
 
     public static DefensiveGameManager Instance { get => _instance; }

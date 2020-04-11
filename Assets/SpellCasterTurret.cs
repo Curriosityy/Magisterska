@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Linq;
 public class SpellCasterTurret : MonoBehaviour
 {
+    public bool t = false;
     [SerializeField] float _timeBetweenCast = 1f;
     float _timer = 0;
     List<string> _attackSpells;
@@ -60,14 +61,16 @@ public class SpellCasterTurret : MonoBehaviour
     {
         var spell = SpellFactory.GetSpell(v);
         string pos = "";
-        if (UnityEngine.Random.Range(0, 1f) >= 0.5f)
+        if (t==true)
         {
             pos = _target.Position;
+            t = false;
         }
         else
         {
             pos += (char)(65 + UnityEngine.Random.Range(0, 7));
             pos += (char)(49 + UnityEngine.Random.Range(0, 7));
+            t = true;
         }
         spell.Cast(_controledMinion, pos);
     }

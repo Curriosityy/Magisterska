@@ -18,13 +18,14 @@ public class Minion : MonoBehaviour
     }
     private float _timer;
     private int spellCasted = 1;
-    private int steps = 0;
+    public int steps = 0;
     public bool IsDoingSomething { get => _isDoingSomething; }
     public float Points {
         get {
             if(steps>0)
             {
-                return _timer + GetComponent<MinionHealth>().Statistics * steps;
+                return GetComponent<MinionHealth>().Statistics*100/steps;
+                
             }
             return 0;
 
@@ -44,11 +45,11 @@ public class Minion : MonoBehaviour
         if(IsAlive)
         {
             _timer += Time.deltaTime * 10;
-            if(steps>DefensiveGameManager.Instance.maxSteps)
+           /* if(steps>DefensiveGameManager.Instance.maxSteps)
             {
                 GetComponent<MinionHealth>().DealDamage(100);
                 StopAllCoroutines();
-            }
+            }*/
         }
 
     }
@@ -93,6 +94,7 @@ public class Minion : MonoBehaviour
     }
     private IEnumerator Walk(List<GameObject> path)
     {
+        //steps += 1;
         _isDoingSomething = true;
         int i = 0;
         //Debug.Log(path.Count);
@@ -103,7 +105,7 @@ public class Minion : MonoBehaviour
             {
                 position = path[i].GetComponent<PointInfo>().name;
                 i += 1;
-                steps++;
+                //steps++;
             }
             yield return null;
         }
