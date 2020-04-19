@@ -265,7 +265,7 @@ public class NeuralNetwork
         _generation = NeatValues.GenerationCount;
         _neurons = new List<Neuron>();
         _connections = new List<Edge>();
-        for(int i=0;i<NeatValues.inputNeutonSize;i++)
+        for(int i=0;i<NeatValues.inputNeuronSize;i++)
         {
             _neurons.Add(new Neuron(_neuronCounter++, NeuronType.input,0));
         }

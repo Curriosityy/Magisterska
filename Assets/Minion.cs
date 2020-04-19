@@ -28,11 +28,12 @@ public class Minion : MonoBehaviour
                 
             }
             return 0;
-
         }
         set => _timer = value; }
     public bool IsAlive { get =>GetComponent<MinionHealth>().Statistics>0; }
     public string Position { get => position; set => position = value; }
+    public float Timer { get => _timer; set => _timer = value; }
+
     //
     public void Start()
     {
@@ -44,8 +45,11 @@ public class Minion : MonoBehaviour
     {
         if(IsAlive)
         {
-            _timer += Time.deltaTime * 10;
+
+            _timer += Time.deltaTime;
            /* if(steps>DefensiveGameManager.Instance.maxSteps)
+            _timer += Time.deltaTime;
+            if(steps>OffensiveGameManager.Instance.maxSteps)
             {
                 GetComponent<MinionHealth>().DealDamage(100);
                 StopAllCoroutines();

@@ -20,8 +20,9 @@ public static class NeatValues {
         _specieCount += 1;
     }
 
-    public const int inputNeutonSize = 7*7+1+1+3-2;
+    //public const int inputNeutonSize = 7*7 + 1 + 1 + 3 - 2 + 1;
     //public const int inputNeutonSize = 1 + 1 + 1 + 1 + 1;
+    public const int inputNeuronSize = 1 + 1 + 3 - 2 + 1;
     public const int outputNeuronSize = 2;
     //Population 
     /// <summary>
@@ -33,15 +34,15 @@ public static class NeatValues {
     public const int activationFunction=1; // 1=ReLu
     //public const float linearActivFunValue = 1f;
     //Speciation
-    public const int maxStagnation=40;
+    public const int maxStagnation=15;
     public const float survivingRate=0.4f;
     public const float elitismRate = 0.1f;
     public const float asexualReproductionProbability = 0.2f;
     public const int minSpieceSize=2;
-    public const float weightCoefficiant=0.5f;
-    public const float disjoinsCoefficiant=1f;
-    public const float excessjoinsCoefficiant=1f;
-    public const float simularityTreshhold=170f;
+    public const float weightCoefficiant=0.2f;
+    public const float disjoinsCoefficiant=0.5f;
+    public const float excessjoinsCoefficiant= 0.5f;
+    public const float simularityTreshhold=27f;
     //Genome
     public const float addConnProbability=0.4f;
     public const float removeConnProbability=0.2f;

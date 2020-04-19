@@ -22,5 +22,6 @@ class FireBallSpell : Spell
          * play come cool particles
          */
         fireball.GetComponent<FireBall>().Initialize(caster.transform.parent.GetComponent<BoardDictionary>().Board[position].transform.position);
+        caster.GetComponent<MinionMana>().BurnMana(ManaCost);
     }
 }

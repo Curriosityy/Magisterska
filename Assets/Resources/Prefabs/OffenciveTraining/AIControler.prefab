@@ -1,0 +1,788 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &942315344477131935
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 942315344477131933}
+  - component: {fileID: 8653557465098021278}
+  m_Layer: 0
+  m_Name: AIControler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &942315344477131933
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942315344477131935}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.859848, y: 113.99005, z: -118.490906}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8653557465098021278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942315344477131935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66dc085de99d7a34090142a6af3352c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _neuralNetwork:
+    _maxLevel: 1
+    _neurons:
+    - _level: 0
+      _bias: 1
+      _neuronID: 0
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 1
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 2
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 3
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 4
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 5
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 6
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 7
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 8
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 9
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 10
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 11
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 12
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 13
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 14
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 15
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 16
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 17
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 18
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 19
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 20
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 21
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 22
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 23
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 24
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 25
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 26
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 27
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 28
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 29
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 30
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 31
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 32
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 33
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 34
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 35
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 36
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 37
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 38
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 39
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 40
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 41
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 42
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 43
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 44
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 45
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 46
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 47
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 48
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 49
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 50
+      _neuronType: 0
+    - _level: 0
+      _bias: 1
+      _neuronID: 51
+      _neuronType: 0
+    - _level: 1
+      _bias: 1
+      _neuronID: 52
+      _neuronType: 2
+    - _level: 1
+      _bias: 1
+      _neuronID: 53
+      _neuronType: 2
+    _connections:
+    - _connectedFrom: 0
+      _connectedTo: 52
+      _id: 0
+      _weight: -16.664843
+      _isActivated: 1
+    - _connectedFrom: 0
+      _connectedTo: 53
+      _id: 1
+      _weight: 19.692968
+      _isActivated: 1
+    - _connectedFrom: 1
+      _connectedTo: 52
+      _id: 2
+      _weight: -11.573249
+      _isActivated: 1
+    - _connectedFrom: 1
+      _connectedTo: 53
+      _id: 3
+      _weight: -16.687578
+      _isActivated: 1
+    - _connectedFrom: 2
+      _connectedTo: 52
+      _id: 4
+      _weight: 12.678327
+      _isActivated: 1
+    - _connectedFrom: 2
+      _connectedTo: 53
+      _id: 5
+      _weight: 26.48413
+      _isActivated: 1
+    - _connectedFrom: 3
+      _connectedTo: 52
+      _id: 6
+      _weight: 17.146343
+      _isActivated: 1
+    - _connectedFrom: 3
+      _connectedTo: 53
+      _id: 7
+      _weight: 9.119175
+      _isActivated: 1
+    - _connectedFrom: 4
+      _connectedTo: 52
+      _id: 8
+      _weight: -14.847058
+      _isActivated: 1
+    - _connectedFrom: 4
+      _connectedTo: 53
+      _id: 9
+      _weight: 0.68709254
+      _isActivated: 1
+    - _connectedFrom: 5
+      _connectedTo: 52
+      _id: 10
+      _weight: 7.3584723
+      _isActivated: 1
+    - _connectedFrom: 5
+      _connectedTo: 53
+      _id: 11
+      _weight: -13.600682
+      _isActivated: 1
+    - _connectedFrom: 6
+      _connectedTo: 52
+      _id: 12
+      _weight: -27.73073
+      _isActivated: 1
+    - _connectedFrom: 6
+      _connectedTo: 53
+      _id: 13
+      _weight: -24.832338
+      _isActivated: 1
+    - _connectedFrom: 7
+      _connectedTo: 52
+      _id: 14
+      _weight: -12.584373
+      _isActivated: 1
+    - _connectedFrom: 7
+      _connectedTo: 53
+      _id: 15
+      _weight: -21.727959
+      _isActivated: 1
+    - _connectedFrom: 8
+      _connectedTo: 52
+      _id: 16
+      _weight: -3.7644625
+      _isActivated: 1
+    - _connectedFrom: 8
+      _connectedTo: 53
+      _id: 17
+      _weight: -27.091084
+      _isActivated: 1
+    - _connectedFrom: 9
+      _connectedTo: 52
+      _id: 18
+      _weight: 8.495536
+      _isActivated: 1
+    - _connectedFrom: 9
+      _connectedTo: 53
+      _id: 19
+      _weight: 25.214685
+      _isActivated: 1
+    - _connectedFrom: 10
+      _connectedTo: 52
+      _id: 20
+      _weight: 8.9853325
+      _isActivated: 1
+    - _connectedFrom: 10
+      _connectedTo: 53
+      _id: 21
+      _weight: -5.067918
+      _isActivated: 1
+    - _connectedFrom: 11
+      _connectedTo: 52
+      _id: 22
+      _weight: 9.241852
+      _isActivated: 1
+    - _connectedFrom: 11
+      _connectedTo: 53
+      _id: 23
+      _weight: 27.451416
+      _isActivated: 1
+    - _connectedFrom: 12
+      _connectedTo: 52
+      _id: 24
+      _weight: 4.330516
+      _isActivated: 1
+    - _connectedFrom: 12
+      _connectedTo: 53
+      _id: 25
+      _weight: -20.5307
+      _isActivated: 1
+    - _connectedFrom: 13
+      _connectedTo: 52
+      _id: 26
+      _weight: 18.274208
+      _isActivated: 1
+    - _connectedFrom: 13
+      _connectedTo: 53
+      _id: 27
+      _weight: -9.389525
+      _isActivated: 1
+    - _connectedFrom: 14
+      _connectedTo: 52
+      _id: 28
+      _weight: 27.143612
+      _isActivated: 1
+    - _connectedFrom: 14
+      _connectedTo: 53
+      _id: 29
+      _weight: 2.295388
+      _isActivated: 1
+    - _connectedFrom: 15
+      _connectedTo: 52
+      _id: 30
+      _weight: -1.6871685
+      _isActivated: 1
+    - _connectedFrom: 15
+      _connectedTo: 53
+      _id: 31
+      _weight: 2.5898266
+      _isActivated: 1
+    - _connectedFrom: 16
+      _connectedTo: 52
+      _id: 32
+      _weight: -22.187172
+      _isActivated: 1
+    - _connectedFrom: 16
+      _connectedTo: 53
+      _id: 33
+      _weight: 4.149166
+      _isActivated: 1
+    - _connectedFrom: 17
+      _connectedTo: 52
+      _id: 34
+      _weight: 11.343977
+      _isActivated: 1
+    - _connectedFrom: 17
+      _connectedTo: 53
+      _id: 35
+      _weight: -0.9890789
+      _isActivated: 1
+    - _connectedFrom: 18
+      _connectedTo: 52
+      _id: 36
+      _weight: -4.3800135
+      _isActivated: 1
+    - _connectedFrom: 18
+      _connectedTo: 53
+      _id: 37
+      _weight: 26.342108
+      _isActivated: 1
+    - _connectedFrom: 19
+      _connectedTo: 52
+      _id: 38
+      _weight: -9.313776
+      _isActivated: 1
+    - _connectedFrom: 19
+      _connectedTo: 53
+      _id: 39
+      _weight: 8.88873
+      _isActivated: 1
+    - _connectedFrom: 20
+      _connectedTo: 52
+      _id: 40
+      _weight: -0.7031375
+      _isActivated: 1
+    - _connectedFrom: 20
+      _connectedTo: 53
+      _id: 41
+      _weight: -10.0338
+      _isActivated: 1
+    - _connectedFrom: 21
+      _connectedTo: 52
+      _id: 42
+      _weight: 10.104099
+      _isActivated: 1
+    - _connectedFrom: 21
+      _connectedTo: 53
+      _id: 43
+      _weight: -2.8360982
+      _isActivated: 1
+    - _connectedFrom: 22
+      _connectedTo: 52
+      _id: 44
+      _weight: -21.265966
+      _isActivated: 1
+    - _connectedFrom: 22
+      _connectedTo: 53
+      _id: 45
+      _weight: 27.915638
+      _isActivated: 1
+    - _connectedFrom: 23
+      _connectedTo: 52
+      _id: 46
+      _weight: 8.88171
+      _isActivated: 1
+    - _connectedFrom: 23
+      _connectedTo: 53
+      _id: 47
+      _weight: -9.514732
+      _isActivated: 1
+    - _connectedFrom: 24
+      _connectedTo: 52
+      _id: 48
+      _weight: -10.7095995
+      _isActivated: 1
+    - _connectedFrom: 24
+      _connectedTo: 53
+      _id: 49
+      _weight: 20.653646
+      _isActivated: 1
+    - _connectedFrom: 25
+      _connectedTo: 52
+      _id: 50
+      _weight: 2.2155404
+      _isActivated: 1
+    - _connectedFrom: 25
+      _connectedTo: 53
+      _id: 51
+      _weight: -26.802355
+      _isActivated: 1
+    - _connectedFrom: 26
+      _connectedTo: 52
+      _id: 52
+      _weight: -28.58281
+      _isActivated: 1
+    - _connectedFrom: 26
+      _connectedTo: 53
+      _id: 53
+      _weight: 13.24188
+      _isActivated: 1
+    - _connectedFrom: 27
+      _connectedTo: 52
+      _id: 54
+      _weight: -15.169428
+      _isActivated: 1
+    - _connectedFrom: 27
+      _connectedTo: 53
+      _id: 55
+      _weight: 18.403076
+      _isActivated: 1
+    - _connectedFrom: 28
+      _connectedTo: 52
+      _id: 56
+      _weight: -19.548882
+      _isActivated: 1
+    - _connectedFrom: 28
+      _connectedTo: 53
+      _id: 57
+      _weight: -9.024666
+      _isActivated: 1
+    - _connectedFrom: 29
+      _connectedTo: 52
+      _id: 58
+      _weight: 8.981906
+      _isActivated: 1
+    - _connectedFrom: 29
+      _connectedTo: 53
+      _id: 59
+      _weight: 3.209027
+      _isActivated: 1
+    - _connectedFrom: 30
+      _connectedTo: 52
+      _id: 60
+      _weight: -21.79008
+      _isActivated: 1
+    - _connectedFrom: 30
+      _connectedTo: 53
+      _id: 61
+      _weight: -3.4641302
+      _isActivated: 1
+    - _connectedFrom: 31
+      _connectedTo: 52
+      _id: 62
+      _weight: 11.975566
+      _isActivated: 1
+    - _connectedFrom: 31
+      _connectedTo: 53
+      _id: 63
+      _weight: 12.857552
+      _isActivated: 1
+    - _connectedFrom: 32
+      _connectedTo: 52
+      _id: 64
+      _weight: -27.625736
+      _isActivated: 1
+    - _connectedFrom: 32
+      _connectedTo: 53
+      _id: 65
+      _weight: -25.231358
+      _isActivated: 1
+    - _connectedFrom: 33
+      _connectedTo: 52
+      _id: 66
+      _weight: -21.413511
+      _isActivated: 1
+    - _connectedFrom: 33
+      _connectedTo: 53
+      _id: 67
+      _weight: -1.8798977
+      _isActivated: 1
+    - _connectedFrom: 34
+      _connectedTo: 52
+      _id: 68
+      _weight: -6.176317
+      _isActivated: 1
+    - _connectedFrom: 34
+      _connectedTo: 53
+      _id: 69
+      _weight: 18.404703
+      _isActivated: 1
+    - _connectedFrom: 35
+      _connectedTo: 52
+      _id: 70
+      _weight: 12.652055
+      _isActivated: 1
+    - _connectedFrom: 35
+      _connectedTo: 53
+      _id: 71
+      _weight: -0.10657132
+      _isActivated: 1
+    - _connectedFrom: 36
+      _connectedTo: 52
+      _id: 72
+      _weight: 12.222694
+      _isActivated: 1
+    - _connectedFrom: 36
+      _connectedTo: 53
+      _id: 73
+      _weight: 29.606806
+      _isActivated: 1
+    - _connectedFrom: 37
+      _connectedTo: 52
+      _id: 74
+      _weight: -4.082177
+      _isActivated: 1
+    - _connectedFrom: 37
+      _connectedTo: 53
+      _id: 75
+      _weight: -10.980867
+      _isActivated: 1
+    - _connectedFrom: 38
+      _connectedTo: 52
+      _id: 76
+      _weight: 14.827981
+      _isActivated: 1
+    - _connectedFrom: 38
+      _connectedTo: 53
+      _id: 77
+      _weight: -17.922052
+      _isActivated: 1
+    - _connectedFrom: 39
+      _connectedTo: 52
+      _id: 78
+      _weight: 18.71738
+      _isActivated: 1
+    - _connectedFrom: 39
+      _connectedTo: 53
+      _id: 79
+      _weight: 6.4148784
+      _isActivated: 1
+    - _connectedFrom: 40
+      _connectedTo: 52
+      _id: 80
+      _weight: 0.5875933
+      _isActivated: 1
+    - _connectedFrom: 40
+      _connectedTo: 53
+      _id: 81
+      _weight: -2.2110577
+      _isActivated: 1
+    - _connectedFrom: 41
+      _connectedTo: 52
+      _id: 82
+      _weight: -28.679926
+      _isActivated: 1
+    - _connectedFrom: 41
+      _connectedTo: 53
+      _id: 83
+      _weight: -23.510035
+      _isActivated: 1
+    - _connectedFrom: 42
+      _connectedTo: 52
+      _id: 84
+      _weight: -29.920153
+      _isActivated: 1
+    - _connectedFrom: 42
+      _connectedTo: 53
+      _id: 85
+      _weight: -4.8848143
+      _isActivated: 1
+    - _connectedFrom: 43
+      _connectedTo: 52
+      _id: 86
+      _weight: 1.1726367
+      _isActivated: 1
+    - _connectedFrom: 43
+      _connectedTo: 53
+      _id: 87
+      _weight: -5.4290504
+      _isActivated: 1
+    - _connectedFrom: 44
+      _connectedTo: 52
+      _id: 88
+      _weight: -10.681404
+      _isActivated: 1
+    - _connectedFrom: 44
+      _connectedTo: 53
+      _id: 89
+      _weight: 22.9409
+      _isActivated: 1
+    - _connectedFrom: 45
+      _connectedTo: 52
+      _id: 90
+      _weight: -11.440195
+      _isActivated: 1
+    - _connectedFrom: 45
+      _connectedTo: 53
+      _id: 91
+      _weight: -25.355349
+      _isActivated: 1
+    - _connectedFrom: 46
+      _connectedTo: 52
+      _id: 92
+      _weight: -12.639797
+      _isActivated: 1
+    - _connectedFrom: 46
+      _connectedTo: 53
+      _id: 93
+      _weight: 17.4772
+      _isActivated: 1
+    - _connectedFrom: 47
+      _connectedTo: 52
+      _id: 94
+      _weight: 0.6788063
+      _isActivated: 1
+    - _connectedFrom: 47
+      _connectedTo: 53
+      _id: 95
+      _weight: -27.239006
+      _isActivated: 1
+    - _connectedFrom: 48
+      _connectedTo: 52
+      _id: 96
+      _weight: 7.990633
+      _isActivated: 1
+    - _connectedFrom: 48
+      _connectedTo: 53
+      _id: 97
+      _weight: 27.246548
+      _isActivated: 1
+    - _connectedFrom: 49
+      _connectedTo: 52
+      _id: 98
+      _weight: -5.210361
+      _isActivated: 1
+    - _connectedFrom: 49
+      _connectedTo: 53
+      _id: 99
+      _weight: -26.034609
+      _isActivated: 1
+    - _connectedFrom: 50
+      _connectedTo: 52
+      _id: 100
+      _weight: 19.329145
+      _isActivated: 1
+    - _connectedFrom: 50
+      _connectedTo: 53
+      _id: 101
+      _weight: -19.238394
+      _isActivated: 1
+    - _connectedFrom: 51
+      _connectedTo: 52
+      _id: 102
+      _weight: 26.661583
+      _isActivated: 1
+    - _connectedFrom: 51
+      _connectedTo: 53
+      _id: 103
+      _weight: 0.8856976
+      _isActivated: 1
+  _minionPrefab: {fileID: 8289378699829051058, guid: e93f2aa087cc8834983ad29623f4eb50,
+    type: 3}
+  spawnPoint: {fileID: 0}
