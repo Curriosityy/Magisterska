@@ -22,16 +22,13 @@ public class Minion : MonoBehaviour
     public bool IsDoingSomething { get => _isDoingSomething; }
     public float Points {
         get {
-            if(steps>0)
-            {
-                return _timer + GetComponent<MinionHealth>().Statistics * steps;
-            }
-            return 0;
-
+                return _timer;
         }
         set => _timer = value; }
     public bool IsAlive { get =>GetComponent<MinionHealth>().Statistics>0; }
     public string Position { get => position; set => position = value; }
+    public float Timer { get => _timer; set => _timer = value; }
+
     //
     public void Start()
     {
@@ -43,8 +40,8 @@ public class Minion : MonoBehaviour
     {
         if(IsAlive)
         {
-            _timer += Time.deltaTime * 10;
-            if(steps>DefensiveGameManager.Instance.maxSteps)
+            _timer += Time.deltaTime;
+            if(steps>OffensiveGameManager.Instance.maxSteps)
             {
                 GetComponent<MinionHealth>().DealDamage(100);
                 StopAllCoroutines();

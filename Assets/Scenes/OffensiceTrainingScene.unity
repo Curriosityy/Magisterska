@@ -130,6 +130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 107380696}
   - component: {fileID: 107380695}
+  - component: {fileID: 107380697}
   m_Layer: 0
   m_Name: Population
   m_TagString: Untagged
@@ -167,6 +168,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &107380697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107380694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef23b7ea1fe886f41b3b8bbb8921cf62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _aiPrefab: {fileID: 942315344477131935, guid: 9b756fc011b851648b8c63a2699c3d65,
+    type: 3}
+  _boardPrefab: {fileID: 7603970207603806617, guid: 33204f529c3d8714a8634db81c91f0a9,
+    type: 3}
+  _turretPrefab: {fileID: 7457421536823633145, guid: f5327d83fdd5567488282917fb88e200,
+    type: 3}
 --- !u!1001 &117438321
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -507,4 +526,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1995408081
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1995408083}
+  - component: {fileID: 1995408082}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1995408082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1995408081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ff0f9277854efd41ab6e4cb8af00d08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dpg: {fileID: 107380697}
+  _gameTimer: 10
+  maxSteps: 20
+  maxShoots: 10
+--- !u!4 &1995408083
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1995408081}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.8095776, y: 13.28607, z: -6.7818613}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

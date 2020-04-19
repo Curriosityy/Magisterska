@@ -52,8 +52,8 @@ public class SimpleMinionBehaviour : MonoBehaviour
     public void GetDistanceToNextObstacle(out float[] hitted)
     {
         var target = Physics.RaycastAll(transform.position, Vector3.right, 20f, LayerMask.GetMask("Default"));
-        hitted = new float[NeatValues.inputNeutonSize];
-        for(int i=0;i< NeatValues.inputNeutonSize;i++)
+        hitted = new float[NeatValues.inputNeuronSize];
+        for(int i=0;i< NeatValues.inputNeuronSize;i++)
         {
             if (target.Length > i)
             {

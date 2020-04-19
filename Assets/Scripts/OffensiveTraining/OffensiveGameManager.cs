@@ -9,9 +9,11 @@ public class OffensiveGameManager : MonoBehaviour
     [SerializeField] OffensivePopulationGenerator _dpg;
     [SerializeField] float _gameTimer;
     public int maxSteps=20;
+    public int maxShoots = 15;
     float _timer;
 
     public static OffensiveGameManager Instance { get => _instance; }
+    public float GameTimer { get => _gameTimer; set => _gameTimer = value; }
 
     // Start is called before the first frame update
     void Awake()

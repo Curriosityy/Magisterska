@@ -11,8 +11,8 @@ public class OffensivePopulationGenerator : MonoBehaviour
 
     //Obie listy mogą zostać wykożystane do ustawiania bitew między AI
     List<GameObject> _boardList = new List<GameObject>();
-    List<DefensiveAiControler> _aiList = new List<DefensiveAiControler>();
-    List<SpellCasterTurret> _spellCasterTurrets = new List<SpellCasterTurret>();
+    List<OffensiveAiControler> _aiList = new List<OffensiveAiControler>();
+    List<JumpingTurret> _jumpingTurret = new List<JumpingTurret>();
     
     // Start is called before the first frame update
     void Start()
@@ -26,14 +26,14 @@ public class OffensivePopulationGenerator : MonoBehaviour
         for (int i = 0; i < NeatValues.populationSize; i++)
         {
             var ai = Instantiate(_aiPrefab, aiHolder.transform);
-            _aiList.Add(ai.GetComponent<DefensiveAiControler>());
+            _aiList.Add(ai.GetComponent<OffensiveAiControler>());
             _aiList[i].AssignToBoard(_boardList[i].transform);
             _aiList[i].Restart();
 
             ai = Instantiate(_turretPrefab, turretHolder.transform);
-            _spellCasterTurrets.Add(ai.GetComponent<SpellCasterTurret>());
-            _spellCasterTurrets[i].AssignToBoard(_boardList[i].transform);
-            _spellCasterTurrets[i].Restart();
+            _jumpingTurret.Add(ai.GetComponent<JumpingTurret>());
+            _jumpingTurret[i].AssignToBoard(_boardList[i].transform);
+            _jumpingTurret[i].Restart();
 
         }
         AssignNeatToAi();
@@ -55,7 +55,7 @@ public class OffensivePopulationGenerator : MonoBehaviour
         {
             _aiList[i].NeuralNetwork = neats[i];
             _aiList[i].Restart();
-            _spellCasterTurrets[i].Restart();
+            _jumpingTurret[i].Restart();
         }
     }
 
@@ -64,8 +64,8 @@ public class OffensivePopulationGenerator : MonoBehaviour
         foreach (var ai in _aiList)
         {
             ai.NeuralNetwork.Fitness = ai.Points;
-            if (ai.IsAlive)
-                ai.NeuralNetwork.Fitness += 100;
+            //if (ai.IsAlive)
+                //ai.NeuralNetwork.Fitness += 100;
             if (NeatValues.BestFitness < ai.NeuralNetwork.Fitness)
                 NeatValues.BestFitness = ai.NeuralNetwork.Fitness;
         }

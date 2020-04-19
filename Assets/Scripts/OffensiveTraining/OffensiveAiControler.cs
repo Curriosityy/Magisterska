@@ -6,15 +6,17 @@ using UnityEngine;
 using System.Linq;
 public class OffensiveAiControler : MonoBehaviour
 {
+    private int neuralError = 0;
     [SerializeField] private NeuralNetwork _neuralNetwork;
     [SerializeField] private GameObject _minionPrefab;
+    [SerializeField] private float _askTimer = 0.3f;
+    private float _timer=0;
     private string[] _tv;
     private BoardDictionary _bd;
     private Minion _controledMinion;
     public Transform spawnPoint;
     private Transform _board;
     private Minion _turret;
-
     public void AssignToBoard(Transform board)
     {
         _board = board;
@@ -25,7 +27,10 @@ public class OffensiveAiControler : MonoBehaviour
         get
         {
             if (_controledMinion != null)
-                return _controledMinion.Points;
+                return (100-_turret.GetComponent<MinionHealth>().Statistics)
+                    +(OffensiveGameManager.Instance.GameTimer-_turret.Timer)
+                    +_controledMinion.GetComponent<MinionMana>().spellCasted*10+1
+                    + _controledMinion.Timer-neuralError;
             return 0;
         }
     }
@@ -59,13 +64,22 @@ public class OffensiveAiControler : MonoBehaviour
         if(_tv==null)
             _tv = _bd.Board.Select(b => b.Key).ToArray();
         _turret = _controledMinion.transform.parent.GetComponentsInChildren<Minion>().Where(m => m != _controledMinion).FirstOrDefault();
+        _timer = 0;
+        _controledMinion.GetComponent<MinionMana>().spellCasted = 0;
+        neuralError = 0;
     }
 
     private void Update()
     {
-        if (IsAlive && !_controledMinion.IsDoingSomething)
+        _timer += Time.deltaTime;
+        if (IsAlive && !_controledMinion.IsDoingSomething && _timer>=_askTimer)
         {
             CalculateMove();
+            _timer = 0;
+            if(_controledMinion.GetComponent<MinionMana>().spellCasted >= OffensiveGameManager.Instance.maxShoots)
+            {
+                _controledMinion.GetComponent<MinionHealth>().DealDamage(100);
+            }
         }
 
     }
@@ -73,7 +87,7 @@ public class OffensiveAiControler : MonoBehaviour
     private void CalculateMove()
     {
         List<float> inputValue = new List<float>();
-        inputValue.AddRange(GetTableValues());
+        //inputValue.AddRange(GetTableValues());
 
         var cmPos = _controledMinion.transform.position;
         
@@ -98,15 +112,15 @@ public class OffensiveAiControler : MonoBehaviour
             inputValue.Add(float.PositiveInfinity);
             inputValue.Add(float.PositiveInfinity);
         }
-        int pos2 = ((int)_turret.Position[0] - 65) + (int)_turret.Position[1] - 49;
-        int pos = ((int)_controledMinion.Position[0] - 65) + (int)_controledMinion.Position[1] - 49;
+        int pos2 = ((int)_turret.Position[0] - 65) * 7 + ((int)_turret.Position[1] - 49);
+        int pos = ((int)_controledMinion.Position[0] - 65) * 7 + ((int)_controledMinion.Position[1] - 49);
         //inputValue.Add(_turret.Position);
         
         inputValue.Add(pos);
         inputValue.Add(_controledMinion.GetComponent<MinionMana>().Statistics);
 
         inputValue.Add(pos2);
-
+        inputValue.Add(_controledMinion.GetComponent<MinionMana>().lastCastTimer);
         var value = _neuralNetwork.CalculateNeuralNetworkValue(inputValue.ToArray());
 
 
@@ -142,28 +156,20 @@ public class OffensiveAiControler : MonoBehaviour
 
 
 
-        if (value[0] == 1)
+        if (value[0] >= 1)
         {
-            Spell spell = SpellFactory.GetSpell("walk");
-            spell?.Cast(_controledMinion, _tv[(int)value[1]]);
-        }else
-        if(value[0] == 2)
-        {
-            Spell spell = SpellFactory.GetSpell("Teleport");
-            spell?.Cast(_controledMinion, _tv[(int)value[1]]);
+            Spell spell = SpellFactory.GetSpell("fireball");
+            spell?.Cast(_controledMinion, _tv[(int)value[1]]);  
+            if(_controledMinion.GetComponent<MinionMana>().lastCastTimer>=0.1f)
+            {
+                neuralError++;
+            }
         }
-        
-
-        //_controledMinion.GetDistanceToNextObstacle(out inputValue);
-        //var value = _neuralNetwork.CalculateNeuralNetworkValue(inputValue);
-
-        //if (Selection.activeGameObject == _controledMinion.gameObject)
+        //else if(value[0] == 2)
         //{
-        //    Debug.Log(inputValue[0] + ", " + inputValue[1] + " equals = " + value);
+        //    Spell spell = SpellFactory.GetSpell("Teleport");
+        //    spell?.Cast(_controledMinion, _tv[(int)value[1]]);
         //}
-        //value = Mathf.RoundToInt(value);
-        //if (Mathf.RoundToInt(value) >= 1)
-        //   _controledMinion.Jump();
     }
 
     private float[] GetTableValues()

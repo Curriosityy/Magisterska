@@ -542,7 +542,9 @@ MonoBehaviour:
   _text: {fileID: 4329002164965235116, guid: 49e53d5ea787f5645ada250d092d8c7b, type: 3}
   _minionCanvas: {fileID: 7654563141621150251}
   _textColor: {r: 0.2216981, g: 0.2216981, b: 1, a: 1}
-  _manaPerSec: 1
+  _manaPerSec: 20
+  spellCasted: 0
+  lastCastTimer: 0
 --- !u!114 &595373379689026507
 MonoBehaviour:
   m_ObjectHideFlags: 0

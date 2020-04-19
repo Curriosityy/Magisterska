@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+
 public class JumpingTurret : MonoBehaviour
 {
-    [SerializeField] float _timeBetweenCast = 1f;
+    [SerializeField] float _timeBetweenCast = 3f;
     float _timer = 0;
     List<string> _attackSpells;
-
+    private int _pHp;
     [SerializeField] GameObject _minionPrefab;
     Minion _controledMinion;
     Minion _target;
@@ -24,7 +25,7 @@ public class JumpingTurret : MonoBehaviour
         foreach (var spellName in SpellFactory.GetSpellsName())
         {
             spell = SpellFactory.GetSpell(spellName);
-            if (spell.Type == SpellType.Offensive)
+            if (spell.Type == SpellType.Defensive)
             {
                 _attackSpells.Add(spellName);
             }
@@ -40,12 +41,13 @@ public class JumpingTurret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _timer += Time.deltaTime;
-        if (_timeBetweenCast <= _timer && _target.IsAlive)
+       
+        if (_pHp!=_controledMinion.GetComponent<MinionHealth>().Statistics)
         {
-            _timer -= _timeBetweenCast;
-            StartCoroutine(DoSequence());
-            _controledMinion.GetComponent<MinionMana>().Statistics = 100;
+            Teleport();
+            _pHp = _controledMinion.GetComponent<MinionHealth>().Statistics;
+            //StartCoroutine(DoSequence());
+            //_controledMinion.GetComponent<MinionMana>().Statistics = 100;
         }
     }
 
@@ -93,6 +95,7 @@ public class JumpingTurret : MonoBehaviour
         {
             _controledMinion.Restart(2);
         }
+        _pHp = _controledMinion.GetComponent<MinionHealth>().Statistics;
         _timer = 0;
     }
 }
