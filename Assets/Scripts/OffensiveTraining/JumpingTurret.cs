@@ -44,7 +44,7 @@ public class JumpingTurret : MonoBehaviour
        
         if (_pHp!=_controledMinion.GetComponent<MinionHealth>().Statistics)
         {
-            Teleport();
+            //Teleport();
             _pHp = _controledMinion.GetComponent<MinionHealth>().Statistics;
             //StartCoroutine(DoSequence());
             //_controledMinion.GetComponent<MinionMana>().Statistics = 100;

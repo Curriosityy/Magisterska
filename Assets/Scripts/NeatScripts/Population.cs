@@ -23,6 +23,12 @@ public class Population
         _oldGeneration = new List<NeuralNetwork>();
         CreateRandomPopulation();
         AssignGeneration();
+        for(int i = 0; i < 200; i += 1)
+        {
+            OffensiveAiControler.roadplan.Add(NeatValues.rnd.Next(0, 49));
+        }
+        
+       
     }
 
     public void GenerateNextPopulation()

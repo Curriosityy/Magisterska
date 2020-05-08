@@ -8,8 +8,8 @@ public class OffensiveGameManager : MonoBehaviour
 
     [SerializeField] OffensivePopulationGenerator _dpg;
     [SerializeField] float _gameTimer;
-    public int maxSteps=20;
-    public int maxShoots = 15;
+    public int maxSteps=99990;
+    public int maxShoots = 9999;
     float _timer;
 
     public static OffensiveGameManager Instance { get => _instance; }

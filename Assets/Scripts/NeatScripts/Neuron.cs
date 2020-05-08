@@ -14,6 +14,7 @@ public enum NeuronType
 [Serializable]
 public class Neuron
 {
+    [SerializeField]
     float _value=0;
     [SerializeField]
     int _level;

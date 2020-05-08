@@ -8,6 +8,7 @@ public class MinionMana : BarStatistic
     public int spellCasted=0;
     public float lastCastTimer = 0f;
     float _timer=0;
+    
     public void BurnMana(int manaToBurn)
     {
         var oldMana = Statistics;

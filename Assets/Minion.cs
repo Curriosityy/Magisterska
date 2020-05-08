@@ -8,6 +8,7 @@ using System.Collections.Generic;
 public class Minion : MonoBehaviour
 {
     float speed = 5f;
+    private List<int> hitat=new List<int>();
     private IEnumerator coroutine;
     private string position;
     private GameObject minionposition;
@@ -17,7 +18,7 @@ public class Minion : MonoBehaviour
         get { return minionposition; }
     }
     private float _timer;
-    private int spellCasted = 1;
+    private int _spellCasted = 1;
     public int steps = 0;
     public bool IsDoingSomething { get => _isDoingSomething; }
     public float Points {
@@ -33,13 +34,25 @@ public class Minion : MonoBehaviour
     public bool IsAlive { get =>GetComponent<MinionHealth>().Statistics>0; }
     public string Position { get => position; set => position = value; }
     public float Timer { get => _timer; set => _timer = value; }
+    public int SpellCasted { get => _spellCasted; set => _spellCasted = value; }
+    public List<int> Hitat { get => hitat; set => hitat = value; }
 
     //
     public void Start()
     {
         //Restart(1);
     }
-
+    public bool CheckItHitat(int pos2)
+    {
+        foreach(var hit in hitat)
+        {
+            if (hit == pos2)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     void Update()
     {
@@ -55,10 +68,10 @@ public class Minion : MonoBehaviour
                 StopAllCoroutines();
             }*/
         }
-
     }
     public void Restart(int restartPoint)
     {
+        hitat = new List<int>();
         var bd = transform.parent.GetComponent<BoardDictionary>();
         switch (restartPoint)
         {
@@ -75,13 +88,13 @@ public class Minion : MonoBehaviour
         GetComponent<MinionMana>().Restart();
         GetComponent<MinionHealth>().Restart();
         _timer = 0;
-        spellCasted = 1;
+        SpellCasted = 1;
         steps = 0;
         _isDoingSomething = false;
     }
     public void MoveTo(List<GameObject> path)
     {
-        spellCasted++;
+        //SpellCasted++;
         coroutine = Walk(path);
         StartCoroutine(coroutine);
     }

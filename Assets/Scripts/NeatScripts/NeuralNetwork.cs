@@ -127,7 +127,7 @@ public class NeuralNetwork
 
     private void MutateBias(Neuron neuron)
     {
-        neuron.Bias += Random(NeatValues.minBias, NeatValues.maxBias)/3;
+        neuron.Bias += Random(NeatValues.minBias, NeatValues.maxBias)/10;
     }
 
     private void DeleteNeurons()
@@ -217,7 +217,7 @@ public class NeuralNetwork
 
     private void MutateWeight(Edge connection)
     {
-        connection.Weight += (Random(NeatValues.minWeight, NeatValues.maxWeight)/3);
+        connection.Weight += (Random(NeatValues.minWeight, NeatValues.maxWeight)/10);
     }
 
     //private void MakeConnections()
@@ -333,7 +333,6 @@ public class NeuralNetwork
         }
         else if(IsEdgeExistInThisNeuralNetwork(neuronFrom.NeuronID, neuronTo.NeuronID))
         {
-            
             GetConnection(neuronFrom.NeuronID, neuronTo.NeuronID).IsActivated = true;
         }
         else
