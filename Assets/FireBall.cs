@@ -10,14 +10,17 @@ public class FireBall : MonoBehaviour
     private float _timer = 0;
     Vector3 _positionToFly;
     private Vector3 _flyingVector;
+    private Minion _caster;
 
     public Vector3 FlyingVector { get => _flyingVector; }
+    public Minion Caster { get => _caster;}
 
-    public void Initialize(Vector3 position)
+    public void Initialize(Vector3 position,Minion caster)
     {
         _positionToFly = position;
         _flyingVector = (position - transform.position).normalized;
         StartCoroutine("FlyToPosition");
+        _caster = caster;
     }
     private void OnCollisionEnter(Collision collision)
     {

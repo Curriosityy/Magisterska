@@ -21,7 +21,7 @@ class FireBallSpell : Spell
          *          TODOD
          * play come cool particles
          */
-        fireball.GetComponent<FireBall>().Initialize(caster.transform.parent.GetComponent<BoardDictionary>().Board[position].transform.position);
+        fireball.GetComponent<FireBall>().Initialize(caster.transform.parent.GetComponent<BoardDictionary>().Board[position].transform.position,caster);
         caster.GetComponent<MinionMana>().BurnMana(ManaCost);
     }
 }
