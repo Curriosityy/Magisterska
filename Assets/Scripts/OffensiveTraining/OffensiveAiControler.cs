@@ -13,6 +13,7 @@ public class OffensiveAiControler : MonoBehaviour
     [SerializeField] private float _teleTime = 0f;
     [SerializeField] private float _askTeleTimer = 1f;
     private float _timer = 0;
+    private float _timer2 = 2;
     private string[] _tv;
     private BoardDictionary _bd;
     private Minion _controledMinion;
@@ -36,7 +37,7 @@ public class OffensiveAiControler : MonoBehaviour
         get
         {
             if (_controledMinion != null && _controledMinion.SpellCasted > 0)
-                return getPoints();
+                return getPoints()+_controledMinion.GetComponent<MinionHealth>().Statistics;
             /*  return (100-_turret.GetComponent<MinionHealth>().Statistics)
                   +(OffensiveGameManager.Instance.GameTimer-_turret.Timer)
                   +_controledMinion.GetComponent<MinionMana>().spellCasted*10+1
@@ -75,12 +76,10 @@ public class OffensiveAiControler : MonoBehaviour
         if (_controledMinion == null)
         {
             _controledMinion = Instantiate(_minionPrefab, Vector3.zero, Quaternion.identity, _board).GetComponent<Minion>();
-            //_controledMinion.aiControling = this;
             _controledMinion.Restart(1);
         }
         else
         {
-            //_controledMinion.aiControling = this;
             _controledMinion.Restart(1);
             _controledMinion.GetComponentInChildren<Renderer>().material.color = _neuralNetwork.Color;
         }
@@ -96,49 +95,23 @@ public class OffensiveAiControler : MonoBehaviour
     private void FixedUpdate()
     {
         _timer += Time.deltaTime;
-        _teleTime += Time.deltaTime;
-        if (IsAlive && _teleTime >= _askTeleTimer)
-        {
-            //Debug.Log("CASTING");
-
-            move = NeatValues.rnd.Next(0, roadplan.Count - 1);
-            Spell spell = SpellFactory.GetSpell("Teleport");
-            spell?.Cast(_turret, _tv[roadplan[move]]);
-            //_controledMinion.GetComponent<MinionMana>().Statistics = 100;
-            move += 1;
-            _teleTime = 0;
-            //CalculateMove();
-
-            /* if(_controledMinion.GetComponent<MinionMana>().spellCasted >= OffensiveGameManager.Instance.maxShoots)
-             {
-                 _controledMinion.GetComponent<MinionHealth>().DealDamage(100);
-             }*/
-        }
-
-
+        if(_timer2 <= 2)
+            _timer2 += Time.deltaTime;
         if (IsAlive && !_controledMinion.IsDoingSomething && _timer >= _askTimer)
         {
-
-
             CalculateMove();
             _timer = 0;
-            /* if(_controledMinion.GetComponent<MinionMana>().spellCasted >= OffensiveGameManager.Instance.maxShoots)
-             {
-                 _controledMinion.GetComponent<MinionHealth>().DealDamage(100);
-             }*/
         }
+
 
     }
 
     private void CalculateMove()
     {
         List<float> inputValue = new List<float>();
-        //inputValue.AddRange(GetTableValues());
-
         var cmPos = _controledMinion.transform.position;
-
-        var closest = Physics.OverlapBox(cmPos, new Vector3(7, 1, 7), Quaternion.identity).Where(c => c.tag == "Attack" 
-                                        && c.GetComponent<FireBall>().Caster!=_controledMinion)
+        var closest = Physics.OverlapBox(cmPos, new Vector3(7, 1, 7), Quaternion.identity).Where(c => c.tag == "Attack"
+                                        && c.GetComponent<FireBall>().Caster != _controledMinion)
                                         .OrderBy(c => (c.transform.position - cmPos).sqrMagnitude).FirstOrDefault();
         if (closest != null)
         {
@@ -153,7 +126,7 @@ public class OffensiveAiControler : MonoBehaviour
             {
                 //Debug.Log(ivalue);
             }
-            inputValue.Add(ivalue*10);
+            inputValue.Add(ivalue * 10);
         }
         else
         {
@@ -162,23 +135,17 @@ public class OffensiveAiControler : MonoBehaviour
         }
         int pos2 = ((int)_turret.Position[0] - 65) * 7 + ((int)_turret.Position[1] - 49);
         int pos = ((int)_controledMinion.Position[0] - 65) * 7 + ((int)_controledMinion.Position[1] - 49);
-        //inputValue.Add(_turret.Position);
-
         inputValue.Add(pos);
         inputValue.Add(_controledMinion.GetComponent<MinionMana>().Statistics / 100f);
-        //inputValue.Add(_controledMinion.GetComponent<MinionHealth>().Statistics);
-
         inputValue.Add(pos2);
         inputValue.Add(_turret.GetComponent<MinionMana>().Statistics / 100f);
-        //inputValue.Add(_turret.GetComponent<MinionHealth>().Statistics);
 
-        //inputValue.Add(_controledMinion.GetComponent<MinionMana>().lastCastTimer);
+        inputValue.Add(_timer2);
+
         var value = _neuralNetwork.CalculateNeuralNetworkValue(inputValue.ToArray());
-
 
         value[0] = Mathf.RoundToInt(value[0]);
         value[1] = Mathf.RoundToInt(value[1]);
-        //Debug.Log(value[0] + " " + value[1]);
 
         if (value[1] >= _tv.Length)
         {
@@ -209,11 +176,11 @@ public class OffensiveAiControler : MonoBehaviour
 
         if (value[0] > 0)
         {
-            if (value[0] <= 5)
+            if (_controledMinion.GetComponent<MinionMana>().Statistics >= 20)
             {
-                if (_controledMinion.GetComponent<MinionMana>().Statistics == 20)
-                {
 
+                if (value[0] <= 5 && _timer2 >=2)
+                {
                     _controledMinion.SpellCasted += 3;
                     if (pos2 == (int)value[1])
                     {
@@ -222,32 +189,18 @@ public class OffensiveAiControler : MonoBehaviour
                         _turret.GetComponent<MinionHealth>().DealDamage(20);
                         _controledMinion.Hitat.Add(pos2);
                     }
-                    else
-                    {
-                        if ((int)value[1] > 15)
-                        {
-                            //Debug.Log("shooting at AT " + (int)value[1]);
-                        }
-
-                    }
                     _controledMinion.GetComponent<MinionMana>().BurnMana(20);
+                    _timer2 = 0;
                 }
-                //Spell spell = SpellFactory.GetSpell("fireball");
-                //spell?.Cast(_controledMinion, _tv[(int)value[1]]);
-                if (_controledMinion.GetComponent<MinionMana>().lastCastTimer >= 0.1f)
+                else if (value[0] <= 10)
                 {
-                    neuralError++;
+                    if (value[1] != pos)
+                    {
+                        Spell spell = SpellFactory.GetSpell("Teleport");
+                        spell?.Cast(_controledMinion, _tv[(int)value[1]]);
+                        _controledMinion.SpellCasted += 1;
+                    }
                 }
-            }
-            else if (value[0] <= 10)
-            {
-                if (value[1] != pos)
-                {
-                    Spell spell = SpellFactory.GetSpell("Teleport");
-                    spell?.Cast(_controledMinion, _tv[(int)value[1]]);
-                    _controledMinion.SpellCasted += 1;
-                }
-
             }
         }
     }

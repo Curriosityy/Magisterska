@@ -17,7 +17,6 @@ public class MinionMana : BarStatistic
         SpawnText(manaToBurn);
         spellCasted++;
         lastCastTimer = 0;
-        //Debug.Log(string.Format("{0} Burned {1} mana, mana Before {2} mana now {3}", gameObject.name, manaToBurn, oldMana, Statistics));
     }
 
     private void Update()
