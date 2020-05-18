@@ -9,6 +9,7 @@ public class JumpingTurret : MonoBehaviour
     [SerializeField] float _timeBetweenCast = 3f;
     float _timer = 0;
 
+    int _tempHp = 0;
     List<string> _attackSpells;
     [SerializeField] GameObject _minionPrefab;
     Minion _controledMinion;
@@ -43,7 +44,7 @@ public class JumpingTurret : MonoBehaviour
     {
         _timer += Time.deltaTime;
        if(_timer>=3f)
-        {
+       {
             if(UnityEngine.Random.Range(0,1f)<=0.5f)
             {
                 CastOffenciveSpell("fireball");
@@ -53,7 +54,13 @@ public class JumpingTurret : MonoBehaviour
                 Teleport();
             }
             _timer = 0;
+       }
+       if(_tempHp!=_controledMinion.GetComponent<MinionHealth>().Statistics)
+       {
+            Teleport();
+            _tempHp = _controledMinion.GetComponent<MinionHealth>().Statistics;
         }
+        
     }
 
     IEnumerator DoSequence()
@@ -101,5 +108,6 @@ public class JumpingTurret : MonoBehaviour
             _controledMinion.Restart(2);
         }
         _timer = 0;
+        _tempHp = _controledMinion.GetComponent<MinionHealth>().Statistics;
     }
 }

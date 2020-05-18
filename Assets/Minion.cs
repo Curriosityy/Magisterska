@@ -88,7 +88,7 @@ public class Minion : MonoBehaviour
         GetComponent<MinionMana>().Restart();
         GetComponent<MinionHealth>().Restart();
         _timer = 0;
-        SpellCasted = 1;
+        SpellCasted = 0;
         steps = 0;
         _isDoingSomething = false;
     }

@@ -253,9 +253,9 @@ public class NeuralNetwork
     {
         foreach(var connection in _connections)
         {
-            if(Random() <= NeatValues.removeConnProbability)
+            if(Random() <= NeatValues.changeConnStatusProbability)
             {
-                connection.IsActivated = false;
+                connection.IsActivated = !connection.IsActivated;
             }
         }
     }
@@ -337,7 +337,7 @@ public class NeuralNetwork
         }
         else
         {
-            _connections.Add(new Edge(GetEdgeFromStaticList(neuronFrom.NeuronID, neuronTo.NeuronID), Random(NeatValues.minWeight, NeatValues.maxWeight)));
+            _connections.Add(new Edge(GetEdgeFromStaticList(neuronFrom.NeuronID, neuronTo.NeuronID), Random(NeatValues.minWeight, NeatValues.maxWeight),activated:true));
         }
     }
 

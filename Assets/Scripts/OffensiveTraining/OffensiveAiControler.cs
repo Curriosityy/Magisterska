@@ -36,13 +36,17 @@ public class OffensiveAiControler : MonoBehaviour
     {
         get
         {
+            if(_controledMinion.SpellCasted==0)
+            {
+                return 1;
+            }
             if (_controledMinion != null && _controledMinion.SpellCasted > 0)
-                return getPoints()+_controledMinion.GetComponent<MinionHealth>().Statistics;
+                return getPoints() + _controledMinion.GetComponent<MinionHealth>().Statistics;
             /*  return (100-_turret.GetComponent<MinionHealth>().Statistics)
                   +(OffensiveGameManager.Instance.GameTimer-_turret.Timer)
                   +_controledMinion.GetComponent<MinionMana>().spellCasted*10+1
                   + _controledMinion.Timer-neuralError;*/
-            return 0;
+            return 1;
         }
     }
     public float getPoints()
@@ -90,13 +94,14 @@ public class OffensiveAiControler : MonoBehaviour
         _timer = 0;
         _controledMinion.GetComponent<MinionMana>().spellCasted = 0;
         neuralError = 0;
+        _timer2 = 0;
+        _controledMinion.SpellCasted = 0;
     }
 
     private void FixedUpdate()
     {
         _timer += Time.deltaTime;
-        if(_timer2 <= 2)
-            _timer2 += Time.deltaTime;
+        _timer2 += Time.deltaTime;
         if (IsAlive && !_controledMinion.IsDoingSomething && _timer >= _askTimer)
         {
             CalculateMove();
@@ -151,10 +156,6 @@ public class OffensiveAiControler : MonoBehaviour
         {
             value[0] = 0;
         }
-        if (value[1] <= 0)
-        {
-            value[0] = 0;
-        }
         if (value[0] > 10)
         {
             value[0] = 0;
@@ -170,7 +171,7 @@ public class OffensiveAiControler : MonoBehaviour
             {
                 a += inp.ToString() + " ";
             }
-            Debug.Log(a + " equals = " + value[0] + ", " + value[1]);
+            Debug.Log(a + " equals = " + value[0] + ", " + value[1],this);
         }
 
 
@@ -179,13 +180,14 @@ public class OffensiveAiControler : MonoBehaviour
             if (_controledMinion.GetComponent<MinionMana>().Statistics >= 20)
             {
 
-                if (value[0] <= 5 && _timer2 >=2)
+                if (value[0] <= 5)
                 {
                     _controledMinion.SpellCasted += 3;
                     if (pos2 == (int)value[1])
                     {
                         damageDealt += 20;
-                        Debug.Log("HIT AT " + pos2);
+                        Debug.Log("HIT AT " + pos2,this);
+                        Debug.Log("Hitted", this);
                         _turret.GetComponent<MinionHealth>().DealDamage(20);
                         _controledMinion.Hitat.Add(pos2);
                     }
@@ -199,6 +201,7 @@ public class OffensiveAiControler : MonoBehaviour
                         Spell spell = SpellFactory.GetSpell("Teleport");
                         spell?.Cast(_controledMinion, _tv[(int)value[1]]);
                         _controledMinion.SpellCasted += 1;
+                        _timer2 = 0;
                     }
                 }
             }

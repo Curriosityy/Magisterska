@@ -34,7 +34,7 @@ public static class NeatValues {
     public const int activationFunction=1; // 1=ReLu
     //public const float linearActivFunValue = 1f;
     //Speciation
-    public const int maxStagnation=1000;
+    public const int maxStagnation=20;
     public const float survivingRate=0.3f;
     public const float elitismRate = 0.1f;
     public const float asexualReproductionProbability = 0.2f;

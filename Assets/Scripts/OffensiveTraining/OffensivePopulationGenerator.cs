@@ -51,11 +51,15 @@ public class OffensivePopulationGenerator : MonoBehaviour
     public void AssignNeatToAi()
     {
         var neats = Population.Instance.Generation;
-        for (int i = 0; i < NeatValues.populationSize; i++)
+        for (int i = 0; i < neats.Count; i++)
         {
-            _aiList[i].NeuralNetwork = neats[i];
-            _aiList[i].Restart();
-            _jumpingTurret[i].Restart();
+            if(i<_aiList.Count)
+            {
+                _aiList[i].NeuralNetwork = neats[i];
+                _aiList[i].Restart();
+                _jumpingTurret[i].Restart();
+            }
+
         }
     }
 
