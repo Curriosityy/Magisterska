@@ -56,8 +56,8 @@ public class OffensiveAiControler : MonoBehaviour
             return _controledMinion.SpellCasted / 20 + 1;
         }
         return res;
-
     }
+
     public bool IsAlive
     {
         get
@@ -164,12 +164,12 @@ public class OffensiveAiControler : MonoBehaviour
         int pos = ((int)_controledMinion.Position[0] - 65) * 7 + ((int)_controledMinion.Position[1] - 49);
         //inputValue.Add(_turret.Position);
 
-        inputValue.Add(pos);
-        inputValue.Add(_controledMinion.GetComponent<MinionMana>().Statistics / 100f);
+        //inputValue.Add(pos);
+        //inputValue.Add(_controledMinion.GetComponent<MinionMana>().Statistics / 100f);
         //inputValue.Add(_controledMinion.GetComponent<MinionHealth>().Statistics);
 
         inputValue.Add(pos2);
-        inputValue.Add(_turret.GetComponent<MinionMana>().Statistics / 100f);
+        //inputValue.Add(_turret.GetComponent<MinionMana>().Statistics / 100f);
         //inputValue.Add(_turret.GetComponent<MinionHealth>().Statistics);
 
         //inputValue.Add(_controledMinion.GetComponent<MinionMana>().lastCastTimer);
@@ -209,12 +209,15 @@ public class OffensiveAiControler : MonoBehaviour
 
         if (value[0] > 0)
         {
-            if (value[0] <= 5)
+            if (value[0] <= 1)
             {
-                if (_controledMinion.GetComponent<MinionMana>().Statistics == 20)
+                if (_controledMinion.GetComponent<MinionMana>().Statistics == 100)
                 {
-
-                    _controledMinion.SpellCasted += 3;
+                    if ((int)value[1] < 50 && (int)value[1] > 0)
+                    {
+                        _controledMinion.SpellCasted += 3;
+                    }
+                    
                     if (pos2 == (int)value[1])
                     {
                         damageDealt += 20;
@@ -230,7 +233,7 @@ public class OffensiveAiControler : MonoBehaviour
                         }
 
                     }
-                    _controledMinion.GetComponent<MinionMana>().BurnMana(20);
+                    _controledMinion.GetComponent<MinionMana>().BurnMana(40);
                 }
                 //Spell spell = SpellFactory.GetSpell("fireball");
                 //spell?.Cast(_controledMinion, _tv[(int)value[1]]);
@@ -239,7 +242,7 @@ public class OffensiveAiControler : MonoBehaviour
                     neuralError++;
                 }
             }
-            else if (value[0] <= 10)
+            else if (value[0] <= 2)
             {
                 if (value[1] != pos)
                 {

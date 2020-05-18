@@ -251,11 +251,16 @@ public class NeuralNetwork
 
     private void DisableConnections()
     {
-        foreach(var connection in _connections)
+        int rndConn = NeatValues.rnd.Next(_connections.Count);
+        if (Random() < NeatValues.changeConnStatusProbability)
         {
-            if(Random() <= NeatValues.removeConnProbability)
+            if(_connections[rndConn].IsActivated == true)
             {
-                connection.IsActivated = false;
+                _connections[rndConn].IsActivated = false;
+            }
+            else
+            {
+                _connections[rndConn].IsActivated = true;
             }
         }
     }

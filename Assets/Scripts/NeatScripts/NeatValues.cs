@@ -22,7 +22,7 @@ public static class NeatValues {
 
     //public const int inputNeutonSize = 7*7 + 1 + 1 + 3 - 2 + 1;
     //public const int inputNeutonSize = 1 + 1 + 1 + 1 + 1;
-    public const int inputNeuronSize = 1+4+1;
+    public const int inputNeuronSize = 3;
     public const int outputNeuronSize = 2;
     //Population 
     /// <summary>
@@ -34,30 +34,30 @@ public static class NeatValues {
     public const int activationFunction=1; // 1=ReLu
     //public const float linearActivFunValue = 1f;
     //Speciation
-    public const int maxStagnation=1000;
+    public const int maxStagnation=10;
     public const float survivingRate=0.3f;
-    public const float elitismRate = 0.1f;
-    public const float asexualReproductionProbability = 0.2f;
+    public const float elitismRate = 0.3f;
+    public const float asexualReproductionProbability = 0.1f;
     public const int minSpieceSize=2;
     public const float weightCoefficiant=0.01f;
-    public const float disjoinsCoefficiant=50f;
-    public const float excessjoinsCoefficiant= 50f;
+    public const float disjoinsCoefficiant=40f;
+    public const float excessjoinsCoefficiant= 40f;
     public const float simularityTreshhold=7f;
     //Genome
-    public const float addConnProbability=0.4f;
-    public const float removeConnProbability=0.2f;
-    public const float changeConnStatusProbability=0.1f;
+    public const float addConnProbability=0.6f;
+    public const float removeConnProbability=0.5f;
+    public const float changeConnStatusProbability=0f;
     public const float addNodeProbability=0.6f;
     public const float removeNodeProbability=0.4f;
     //Node
-    public const float minBias=-10f;
-    public const float maxBias= 10f;
+    public const float minBias=0f;
+    public const float maxBias=2f;
     public const float biasMutationProbability=0.5f;
     public const float biasRandomMutationProbability=0.1f;
 
     //Connection
-    public const float minWeight=-10f;
-    public const float maxWeight= 10f;
+    public const float minWeight=0f;
+    public const float maxWeight= 2f;
     public const float weightMutationProbability=0.5f;
     public const float weightRandomMutationProbability=0.1f;
 
