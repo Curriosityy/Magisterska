@@ -20,6 +20,9 @@ public class OffensiveAiControler : MonoBehaviour
     public Transform spawnPoint;
     private Transform _board;
     private Minion _turret;
+    public int generalPoins = 1;
+    public int oC = 1;
+    public int dC = 1;
 
     private int move = 0;
     public int damageDealt = 0;
@@ -41,7 +44,7 @@ public class OffensiveAiControler : MonoBehaviour
                 return 1;
             }*/
             if (_controledMinion != null)
-                return damageDealt + _controledMinion.GetComponent<MinionHealth>().Statistics+1+ _controledMinion.SpellCasted;
+                return getPoints();
             /*  return (100-_turret.GetComponent<MinionHealth>().Statistics)
                   +(OffensiveGameManager.Instance.GameTimer-_turret.Timer)
                   +_controledMinion.GetComponent<MinionMana>().spellCasted*10+1
@@ -51,17 +54,20 @@ public class OffensiveAiControler : MonoBehaviour
     }
     public float getPoints()
     {
-        move = 0;
-        _teleTime = 0;
-
-        float res = damageDealt + _controledMinion.SpellCasted / 2 + 1;
-        damageDealt = 0;
-        if (res <= 0)
+        //float pp= damageDealt + generalPoins + _controledMinion.SpellCasted;
+        /*if (pp > NeatValues.BestFitness)
         {
-            return _controledMinion.SpellCasted / 20 + 1;
+            Debug.Log(_controledMinion.Hitat.Count + " " + _controledMinion.GetComponent<MinionHealth>().Statistics);
+            foreach(var hit in _controledMinion.Hitat)
+            {
+                Debug.Log(hit);
+            }
+        }*/
+        if (generalPoins < 1)
+        {
+            generalPoins = 1;
         }
-        return res;
-
+        return damageDealt/oC+ _controledMinion.GetComponent<MinionHealth>().Statistics / dC;
     }
     public bool IsAlive
     {
@@ -96,6 +102,10 @@ public class OffensiveAiControler : MonoBehaviour
         neuralError = 0;
         _timer2 = 0;
         _controledMinion.SpellCasted = 0;
+        damageDealt = 1;
+        generalPoins = 1;
+        dC = 1;
+        oC = 1;
     }
 
     private void FixedUpdate()
@@ -110,6 +120,7 @@ public class OffensiveAiControler : MonoBehaviour
 
 
     }
+    //punkty za unikniecie i fuck mana
 
     private void CalculateMove()
     {
@@ -135,14 +146,14 @@ public class OffensiveAiControler : MonoBehaviour
             {
                 //Debug.Log(ivalue);
             }
-            inputValue.Add(ivalue * 10);
+            inputValue.Add(ivalue*10);
         }
         else
         {
             inputValue.Add(-1);
             inputValue.Add(0);
         }
-        int pos2 = ((int)_turret.Position[0] - 65) * 7 + ((int)_turret.Position[1] - 49);
+        float pos2 = ((int)_turret.Position[0] - 65) * 7 + ((int)_turret.Position[1] - 49);
         int pos = ((int)_controledMinion.Position[0] - 65) * 7 + ((int)_controledMinion.Position[1] - 49);
         //inputValue.Add(pos);
         //inputValue.Add(_controledMinion.GetComponent<MinionMana>().Statistics / 100f);
@@ -153,8 +164,7 @@ public class OffensiveAiControler : MonoBehaviour
 
         var value = _neuralNetwork.CalculateNeuralNetworkValue(inputValue.ToArray());
 
-        value[0] = Mathf.RoundToInt(value[0]);
-        value[1] = Mathf.RoundToInt(value[1]);
+       
         value[2] = Mathf.RoundToInt(value[2]);
         value[3] = Mathf.RoundToInt(value[3]);
 
@@ -173,37 +183,55 @@ public class OffensiveAiControler : MonoBehaviour
 
         if (value[3] > 0 && value[3]<49)
         {
-            if (_controledMinion.SpellCasted < 10)
-            {
-                _controledMinion.SpellCasted += 1;
-            }
+           
             if (_controledMinion.GetComponent<MinionMana>().Statistics == 100)
             {
 
-                if(value[0]> value[1] && value[0] > value[2])
+                if(value[1]> value[0])
                 {
+                    oC += 1;
                     //Debug.Log("shooting at " + value[3]);
-                    if (pos2 == (int)value[3])
+                    if ((int)pos2 == value[2])
                     {
-                        if(damageDealt<100)damageDealt += 10;
+                        _controledMinion.SpellCasted += 1;
+
+                        damageDealt += 10;
+                        
                         Debug.Log("HIT AT " + pos2, this);
                         //Debug.Log("Hitted", this);
                         _turret.GetComponent<MinionHealth>().DealDamage(10);
-                        _controledMinion.Hitat.Add(pos2);
+                        _controledMinion.Hitat.Add((int)pos2);
+                        _controledMinion.GetComponent<MinionMana>().BurnMana(30);
                     }
-                    _controledMinion.GetComponent<MinionMana>().BurnMana(20);
+                    else
+                    {
+                        //generalPoins -= 1;
+                        //generalPoins -= 10;
+                    }
+                   
                 }
-                else if (value[1] > value[0] && value[1] > value[2])
+                else if (value[0] > value[1])
                 {
+                    dC += 1;
+                    if(inputValue[0]>0 && inputValue[1] < -8)
+                    {
+                       // generalPoins += 10;
+                    }
+                    else
+                    {
+                        //generalPoins -= 10;
+                    }
                     Spell spell = SpellFactory.GetSpell("Teleport");
                     spell?.Cast(_controledMinion, _tv[(int)value[3]]);
                     //Debug.Log("teleporting at " + value[3]);
-                    _controledMinion.GetComponent<MinionMana>().BurnMana(20);
+                    _controledMinion.GetComponent<MinionMana>().BurnMana(30);
                 }
                 else
                 {
-                    //Debug.Log("doing nothing ");
+                    _controledMinion.SpellCasted += 1;
+                    //generalPoins -= 1;
                 }
+               
                 /*
                 if (value[0] <= 1)
                 {

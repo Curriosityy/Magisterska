@@ -39,7 +39,7 @@ public static class NeatValues {
     public const float elitismRate = 0.2f;
     public const float asexualReproductionProbability = 0.2f;
     public const int minSpieceSize=2;
-    public const float weightCoefficiant=0.05f;
+    public const float weightCoefficiant=0.03f;
     public const float disjoinsCoefficiant=30f;
     public const float excessjoinsCoefficiant= 30f;
     public const float simularityTreshhold=10f;
@@ -51,13 +51,13 @@ public static class NeatValues {
     public const float removeNodeProbability=0.4f;
     //Node
     public const float minBias=0f;
-    public const float maxBias=3f;
+    public const float maxBias=2f;
     public const float biasMutationProbability=0.5f;
     public const float biasRandomMutationProbability=0.1f;
 
     //Connection
     public const float minWeight=0f;
-    public const float maxWeight= 3f;
+    public const float maxWeight= 2f;
     public const float weightMutationProbability=0.5f;
     public const float weightRandomMutationProbability=0.1f;
 
