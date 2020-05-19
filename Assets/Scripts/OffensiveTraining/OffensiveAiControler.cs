@@ -23,6 +23,7 @@ public class OffensiveAiControler : MonoBehaviour
     public int generalPoins = 1;
     public int oC = 1;
     public int dC = 1;
+    public int rC = 1;
 
     private int move = 0;
     public int damageDealt = 0;
@@ -62,12 +63,13 @@ public class OffensiveAiControler : MonoBehaviour
             {
                 Debug.Log(hit);
             }
-        }*/
+        }
         if (generalPoins < 1)
         {
             generalPoins = 1;
         }
-        return damageDealt/oC+ _controledMinion.GetComponent<MinionHealth>().Statistics / dC;
+        */
+        return ((damageDealt/oC)*10+ (_controledMinion.GetComponent<MinionHealth>().Statistics / dC)*10)/rC + _controledMinion.SpellCasted;
     }
     public bool IsAlive
     {
@@ -106,6 +108,7 @@ public class OffensiveAiControler : MonoBehaviour
         generalPoins = 1;
         dC = 1;
         oC = 1;
+        rC = 1;
     }
 
     private void FixedUpdate()
@@ -181,19 +184,19 @@ public class OffensiveAiControler : MonoBehaviour
         }
 
 
-        if (value[3] > 0 && value[3]<49)
+        if (value[3] > 0 && value[3]<49 && value[2] > 0 && value[2] < 49)
         {
-           
+            
             if (_controledMinion.GetComponent<MinionMana>().Statistics == 100)
             {
-
-                if(value[1]> value[0])
+                _controledMinion.SpellCasted += 1;
+                if (value[1]>= value[0])
                 {
                     oC += 1;
                     //Debug.Log("shooting at " + value[3]);
                     if ((int)pos2 == value[2])
                     {
-                        _controledMinion.SpellCasted += 1;
+                        
 
                         damageDealt += 10;
                         
@@ -275,6 +278,10 @@ public class OffensiveAiControler : MonoBehaviour
                     }
                 }*/
             }
+        }
+        else
+        {
+            rC += 1;
         }
     }
 

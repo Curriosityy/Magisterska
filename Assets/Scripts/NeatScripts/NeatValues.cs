@@ -46,18 +46,18 @@ public static class NeatValues {
     //Genome
     public const float addConnProbability=0.6f;
     public const float removeConnProbability=0.2f;
-    public const float changeConnStatusProbability=0.1f;
-    public const float addNodeProbability=0.6f;
+    public const float changeConnStatusProbability=0.6f;
+    public const float addNodeProbability=0.8f;
     public const float removeNodeProbability=0.4f;
     //Node
-    public const float minBias=0f;
-    public const float maxBias=2f;
+    public const float minBias=0.7f;
+    public const float maxBias=3f;
     public const float biasMutationProbability=0.5f;
     public const float biasRandomMutationProbability=0.1f;
 
     //Connection
-    public const float minWeight=0f;
-    public const float maxWeight= 2f;
+    public const float minWeight= 0.7f;
+    public const float maxWeight= 3f;
     public const float weightMutationProbability=0.5f;
     public const float weightRandomMutationProbability=0.1f;
 
