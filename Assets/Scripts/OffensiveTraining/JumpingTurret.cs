@@ -15,6 +15,7 @@ public class JumpingTurret : MonoBehaviour
     Minion _controledMinion;
     Minion _target;
     private Transform _board;
+    int _ticker = 0;
     public void AssignToBoard(Transform board)
     {
         _board = board;
@@ -43,9 +44,9 @@ public class JumpingTurret : MonoBehaviour
     void Update()
     {
         _timer += Time.deltaTime;
-       if(_timer>=3f)
-       {
-            if(UnityEngine.Random.Range(0,1f)<=0.5f)
+        if (_timer >= 1f)
+        {
+            if (UnityEngine.Random.Range(0, 1f) <= 0.5f)
             {
                 CastOffenciveSpell("fireball");
             }
@@ -54,13 +55,13 @@ public class JumpingTurret : MonoBehaviour
                 Teleport();
             }
             _timer = 0;
-       }
-       if(_tempHp!=_controledMinion.GetComponent<MinionHealth>().Statistics)
-       {
+        }
+        if (_tempHp != _controledMinion.GetComponent<MinionHealth>().Statistics)
+        {
             Teleport();
             _tempHp = _controledMinion.GetComponent<MinionHealth>().Statistics;
         }
-        
+
     }
 
     IEnumerator DoSequence()
@@ -74,15 +75,18 @@ public class JumpingTurret : MonoBehaviour
     {
         var spell = SpellFactory.GetSpell(v);
         string pos = "";
-        if (UnityEngine.Random.Range(0, 1f) >= 0.3f)
+        if (_ticker<3)
         {
             pos = _target.Position;
+            _ticker++;
         }
         else
         {
             pos += (char)(65 + UnityEngine.Random.Range(0, 7));
             pos += (char)(49 + UnityEngine.Random.Range(0, 7));
+            _ticker = 0;
         }
+
         spell.Cast(_controledMinion, pos);
     }
     private void Teleport()
@@ -109,5 +113,6 @@ public class JumpingTurret : MonoBehaviour
         }
         _timer = 0;
         _tempHp = _controledMinion.GetComponent<MinionHealth>().Statistics;
+        _ticker = 0;
     }
 }

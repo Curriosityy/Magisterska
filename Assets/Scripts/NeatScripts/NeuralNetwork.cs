@@ -251,13 +251,22 @@ public class NeuralNetwork
 
     private void DisableConnections()
     {
-        foreach(var connection in _connections)
+        foreach (var connection in _connections)
         {
-            if(Random() <= NeatValues.changeConnStatusProbability)
+            if (Random() <= NeatValues.changeConnStatusProbability)
             {
+                Debug.Log(connection.IsActivated + " to " + !connection.IsActivated);
                 connection.IsActivated = !connection.IsActivated;
+
             }
         }
+        //if (Random() <= NeatValues.changeConnStatusProbability)
+        //{
+        //    var conn = _connections[UnityEngine.Random.Range(0, _connections.Count)];
+        //    Debug.Log(conn.IsActivated + " to " + !conn.IsActivated);
+        //    conn.IsActivated = !conn.IsActivated;
+
+        //}
     }
 
     public NeuralNetwork()

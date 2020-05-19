@@ -150,7 +150,7 @@ public class DefensiveAiControler : MonoBehaviour
         }else
         if(value[0] == 2)
         {
-            _controledMinion.steps += 1;
+            _controledMinion.steps += 3;
             Spell spell = SpellFactory.GetSpell("Teleport");
             spell?.Cast(_controledMinion, _tv[(int)value[1]]);
         }
