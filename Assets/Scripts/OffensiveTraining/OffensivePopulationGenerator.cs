@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OffensivePopulationGenerator : MonoBehaviour
 {
     [SerializeField] GameObject _aiPrefab;
     [SerializeField] BoardDictionary _boardPrefab;
     [SerializeField] GameObject _turretPrefab;
-
+    [SerializeField] Text _current;
     //Obie listy mogą zostać wykożystane do ustawiania bitew między AI
     List<GameObject> _boardList = new List<GameObject>();
     List<OffensiveAiControler> _aiList = new List<OffensiveAiControler>();
@@ -37,6 +38,23 @@ public class OffensivePopulationGenerator : MonoBehaviour
 
         }
         AssignNeatToAi();
+    }
+
+    private void Update()
+    {
+        int max=0;
+        for(int i=0;i<_aiList.Count; i++)
+        {
+            if(_aiList[max].Points<_aiList[i].Points)
+            {
+
+                max = i;
+            }
+        }
+        var t = Camera.main.transform.position;
+        t.y = _aiList[max].ControledMinion.transform.position.y;
+        Camera.main.transform.position = t;
+        _current.text = _aiList[max].Points.ToString();
     }
 
     private void GenerateBoards(GameObject boardHolder)
