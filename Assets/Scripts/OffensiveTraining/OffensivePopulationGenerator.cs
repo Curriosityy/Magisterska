@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OffensivePopulationGenerator : MonoBehaviour
 {
     [SerializeField] GameObject _aiPrefab;
     [SerializeField] BoardDictionary _boardPrefab;
     [SerializeField] GameObject _turretPrefab;
-
+    [SerializeField] Text _current;
     //Obie listy mogą zostać wykożystane do ustawiania bitew między AI
     List<GameObject> _boardList = new List<GameObject>();
     List<OffensiveAiControler> _aiList = new List<OffensiveAiControler>();
     List<JumpingTurret> _jumpingTurret = new List<JumpingTurret>();
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,11 +40,28 @@ public class OffensivePopulationGenerator : MonoBehaviour
         AssignNeatToAi();
     }
 
+    private void Update()
+    {
+        int max = 0;
+        for (int i = 0; i < _aiList.Count; i++)
+        {
+            if (_aiList[max].Points < _aiList[i].Points)
+            {
+
+                max = i;
+            }
+        }
+        var t = Camera.main.transform.position;
+        t.y = _aiList[max].ControledMinion.transform.position.y;
+        Camera.main.transform.position = t;
+        _current.text = _aiList[max].Points.ToString();
+    }
+
     private void GenerateBoards(GameObject boardHolder)
     {
         for (int i = 0; i < NeatValues.populationSize; i++)
         {
-            var board = Instantiate(_boardPrefab, new Vector3(0, i*3, 0), Quaternion.identity, boardHolder.transform);
+            var board = Instantiate(_boardPrefab, new Vector3(0, i * 3, 0), Quaternion.identity, boardHolder.transform);
             _boardList.Add(board.gameObject);
         }
     }
@@ -53,7 +71,7 @@ public class OffensivePopulationGenerator : MonoBehaviour
         var neats = Population.Instance.Generation;
         for (int i = 0; i < neats.Count; i++)
         {
-            if(i<_aiList.Count)
+            if (i < _aiList.Count)
             {
                 _aiList[i].NeuralNetwork = neats[i];
                 _aiList[i].Restart();
@@ -69,7 +87,7 @@ public class OffensivePopulationGenerator : MonoBehaviour
         {
             ai.NeuralNetwork.Fitness = ai.Points;
             //if (ai.IsAlive)
-                //ai.NeuralNetwork.Fitness += 100;
+            //ai.NeuralNetwork.Fitness += 100;
             if (NeatValues.BestFitness < ai.NeuralNetwork.Fitness)
                 NeatValues.BestFitness = ai.NeuralNetwork.Fitness;
         }

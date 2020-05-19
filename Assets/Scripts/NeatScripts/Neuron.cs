@@ -37,11 +37,12 @@ public class Neuron
 
     public void UseActivationFunction()
     {
-        _value = Mathf.Max(0, _value + _bias);
+            _value = Mathf.Max(0, _value + _bias);
+
         //switch (_neuronType)
         //{
         //    case NeuronType.hidden:
-                
+
         //        break;
         //    case NeuronType.output:
         //        _value = (_value + _bias) * NeatValues.linearActivFunValue;

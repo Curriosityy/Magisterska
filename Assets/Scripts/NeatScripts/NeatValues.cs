@@ -51,7 +51,7 @@ public static class NeatValues
     public const float addNodeProbability = 0.6f;
     public const float removeNodeProbability = 0.4f;
     //Node
-    public const float minBias = 0f;
+    public const float minBias = 1f;
     public const float maxBias = 10f;
     public const float biasMutationProbability = 0.5f;
     public const float biasRandomMutationProbability = 0.1f;
