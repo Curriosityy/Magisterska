@@ -108,6 +108,16 @@ public class DefensiveAiControler : MonoBehaviour
         inputValue.Add(pos2);
 
         var value = _neuralNetwork.CalculateNeuralNetworkValue(inputValue.ToArray());
+        var sum = 0f;
+        for(int i=0;i<4;i++)
+        {
+            sum += value[i];
+        }
+        for (int i = 0; i < 4; i++)
+        {
+            value[i] /= sum;
+        }
+
 
 
         value[0] = Mathf.RoundToInt(value[0]);

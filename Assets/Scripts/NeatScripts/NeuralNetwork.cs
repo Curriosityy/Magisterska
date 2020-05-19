@@ -255,7 +255,7 @@ public class NeuralNetwork
         {
             if (Random() <= NeatValues.changeConnStatusProbability)
             {
-                Debug.Log(connection.IsActivated + " to " + !connection.IsActivated);
+                //Debug.Log(connection.IsActivated + " to " + !connection.IsActivated);
                 connection.IsActivated = !connection.IsActivated;
 
             }
