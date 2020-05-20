@@ -61,14 +61,17 @@ public class DefensivePopulationGenerator : MonoBehaviour
 
     public void AssignPointsToNeat()
     {
+        float meanFitness=0;
         foreach (var ai in _aiList)
         {
             ai.NeuralNetwork.Fitness = ai.Points;
             if (ai.IsAlive)
                 ai.NeuralNetwork.Fitness += 100;
-            if (NeatValues.BestFitness < ai.NeuralNetwork.Fitness)
-                NeatValues.BestFitness = ai.NeuralNetwork.Fitness;
+            //if (NeatValues.BestFitness < ai.NeuralNetwork.Fitness)
+            //    NeatValues.BestFitness = ai.NeuralNetwork.Fitness;
+            meanFitness += ai.NeuralNetwork.Fitness;
         }
+        NeatValues.BestFitness = meanFitness/100;
     }
 
     public bool AreAllAiDead()

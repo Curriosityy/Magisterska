@@ -15,7 +15,7 @@ public class MinionMana : BarStatistic
         Statistics -= manaToBurn;
         CalculateBar();
         SpawnText(manaToBurn);
-        spellCasted++;
+        GetComponent<Minion>().SpellCasted++;
         lastCastTimer = 0;
     }
 

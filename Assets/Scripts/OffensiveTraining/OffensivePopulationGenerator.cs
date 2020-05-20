@@ -87,6 +87,7 @@ public class OffensivePopulationGenerator : MonoBehaviour
 
     public void AssignPointsToNeat()
     {
+        float mean=0;
         foreach (var ai in _aiList)
         {
             ai.NeuralNetwork.Fitness = ai.Points;
@@ -94,7 +95,9 @@ public class OffensivePopulationGenerator : MonoBehaviour
             //ai.NeuralNetwork.Fitness += 100;
             if (NeatValues.BestFitness < ai.NeuralNetwork.Fitness)
                 NeatValues.BestFitness = ai.NeuralNetwork.Fitness;
+            mean+= ai.NeuralNetwork.Fitness;
         }
+        NeatValues.BestFitness = mean / 100;
     }
 
     public bool AreAllAiDead()

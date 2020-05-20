@@ -21,7 +21,7 @@ public class OffensiveAiControler : MonoBehaviour
     public Transform spawnPoint;
     private Transform _board;
     private Minion _turret;
-
+    private int _dodged = 0;
     private int move = 0;
     public int damageDealt = 0;
     private int fireballCasted = 0;
@@ -43,7 +43,7 @@ public class OffensiveAiControler : MonoBehaviour
                 return 1;
             }
             if (_controledMinion != null && _controledMinion.SpellCasted > 0)
-                return getPoints() + DefensivePoints();
+                return getPoints() + DefensivePoints()+correct+fireballCasted+_controledMinion.SpellCasted;
             /*  return (100-_turret.GetComponent<MinionHealth>().Statistics)
                   +(OffensiveGameManager.Instance.GameTimer-_turret.Timer)
                   +_controledMinion.GetComponent<MinionMana>().spellCasted*10+1
@@ -121,7 +121,6 @@ public class OffensiveAiControler : MonoBehaviour
             _timer = 0;
         }
 
-
     }
 
     private void CalculateMove()
@@ -143,6 +142,10 @@ public class OffensiveAiControler : MonoBehaviour
                 inputValue.Add(vecmag);
 
             float ivalue = Vector3.Dot(vec, vec2) / (vecmag * vec2.magnitude);
+            if(ivalue==-1)
+            {
+                _dodged++;
+            }
             if (Selection.activeGameObject == _controledMinion.gameObject)
             {
                 //Debug.Log(ivalue);
@@ -154,6 +157,7 @@ public class OffensiveAiControler : MonoBehaviour
             inputValue.Add(-1);
             inputValue.Add(0);
         }
+
         int pos2 = ((int)_turret.Position[0] - 65) * 7 + ((int)_turret.Position[1] - 49);
         int pos = ((int)_controledMinion.Position[0] - 65) * 7 + ((int)_controledMinion.Position[1] - 49);
         inputValue.Add(pos);
@@ -186,7 +190,6 @@ public class OffensiveAiControler : MonoBehaviour
             {
                 if ((int)value[4] != pos)
                 {
-                    _controledMinion.SpellCasted += 1;
                     Spell spell = SpellFactory.GetSpell("fireball");
                     //Debug.Log(_tv[pos2] + " " + _turret.Position);
                     spell?.Cast(_controledMinion, _tv[pos2]);
@@ -208,13 +211,11 @@ public class OffensiveAiControler : MonoBehaviour
                         Debug.Break();
                     }
                     spell?.Cast(_controledMinion, _tv[(int)value[4]]);
-                    _controledMinion.SpellCasted += 1;
                     _timer2 = 0;
                 }
             }
             else if (index == 3 && value[4] != pos2 && value[4] != pos)
             {
-                _controledMinion.SpellCasted += 1;
                 _controledMinion.steps += 1;
                 Spell spell = SpellFactory.GetSpell("walk");
                 if ((int)(int)value[4] < 0 || (int)(int)value[4] >= _tv.Length)

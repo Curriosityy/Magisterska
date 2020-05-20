@@ -18,7 +18,7 @@ public class Minion : MonoBehaviour
         get { return minionposition; }
     }
     private float _timer;
-    private int _spellCasted = 1;
+    private int _spellCasted = 0;
     public int steps = 0;
     public bool IsDoingSomething { get => _isDoingSomething; }
     public float Points {
