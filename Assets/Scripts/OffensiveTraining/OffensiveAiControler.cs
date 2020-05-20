@@ -43,7 +43,7 @@ public class OffensiveAiControler : MonoBehaviour
                 return 1;
             }
             if (_controledMinion != null && _controledMinion.SpellCasted > 0)
-                return getPoints() + DefensivePoints()+correct+fireballCasted+_controledMinion.SpellCasted;
+                return getPoints() + DefensivePoints()+correct+fireballCasted+_controledMinion.SpellCasted*10;
             /*  return (100-_turret.GetComponent<MinionHealth>().Statistics)
                   +(OffensiveGameManager.Instance.GameTimer-_turret.Timer)
                   +_controledMinion.GetComponent<MinionMana>().spellCasted*10+1
@@ -180,6 +180,10 @@ public class OffensiveAiControler : MonoBehaviour
             Debug.Log(a + " equals = " + index + ", wait " + value[0] + ", shoot " + value[1] + ", jump " + value[2] + ", walk " + value[3] + " Output " + (int)value[4], this);
         }
         if (value[4] >= _tv.Length)
+        {
+            index = -1;
+        } 
+        if(float.IsNaN(value[4]))
         {
             index = -1;
         }
