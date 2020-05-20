@@ -186,7 +186,7 @@ public class OffensiveAiControler : MonoBehaviour
                 {
                     _controledMinion.SpellCasted += 1;
                     Spell spell = SpellFactory.GetSpell("fireball");
-                    Debug.Log(_tv[pos2] + " " + _turret.Position);
+                    //Debug.Log(_tv[pos2] + " " + _turret.Position);
                     spell?.Cast(_controledMinion, _tv[pos2]);
                     _timer2 = 0;
                 }
