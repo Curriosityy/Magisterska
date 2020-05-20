@@ -25,17 +25,25 @@ public class FireBall : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //Debug.Log(string.Format("{0} Collided with {1}",gameObject.name,collision.collider.name));
-        Explode();
+        if(collision.transform.tag!="Attack")
+            Explode();
     }
     private void Explode()
     {
         //TODO Cast some nice explosion effect.
         var entityToDamage = Physics.OverlapSphere(transform.position, _expRange)
-            .Where(entity => entity.gameObject.GetComponent<IDamageable>() != null)
-            .Select(entity => entity.gameObject.GetComponent<IDamageable>());
+            .Where(entity => entity.gameObject.GetComponent<IDamageable>() != null);
+            //.Select(entity => entity.gameObject.GetComponent<IDamageable>());
         foreach (var entity in entityToDamage)
         {
-            entity.DealDamage(_damage);
+            if(entity.gameObject.GetComponent<Minion>()!=null)
+            {
+                if(_caster== entity.gameObject.GetComponent<Minion>())
+                {
+                    continue;
+                }
+            }
+            entity.gameObject.GetComponent<IDamageable>().DealDamage(_damage);
         }
         transform.position = new Vector3(0, 100000, 0);
        

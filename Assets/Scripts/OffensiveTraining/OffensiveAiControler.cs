@@ -43,7 +43,7 @@ public class OffensiveAiControler : MonoBehaviour
                 return 1;
             }
             if (_controledMinion != null && _controledMinion.SpellCasted > 0)
-                return getPoints() + DefensivePoints() + correct + fireballCasted;
+                return getPoints() + DefensivePoints();
             /*  return (100-_turret.GetComponent<MinionHealth>().Statistics)
                   +(OffensiveGameManager.Instance.GameTimer-_turret.Timer)
                   +_controledMinion.GetComponent<MinionMana>().spellCasted*10+1
@@ -63,18 +63,11 @@ public class OffensiveAiControler : MonoBehaviour
 
     public float getPoints()
     {
-        move = 0;
-        _teleTime = 0;
-
-        //float res = damageDealt + _controledMinion.SpellCasted / 2 + 1;
-        float res = damageDealt;
-
-        damageDealt = 0;
-        if (res > 100)
+        if(fireballCasted>0)
         {
-            return 100;
+            return 100-_turret.GetComponent<MinionHealth>().Statistics;
         }
-        return res;
+        return 0;
 
     }
     public bool IsAlive

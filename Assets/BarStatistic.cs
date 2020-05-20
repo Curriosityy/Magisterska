@@ -12,7 +12,13 @@ public abstract class BarStatistic : MonoBehaviour
     [SerializeField] private Color _textColor;
     private int _statistics;
 
-    public int Statistics { get => _statistics; set { _statistics = value; if (_statistics > maxStat) _statistics = maxStat; } }
+    public int Statistics { get => _statistics;
+        set {
+            _statistics = value;
+            if (_statistics > maxStat) _statistics = maxStat;
+            if (_statistics < 0) _statistics = 0;
+        }
+    }
 
     // Start is called before the first frame update
     protected void SpawnText(int damage)
