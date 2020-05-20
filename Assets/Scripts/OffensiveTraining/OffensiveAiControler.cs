@@ -82,18 +82,20 @@ public class OffensiveAiControler : MonoBehaviour
     }
 
     public Minion ControledMinion { get => _controledMinion; }
-
-    public void Restart()
+    int restartPoint=0;
+    public void Restart(int v=-1)
     {
+        if(v!=-1)
+            restartPoint = v;
         StopAllCoroutines();
         if (_controledMinion == null)
         {
             _controledMinion = Instantiate(_minionPrefab, Vector3.zero, Quaternion.identity, _board).GetComponent<Minion>();
-            _controledMinion.Restart(1);
+            _controledMinion.Restart(restartPoint);
         }
         else
         {
-            _controledMinion.Restart(1);
+            _controledMinion.Restart(restartPoint);
             _controledMinion.GetComponentInChildren<Renderer>().material.color = _neuralNetwork.Color;
         }
         _bd = _controledMinion.transform.parent.GetComponent<BoardDictionary>();
@@ -113,7 +115,7 @@ public class OffensiveAiControler : MonoBehaviour
     {
         _timer += Time.deltaTime;
         _timer2 += Time.deltaTime;
-        if (IsAlive && !_controledMinion.IsDoingSomething && _timer >= _askTimer)
+        if (IsAlive && !_controledMinion.IsDoingSomething && _timer >= _askTimer && _turret.IsAlive)
         {
             CalculateMove();
             _timer = 0;
@@ -195,7 +197,7 @@ public class OffensiveAiControler : MonoBehaviour
 
 
             }
-            else if (index == 2)
+            else if (index == 2 && value[4] != pos2 && value[4] != pos)
             {
                 _controledMinion.steps += 3;
                 if ((int)value[4] != pos)
@@ -210,7 +212,7 @@ public class OffensiveAiControler : MonoBehaviour
                     _timer2 = 0;
                 }
             }
-            else if (index == 3)
+            else if (index == 3 && value[4] != pos2 && value[4] != pos)
             {
                 _controledMinion.SpellCasted += 1;
                 _controledMinion.steps += 1;

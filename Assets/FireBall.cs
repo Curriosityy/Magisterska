@@ -40,11 +40,20 @@ public class FireBall : MonoBehaviour
             {
                 if(_caster== entity.gameObject.GetComponent<Minion>())
                 {
-                    continue;
+
+                }
+                else
+                {
+                    entity.gameObject.GetComponent<IDamageable>().DealDamage(_damage);
                 }
             }
-            entity.gameObject.GetComponent<IDamageable>().DealDamage(_damage);
+            else
+            {
+                entity.gameObject.GetComponent<IDamageable>().DealDamage(_damage);
+            }
+            
         }
+
         transform.position = new Vector3(0, 100000, 0);
        
         Destroy(gameObject,0.3f);
