@@ -23,8 +23,8 @@ public static class NeatValues
 
     //public const int inputNeutonSize = 7*7 + 1 + 1 + 3 - 2 + 1;
     //public const int inputNeutonSize = 1 + 1 + 1 + 1 + 1;
-    public const int inputNeuronSize = 1 + 4 + 1 + 1-3;
-    public const int outputNeuronSize = 5;
+    public const int inputNeuronSize = 1 + 4 + 1 ;
+    public const int outputNeuronSize = 4+7*7;
     //Population 
     /// <summary>
     /// Population size powinno być parzyste
@@ -43,12 +43,12 @@ public static class NeatValues
     public const float weightCoefficiant = 0.01f;
     public const float disjoinsCoefficiant = 50f;
     public const float excessjoinsCoefficiant = 50f;
-    public const float simularityTreshhold = 7f;
+    public const float simularityTreshhold = 21f;
     //Genome
     public const float addConnProbability = 0.4f;
     public const float removeConnProbability = 0.2f;
     public const float changeConnStatusProbability = 0.1f;
-    public const float addNodeProbability = 0.6f;
+    public const float addNodeProbability = 0.8f;
     public const float removeNodeProbability = 0.4f;
     //Node
     public const float minBias = 1f;

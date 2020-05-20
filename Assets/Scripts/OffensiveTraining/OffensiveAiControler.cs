@@ -162,14 +162,15 @@ public class OffensiveAiControler : MonoBehaviour
         int pos2 = ((int)_turret.Position[0] - 65) * 7 + ((int)_turret.Position[1] - 49);
         int pos = ((int)_controledMinion.Position[0] - 65) * 7 + ((int)_controledMinion.Position[1] - 49);
         inputValue.Add(pos);
-        //inputValue.Add(_controledMinion.GetComponent<MinionMana>().Statistics / 100f);
+        inputValue.Add(_controledMinion.GetComponent<MinionMana>().Statistics / 100f);
         inputValue.Add(pos2);
-        //inputValue.Add(_turret.GetComponent<MinionMana>().Statistics / 100f);
+        inputValue.Add(_turret.GetComponent<MinionMana>().Statistics / 100f);
 
         //inputValue.Add(_timer2);
 
         var value = _neuralNetwork.CalculateNeuralNetworkValue(inputValue.ToArray());
         int index = GetAwekedIndex(value);
+        int index2 = GetAwekedFieldIndex(value);
 
         if (Selection.activeGameObject == _controledMinion.gameObject || Selection.activeGameObject == gameObject)
         {
@@ -178,7 +179,7 @@ public class OffensiveAiControler : MonoBehaviour
             {
                 a += inp.ToString() + " ";
             }
-            Debug.Log(a + " equals = " + index + ", wait "+ value[0] + ", shoot "+ value[1] + ", jump "+ value[2] + ", walk " + value[3]+" Output " + (int)value[4] , this);
+            Debug.Log(a + " equals = " + index + ", wait "+ value[0] + ", shoot "+ value[1] + ", jump "+ value[2] + ", walk " + value[3]+" Output " + value[4] , this);
         }
         if (value[4] >= _tv.Length)
         {
@@ -193,7 +194,7 @@ public class OffensiveAiControler : MonoBehaviour
                 if (index == 1)
                 {
                     _controledMinion.SpellCasted += 1;
-                    if (pos2 == (int)value[4])
+                    if (pos2 == (int)index2)
                     {
                         damageDealt += 20;
                         Debug.Log("HIT AT " + pos2, this);
@@ -210,31 +211,38 @@ public class OffensiveAiControler : MonoBehaviour
                 else if (index == 2)
                 {
                     _controledMinion.steps += 3;
-                    if (value[1] != pos)
+                    if ((int)value[4] != pos)
                     {
                         Spell spell = SpellFactory.GetSpell("Teleport");
-                        if ((int)value[1] < 0 || (int)value[1] >= _tv.Length)
+                        if(index2 < 0 || index2>= _tv.Length)
                         {
-                            Debug.Break();
+                            int a = 3;
                         }
-                        spell?.Cast(_controledMinion, _tv[(int)value[1]]);
+                        spell?.Cast(_controledMinion, _tv[index2]);
                         _controledMinion.SpellCasted += 1;
                         _timer2 = 0;
                     }
                 }
-                else if (index == 3)
-                {
-                    _controledMinion.SpellCasted += 1;
-                    _controledMinion.steps += 1;
-                    Spell spell = SpellFactory.GetSpell("walk");
-                    spell?.Cast(_controledMinion, _tv[(int)value[4]]);
-                }
+                
             }
-            correct++;
+            if (index == 3)
+            {
+                _controledMinion.SpellCasted += 1;
+                _controledMinion.steps += 1;
+                Spell spell = SpellFactory.GetSpell("walk");
+                if (index2 < 0 || index2 >= _tv.Length)
+                {
+                    int a = 3;
+                }
+                spell?.Cast(_controledMinion, _tv[index2]);
+            }
+            if(correct<=10)
+                correct++;
         }
         else
         {
-            correct--;
+            if(correct>=-10)
+                correct--;
         }
     }
 
@@ -260,6 +268,29 @@ public class OffensiveAiControler : MonoBehaviour
         }
         return index;
     }
+
+    private int GetAwekedFieldIndex(float[] value)
+    {
+        var sum = 0f;
+        int index = 4;
+        for (int i = 4; i < 49+4; i++)
+        {
+            sum += value[i];
+        }
+        for (int i = 4; i < 49 + 4; i++)
+        {
+            value[i] /= sum;
+        }
+        for (int i = 4; i < 49 + 4; i++)
+        {
+            if (value[i] >= value[index])
+            {
+                index = i;
+            }
+        }
+        return index-4;
+    }
+
 
 
     private float[] GetTableValues()
