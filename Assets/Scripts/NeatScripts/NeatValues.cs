@@ -23,7 +23,7 @@ public static class NeatValues
 
     //public const int inputNeutonSize = 7*7 + 1 + 1 + 3 - 2 + 1;
     //public const int inputNeutonSize = 1 + 1 + 1 + 1 + 1;
-    public const int inputNeuronSize = 1 + 4 + 1 + 1-3;
+    public const int inputNeuronSize = 1 + 4 + 1 + 1;
     public const int outputNeuronSize = 5;
     //Population 
     /// <summary>

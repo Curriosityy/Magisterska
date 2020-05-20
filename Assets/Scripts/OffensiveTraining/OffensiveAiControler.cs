@@ -43,7 +43,7 @@ public class OffensiveAiControler : MonoBehaviour
                 return 1;
             }
             if (_controledMinion != null && _controledMinion.SpellCasted > 0)
-                return getPoints() + DefensivePoints()+correct+fireballCasted;
+                return getPoints() + DefensivePoints() + correct + fireballCasted;
             /*  return (100-_turret.GetComponent<MinionHealth>().Statistics)
                   +(OffensiveGameManager.Instance.GameTimer-_turret.Timer)
                   +_controledMinion.GetComponent<MinionMana>().spellCasted*10+1
@@ -54,11 +54,11 @@ public class OffensiveAiControler : MonoBehaviour
 
     private int DefensivePoints()
     {
-        if(_controledMinion.steps==0)
+        if (_controledMinion.steps == 0)
         {
             return 0;
         }
-        return  _controledMinion.GetComponent<MinionHealth>().Statistics;
+        return _controledMinion.GetComponent<MinionHealth>().Statistics;
     }
 
     public float getPoints()
@@ -162,11 +162,11 @@ public class OffensiveAiControler : MonoBehaviour
         int pos2 = ((int)_turret.Position[0] - 65) * 7 + ((int)_turret.Position[1] - 49);
         int pos = ((int)_controledMinion.Position[0] - 65) * 7 + ((int)_controledMinion.Position[1] - 49);
         inputValue.Add(pos);
-        //inputValue.Add(_controledMinion.GetComponent<MinionMana>().Statistics / 100f);
+        inputValue.Add(_controledMinion.GetComponent<MinionMana>().Statistics / 100f);
         inputValue.Add(pos2);
-        //inputValue.Add(_turret.GetComponent<MinionMana>().Statistics / 100f);
+        inputValue.Add(_turret.GetComponent<MinionMana>().Statistics / 100f);
 
-        //inputValue.Add(_timer2);
+        inputValue.Add(_timer2);
 
         var value = _neuralNetwork.CalculateNeuralNetworkValue(inputValue.ToArray());
         int index = GetAwekedIndex(value);
@@ -178,72 +178,74 @@ public class OffensiveAiControler : MonoBehaviour
             {
                 a += inp.ToString() + " ";
             }
-            Debug.Log(a + " equals = " + index + ", wait "+ value[0] + ", shoot "+ value[1] + ", jump "+ value[2] + ", walk " + value[3]+" Output " + (int)value[4] , this);
+            Debug.Log(a + " equals = " + index + ", wait " + value[0] + ", shoot " + value[1] + ", jump " + value[2] + ", walk " + value[3] + " Output " + (int)value[4], this);
         }
         if (value[4] >= _tv.Length)
         {
-            index = 0;
+            index = -1;
         }
 
-        if (index > 0)
+        if (index >= 0)
         {
-            if (_controledMinion.GetComponent<MinionMana>().Statistics >= 20)
+            if (index == 1)
             {
-
-                if (index == 1)
+                if ((int)value[4] != pos)
                 {
                     _controledMinion.SpellCasted += 1;
-                    if (pos2 == (int)value[4])
-                    {
-                        damageDealt += 20;
-                        Debug.Log("HIT AT " + pos2, this);
-                        //Debug.Log("Hitted", this);
-                        _turret.GetComponent<MinionHealth>().DealDamage(20);
-                        _controledMinion.Hitat.Add(pos2);
-                    }
-                    _controledMinion.GetComponent<MinionMana>().BurnMana(20);
+                    Spell spell = SpellFactory.GetSpell("fireball");
+                    Debug.Log(_tv[pos2] + " " + _turret.Position);
+                    spell?.Cast(_controledMinion, _tv[pos2]);
                     _timer2 = 0;
-                    //Debug.Log("Shoot AT " + pos2);
-                    //_controledMinion.SpellCasted == 0
+                }
+                if (fireballCasted <= 10)
                     fireballCasted++;
-                }
-                else if (index == 2)
+
+
+            }
+            else if (index == 2)
+            {
+                _controledMinion.steps += 3;
+                if ((int)value[4] != pos)
                 {
-                    _controledMinion.steps += 3;
-                    if (value[1] != pos)
+                    Spell spell = SpellFactory.GetSpell("Teleport");
+                    if ((int)(int)value[4] < 0 || (int)(int)value[4] >= _tv.Length)
                     {
-                        Spell spell = SpellFactory.GetSpell("Teleport");
-                        if ((int)value[1] < 0 || (int)value[1] >= _tv.Length)
-                        {
-                            Debug.Break();
-                        }
-                        spell?.Cast(_controledMinion, _tv[(int)value[1]]);
-                        _controledMinion.SpellCasted += 1;
-                        _timer2 = 0;
+                        Debug.Break();
                     }
-                }
-                else if (index == 3)
-                {
-                    _controledMinion.SpellCasted += 1;
-                    _controledMinion.steps += 1;
-                    Spell spell = SpellFactory.GetSpell("walk");
                     spell?.Cast(_controledMinion, _tv[(int)value[4]]);
+                    _controledMinion.SpellCasted += 1;
+                    _timer2 = 0;
                 }
             }
+            else if (index == 3)
+            {
+                _controledMinion.SpellCasted += 1;
+                _controledMinion.steps += 1;
+                Spell spell = SpellFactory.GetSpell("walk");
+                if ((int)(int)value[4] < 0 || (int)(int)value[4] >= _tv.Length)
+                {
+                    Debug.Break();
+                }
+                spell?.Cast(_controledMinion, _tv[(int)value[4]]);
+            }
+            if(correct<=10)
             correct++;
         }
         else
         {
-            correct--;
+            if (correct >= -10)
+                correct--;
         }
+
+
     }
 
 
     private int GetAwekedIndex(float[] value)
     {
         var sum = 0f;
-        int index=0;
-        for(int i=0;i<4;i++)
+        int index = 0;
+        for (int i = 0; i < 4; i++)
         {
             sum += value[i];
         }
@@ -253,7 +255,7 @@ public class OffensiveAiControler : MonoBehaviour
         }
         for (int i = 0; i < 4; i++)
         {
-            if(value[i]>=value[index])
+            if (value[i] >= value[index])
             {
                 index = i;
             }
