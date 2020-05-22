@@ -31,6 +31,22 @@ public class OffensiveAiControler : MonoBehaviour
 
 
     }
+    public int hasVision()
+    {
+        Vector3 heading = (_turret.transform.position - _controledMinion.transform.position);
+        
+
+        Vector3 direction = heading;
+        direction.y = 0f;
+        RaycastHit hitR;
+        Ray hit = new Ray(_controledMinion.transform.position, _controledMinion.transform.position);
+        if (Physics.Raycast(_controledMinion.transform.position, direction, out hitR))
+        {
+            print("ray just hit the gameobject: " + hitR.collider.gameObject.name);
+        }
+
+        return 0;
+    }
     public NeuralNetwork NeuralNetwork { get => _neuralNetwork; set => _neuralNetwork = value; }
     public float Points
     {
@@ -41,7 +57,7 @@ public class OffensiveAiControler : MonoBehaviour
                 return 1;
             }*/
             if (_controledMinion != null)
-                return damageDealt + _controledMinion.GetComponent<MinionHealth>().Statistics+1+ _controledMinion.SpellCasted;
+                return (damageDealt + _controledMinion.GetComponent<MinionHealth>().Statistics)+1;
             /*  return (100-_turret.GetComponent<MinionHealth>().Statistics)
                   +(OffensiveGameManager.Instance.GameTimer-_turret.Timer)
                   +_controledMinion.GetComponent<MinionMana>().spellCasted*10+1
@@ -96,6 +112,7 @@ public class OffensiveAiControler : MonoBehaviour
         neuralError = 0;
         _timer2 = 0;
         _controledMinion.SpellCasted = 0;
+        damageDealt = 0;
     }
 
     private void FixedUpdate()
@@ -113,6 +130,7 @@ public class OffensiveAiControler : MonoBehaviour
 
     private void CalculateMove()
     {
+        hasVision();
         List<float> inputValue = new List<float>();
         var cmPos = _controledMinion.transform.position;
         var closest = Physics.OverlapBox(cmPos, new Vector3(7, 1, 7), Quaternion.identity).Where(c => c.tag == "Attack"
@@ -135,6 +153,7 @@ public class OffensiveAiControler : MonoBehaviour
             {
                 //Debug.Log(ivalue);
             }
+
             inputValue.Add(ivalue * 10);
         }
         else
@@ -195,6 +214,10 @@ public class OffensiveAiControler : MonoBehaviour
                 }
                 else if (value[1] > value[0] && value[1] > value[2])
                 {
+                    if(inputValue[0]>0 && inputValue[1] < -5)
+                    {
+                       // damageDealt += 10;
+                    }
                     Spell spell = SpellFactory.GetSpell("Teleport");
                     spell?.Cast(_controledMinion, _tv[(int)value[3]]);
                     //Debug.Log("teleporting at " + value[3]);

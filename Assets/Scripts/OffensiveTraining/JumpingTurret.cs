@@ -45,20 +45,25 @@ public class JumpingTurret : MonoBehaviour
     void Update()
     {
         _timer += Time.deltaTime;
-       if(_timer>=1f)
-       {
-            if (shootTarget)
+        if (_controledMinion.GetComponent<MinionHealth>().Statistics > 0)
+        {
+            if (_timer >= 1f)
             {
-                CastOffenciveSpell("fireball");
-                shootTarget = false;
+                if (shootTarget)
+                {
+                    CastOffenciveSpell("fireball");
+                    shootTarget = false;
+                }
+                else
+                {
+                    Teleport();
+                    shootTarget = true;
+                }
+                _timer = 0;
             }
-            else
-            {
-                Teleport();
-                shootTarget = true;
-            }
-            _timer = 0;
-       }
+        }
+        
+       
       /* if(_tempHp!=_controledMinion.GetComponent<MinionHealth>().Statistics)
        {
             Teleport();

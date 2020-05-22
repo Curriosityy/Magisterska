@@ -24,6 +24,7 @@ public static class NeatValues {
     //public const int inputNeutonSize = 1 + 1 + 1 + 1 + 1;
     public const int inputNeuronSize = 1+1+1;
     public const int outputNeuronSize = 4;
+    public const int obstaclesAmout = 4;
     //Population 
     /// <summary>
     /// Population size powinno być parzyste
@@ -50,7 +51,7 @@ public static class NeatValues {
     public const float addNodeProbability=0.6f;
     public const float removeNodeProbability=0.4f;
     //Node
-    public const float minBias=0f;
+    public const float minBias=-3f;
     public const float maxBias=3f;
     public const float biasMutationProbability=0.5f;
     public const float biasRandomMutationProbability=0.1f;

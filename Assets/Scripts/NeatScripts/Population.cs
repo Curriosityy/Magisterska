@@ -15,9 +15,11 @@ public class Population
 
     public List<NeuralNetwork> Generation { get => _generation; }
     public List<Species> Species { get => _species; }
+    ObstaclesManager obstacleManager;
     private static Population _instance;
     private Population()
     {
+        obstacleManager= GameObject.Find("ObstaclesManager").GetComponent<ObstaclesManager>();
         _species = new List<Species>();
         _generation = new List<NeuralNetwork>();
         _oldGeneration = new List<NeuralNetwork>();
@@ -30,11 +32,16 @@ public class Population
         
        
     }
+    public void RestartObstacles()
+    {
+
+    }
 
     public void GenerateNextPopulation()
     {
-        
+
         //Debug.Log("GeneratingNewPopulation");
+        
         NeatValues.IncreaseGeneration();
         CalculateAdjustedFitness();
         KillWorstIndividualsInAllSpecies();
@@ -42,6 +49,8 @@ public class Population
         GenerateNewPopulation();
         AssignGeneration();
         DeleteOldGenrationFromSpecies();
+        obstacleManager.deleteObstacles();
+        obstacleManager.spawnObstacles();
     }
 
     private void ConnectSpieciesWithOneIndividual()

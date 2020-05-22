@@ -40,6 +40,7 @@ public class PointInfo : MonoBehaviour
         if (other.transform.tag == "Attack")
         {
             _aiInfo +=3;
+            _walkable = true;
         }
     }
     private void OnTriggerExit(Collider other)

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BoardDictionary : MonoBehaviour
 {
+    [SerializeField] private ObstaclesManager obs;
     private Dictionary<string, GameObject> _board;
     [SerializeField] private Transform _pointsHolder;
     [SerializeField] private int _sizex = 7, _sizey = 7;
@@ -55,6 +56,9 @@ public class BoardDictionary : MonoBehaviour
                 
             }
         }
-        
+        obs= GameObject.Find("ObstaclesManager").GetComponent<ObstaclesManager>();
+        obs.addDictionary(this);
+
     }
+    
 }
