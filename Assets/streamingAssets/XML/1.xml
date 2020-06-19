@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<SaveData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <allGens>
+    <float>3</float>
+  </allGens>
+  <GenerationNumber>1</GenerationNumber>
+  <TotalFitness>150</TotalFitness>
+  <AverageFitness>3</AverageFitness>
+  <AverageAdjFitness>0.0599999875</AverageAdjFitness>
+  <PopulationSize>50</PopulationSize>
+  <SpeciesCount>1</SpeciesCount>
+  <dc>30</dc>
+  <ec>30</ec>
+  <wc>0.05</wc>
+  <SurvivingRate>0.3</SurvivingRate>
+  <simularityTreshhold>10</simularityTreshhold>
+  <addConnProbability>0.6</addConnProbability>
+  <removeConnProbability>0.1</removeConnProbability>
+  <addNodeProbability>0.6</addNodeProbability>
+  <removeNodeProbability>0.4</removeNodeProbability>
+  <minWeight>0</minWeight>
+  <minBias>-3</minBias>
+  <weightMutationProbability>0.5</weightMutationProbability>
+</SaveData>

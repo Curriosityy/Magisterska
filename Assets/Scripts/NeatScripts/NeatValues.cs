@@ -31,16 +31,15 @@ public static class NeatValues
     /// <summary>
     /// Population size powinno być parzyste
     /// </summary>
-    public const int populationSize = 50;
-    public const int generationTreshhold = 9999;
-    public const int fitnessTreshold = 9999;
-    public const int activationFunction = 1; // 1=ReLu
-    //public const float linearActivFunValue = 1f;
-    //Speciation
 
-    public const int maxStagnation = 20;
-    public const float survivingRate = 0.3f;
-    public const float elitismRate = 0.1f;
+    public const int populationSize=50;
+    public const int generationTreshhold=9999;
+    public const int fitnessTreshold=9999;
+    public const int activationFunction=1; // 1=ReLu
+    public const int maxStagnation=20;
+    public const float survivingRate=0.3f;
+    public const float elitismRate = 0.2f;
+
     public const float asexualReproductionProbability = 0.2f;
     public const int minSpieceSize = 2;
     public const float weightCoefficiant = 0.01f;
@@ -54,10 +53,11 @@ public static class NeatValues
     public const float addNodeProbability = 0.6f;
     public const float removeNodeProbability = 0.4f;
     //Node
-    public const float minBias = 1f;
-    public const float maxBias = 10f;
-    public const float biasMutationProbability = 0.5f;
-    public const float biasRandomMutationProbability = 0.1f;
+
+    public const float minBias=-3f;
+    public const float maxBias=3f;
+    public const float biasMutationProbability=0.5f;
+    public const float biasRandomMutationProbability=0.1f;
 
     //Connection
     public const float minWeight = -10f;

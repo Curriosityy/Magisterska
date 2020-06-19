@@ -61,11 +61,7 @@ public class Species
              parent1=parent2;
              parent2=temp;
          }
-
-         
         var child = new NeuralNetwork(parent1);
-       
-        
         for (int i = 0; i < child.Connection.Count; i += 1)
         {
             if (parent2.DoesInnovNumberExist(child.Connection[i].Id))
