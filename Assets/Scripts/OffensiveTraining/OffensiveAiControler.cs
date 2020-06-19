@@ -131,13 +131,11 @@ public class OffensiveAiControler : MonoBehaviour
             CalculateMove();
             _timer = 0;
         }
-
-
     }
 
     private void CalculateMove()
     {
-        hasVision();
+        //hasVision();
         List<float> inputValue = new List<float>();
         var cmPos = _controledMinion.transform.position;
         var closest = Physics.OverlapBox(cmPos, new Vector3(7, 1, 7), Quaternion.identity).Where(c => c.tag == "Attack"
@@ -173,10 +171,10 @@ public class OffensiveAiControler : MonoBehaviour
         }
         int pos2 = ((int)_turret.Position[0] - 65) * 7 + ((int)_turret.Position[1] - 49);
         int pos = ((int)_controledMinion.Position[0] - 65) * 7 + ((int)_controledMinion.Position[1] - 49);
-        //inputValue.Add(pos);
-        //inputValue.Add(_controledMinion.GetComponent<MinionMana>().Statistics / 100f);
+        inputValue.Add(pos);
+        inputValue.Add(_controledMinion.GetComponent<MinionMana>().Statistics / 100f);
         inputValue.Add(pos2);
-        //inputValue.Add(_turret.GetComponent<MinionMana>().Statistics / 100f);
+        inputValue.Add(_turret.GetComponent<MinionMana>().Statistics / 100f);
 
         //inputValue.Add(_timer2);
 
@@ -206,7 +204,7 @@ public class OffensiveAiControler : MonoBehaviour
                 {
                     _controledMinion.SpellCasted += 1;
                     Spell spell = SpellFactory.GetSpell("fireball");
-                    Debug.Log(_tv[pos2] + " " + _turret.Position);
+                    //Debug.Log(_tv[pos2] + " " + _turret.Position);
                     spell?.Cast(_controledMinion, _tv[pos2]);
                     _timer2 = 0;
                 }

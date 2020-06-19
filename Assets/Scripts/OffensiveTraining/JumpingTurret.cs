@@ -8,9 +8,9 @@ public class JumpingTurret : MonoBehaviour
 {
     [SerializeField] float _timeBetweenCast = 3f;
     float _timer = 0;
-    private bool shootTarget=true;
+    private bool shootTarget = true;
     private bool shootTarget2 = true;
-    int _a=0;
+    int _a = 0;
     int _tempHp = 0;
     List<string> _attackSpells;
     [SerializeField] GameObject _minionPrefab;
@@ -48,34 +48,35 @@ public class JumpingTurret : MonoBehaviour
         _timer += Time.deltaTime;
         if (_controledMinion.GetComponent<MinionHealth>().Statistics > 0)
         {
-        if (_timer >= 1f)
-        {
-            if (_a%2==0)
+            if (_timer >= 1f)
             {
-                CastOffenciveSpell("fireball");
-            }
-            else
-            {
-                if (shootTarget)
+                if (_a % 2 == 0)
                 {
                     CastOffenciveSpell("fireball");
-                    shootTarget = false;
                 }
                 else
                 {
-                    Teleport();
-                    shootTarget = true;
+                    if (shootTarget)
+                    {
+                        CastOffenciveSpell("fireball");
+                        shootTarget = false;
+                    }
+                    else
+                    {
+                        Teleport();
+                        shootTarget = true;
+                    }
+                    _timer = 0;
                 }
                 _timer = 0;
+                _a++;
+                _a %= 2;
             }
-            _timer = 0;
-            _a++;
-            _a %= 2;
-        }
-        if (_tempHp != _controledMinion.GetComponent<MinionHealth>().Statistics)
-        {
-            Teleport();
-            _tempHp = _controledMinion.GetComponent<MinionHealth>().Statistics;
+            if (_tempHp != _controledMinion.GetComponent<MinionHealth>().Statistics)
+            {
+                Teleport();
+                _tempHp = _controledMinion.GetComponent<MinionHealth>().Statistics;
+            }
         }
     }
 
@@ -92,21 +93,20 @@ public class JumpingTurret : MonoBehaviour
         string pos = "";
         if (shootTarget2)
         {
-        pos = _target.Position;
-        if (_ticker<3)
-        {
-            pos = _target.Position;
-            _ticker++;
+            if (_ticker < 3)
+            {
+                pos = _target.Position;
+                _ticker++;
+            }
+            else
+            {
+                pos += (char)(65 + UnityEngine.Random.Range(0, 7));
+                pos += (char)(49 + UnityEngine.Random.Range(0, 7));
+                shootTarget2 = true;
+                _ticker = 0;
+            }
+            spell.Cast(_controledMinion, pos);
         }
-        else
-        {
-            pos += (char)(65 + UnityEngine.Random.Range(0, 7));
-            pos += (char)(49 + UnityEngine.Random.Range(0, 7));
-            shootTarget2 = true;
-            _ticker = 0;
-        }
-
-        spell.Cast(_controledMinion, pos);
     }
     private void Teleport()
     {
@@ -135,3 +135,4 @@ public class JumpingTurret : MonoBehaviour
         _ticker = 0;
     }
 }
+

@@ -49,7 +49,6 @@ public class OffensivePopulationGenerator : MonoBehaviour
         {
             if (_aiList[max].Points < _aiList[i].Points)
             {
-
                 max = i;
             }
         }
@@ -62,12 +61,11 @@ public class OffensivePopulationGenerator : MonoBehaviour
     private void GenerateBoards(GameObject boardHolder)
     {
         for (int i = 0; i < NeatValues.populationSize; i++)
-        
+        {
+
             var board = Instantiate(_boardPrefab, new Vector3(0, i * 3, 0), Quaternion.identity, boardHolder.transform);
             _boardList.Add(board.gameObject);
         }
-        GameObject.Find("ObstaclesManager").GetComponent<ObstaclesManager>().spawnObstacles();
-
     }
 
     public void AssignNeatToAi()

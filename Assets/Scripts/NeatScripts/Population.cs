@@ -15,11 +15,10 @@ public class Population
 
     public List<NeuralNetwork> Generation { get => _generation; }
     public List<Species> Species { get => _species; }
-    ObstaclesManager obstacleManager;
     private static Population _instance;
     private Population()
     {
-        obstacleManager= GameObject.Find("ObstaclesManager").GetComponent<ObstaclesManager>();
+       
         _species = new List<Species>();
         _generation = new List<NeuralNetwork>();
         _oldGeneration = new List<NeuralNetwork>();
@@ -49,8 +48,6 @@ public class Population
         GenerateNewPopulation();
         AssignGeneration();
         DeleteOldGenrationFromSpecies();
-        obstacleManager.deleteObstacles();
-        obstacleManager.spawnObstacles();
     }
 
     private void ConnectSpieciesWithOneIndividual()
@@ -154,28 +151,6 @@ public class Population
         }
         return sum;
     }
-
-
-    //public void run()
-    //{
-
-        //1.speciate generation
-        //2.remove old generation
-        //3.add networks to controllers
-        //loop
-        //{
-            //evaluate - puszczenie w grze i zbieranie punkciorów
-            //calculate genomes fitness and adjusted fitness - tu metoda CalculateAdjustedFitness()
-            //culling weak networks from species - KillWorstIndividuals()
-            //check stagnation and delete weak species (if memebers < 2 or stagnation > 15)
-            //Calculate species adjusted fitness
-            //crossover -> mutation -> add offsping to population
-            //speciate generation
-            //remove old generation
-            //add networks to controllers
-        //}
-
-    //}
 
     private void KillWorstIndividualsInAllSpecies()
     {

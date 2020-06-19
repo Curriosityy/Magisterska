@@ -25,7 +25,7 @@ public static class NeatValues
     //public const int inputNeutonSize = 1 + 1 + 1 + 1 + 1;
 
     public const int obstaclesAmout = 4;
-    public const int inputNeuronSize = 1 + 4 + 1 + 1;
+    public const int inputNeuronSize = 6;
     public const int outputNeuronSize = 5;
     //Population 
     /// <summary>
