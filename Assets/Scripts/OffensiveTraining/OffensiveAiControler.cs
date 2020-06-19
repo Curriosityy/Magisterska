@@ -219,7 +219,7 @@ public class OffensiveAiControler : MonoBehaviour
                     Spell spell = SpellFactory.GetSpell("Teleport");
                     if ((int)(int)value[4] < 0 || (int)(int)value[4] >= _tv.Length)
                     {
-                        Debug.Break();
+                        value[4] = 0;
                     }
                     spell?.Cast(_controledMinion, _tv[(int)value[4]]);
                     _controledMinion.SpellCasted += 1;
@@ -234,6 +234,7 @@ public class OffensiveAiControler : MonoBehaviour
                 if ((int)(int)value[4] < 0 || (int)(int)value[4] >= _tv.Length)
                 {
                     Debug.Break();
+                    value[4] = 0;
                 }
                 spell?.Cast(_controledMinion, _tv[(int)value[4]]);
             }
