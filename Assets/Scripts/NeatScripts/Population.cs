@@ -12,14 +12,14 @@ public class Population
     private List<Species> _species;
     private List<NeuralNetwork> _generation;
     private List<NeuralNetwork> _oldGeneration;
-
+    private SaveData populationSave = new SaveData();
     public List<NeuralNetwork> Generation { get => _generation; }
     public List<Species> Species { get => _species; }
     ObstaclesManager obstacleManager;
     private static Population _instance;
     private Population()
     {
-        obstacleManager= GameObject.Find("ObstaclesManager").GetComponent<ObstaclesManager>();
+        //obstacleManager= GameObject.Find("ObstaclesManager").GetComponent<ObstaclesManager>();
         _species = new List<Species>();
         _generation = new List<NeuralNetwork>();
         _oldGeneration = new List<NeuralNetwork>();
@@ -44,13 +44,14 @@ public class Population
         
         NeatValues.IncreaseGeneration();
         CalculateAdjustedFitness();
+        getDatatoXML();
         KillWorstIndividualsInAllSpecies();
         DeleteWorstSpecies();
         GenerateNewPopulation();
         AssignGeneration();
         DeleteOldGenrationFromSpecies();
-        obstacleManager.deleteObstacles();
-        obstacleManager.spawnObstacles();
+       // obstacleManager.deleteObstacles();
+       // obstacleManager.spawnObstacles();
     }
 
     private void ConnectSpieciesWithOneIndividual()
@@ -232,7 +233,23 @@ public class Population
             Generation[i].AdjustedFitness = Generation[i].Fitness / sh;
         }
     }
-
+    public void getDatatoXML()
+    {
+        populationSave.AverageAdjFitness = SumAdjFittnes() / NeatValues.populationSize;
+        populationSave.AverageFitness = getSumFitness() / NeatValues.populationSize;
+        populationSave.TotalFitness = getSumFitness();
+        populationSave.SpeciesCount = Species.Count;
+        populationSave.getData();
+    }
+    public float getSumFitness()
+    {
+        float fitnessSum=0;
+        foreach(var ind in _generation)
+        {
+            fitnessSum += ind.Fitness;
+        }
+        return fitnessSum;
+    }
     private bool AssignToSpecie(NeuralNetwork candidate)
     {
         foreach (var specie in Species)

@@ -130,7 +130,7 @@ public class OffensiveAiControler : MonoBehaviour
 
     private void CalculateMove()
     {
-        hasVision();
+        //hasVision();
         List<float> inputValue = new List<float>();
         var cmPos = _controledMinion.transform.position;
         var closest = Physics.OverlapBox(cmPos, new Vector3(7, 1, 7), Quaternion.identity).Where(c => c.tag == "Attack"

@@ -57,7 +57,7 @@ public class ObstaclesManager : MonoBehaviour
 
                     gobs.transform.position = board.Board[_tv[rnd]].transform.position+new Vector3(0,1f,0);
                     spawned += 1;
-                    obstacles.Add(gobs);
+                    //obstacles.Add(gobs);
 
                 }
             }

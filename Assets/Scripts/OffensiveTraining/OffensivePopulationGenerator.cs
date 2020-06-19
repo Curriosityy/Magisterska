@@ -49,7 +49,7 @@ public class OffensivePopulationGenerator : MonoBehaviour
             BoardList.Add(board.gameObject);
 
         }
-        GameObject.Find("ObstaclesManager").GetComponent<ObstaclesManager>().spawnObstacles();
+        //GameObject.Find("ObstaclesManager").GetComponent<ObstaclesManager>().spawnObstacles();
 
     }
 

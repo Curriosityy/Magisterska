@@ -33,8 +33,6 @@ public static class NeatValues {
     public const int generationTreshhold=9999;
     public const int fitnessTreshold=9999;
     public const int activationFunction=1; // 1=ReLu
-    //public const float linearActivFunValue = 1f;
-    //Speciation
     public const int maxStagnation=20;
     public const float survivingRate=0.3f;
     public const float elitismRate = 0.2f;
@@ -55,7 +53,6 @@ public static class NeatValues {
     public const float maxBias=3f;
     public const float biasMutationProbability=0.5f;
     public const float biasRandomMutationProbability=0.1f;
-
     //Connection
     public const float minWeight=0f;
     public const float maxWeight= 3f;

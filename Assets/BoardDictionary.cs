@@ -56,8 +56,8 @@ public class BoardDictionary : MonoBehaviour
                 
             }
         }
-        obs= GameObject.Find("ObstaclesManager").GetComponent<ObstaclesManager>();
-        obs.addDictionary(this);
+        //obs= GameObject.Find("ObstaclesManager").GetComponent<ObstaclesManager>();
+        //obs.addDictionary(this);
 
     }
     
