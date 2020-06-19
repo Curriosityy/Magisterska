@@ -15,11 +15,8 @@ public class OffensivePopulationGenerator : MonoBehaviour
     List<OffensiveAiControler> _aiList = new List<OffensiveAiControler>();
     List<JumpingTurret> _jumpingTurret = new List<JumpingTurret>();
 
-<<<<<<< HEAD
-    public List<GameObject> BoardList { get => _boardList; set => _boardList = value; }
 
-=======
->>>>>>> hereBestOption
+    public List<GameObject> BoardList { get => _boardList; set => _boardList = value; }
     // Start is called before the first frame update
     void Start()
     {
@@ -65,15 +62,9 @@ public class OffensivePopulationGenerator : MonoBehaviour
     private void GenerateBoards(GameObject boardHolder)
     {
         for (int i = 0; i < NeatValues.populationSize; i++)
-        {
-<<<<<<< HEAD
-            var board = Instantiate(_boardPrefab, new Vector3(0, i*3, 0), Quaternion.identity, boardHolder.transform);
-            BoardList.Add(board.gameObject);
-
-=======
+        
             var board = Instantiate(_boardPrefab, new Vector3(0, i * 3, 0), Quaternion.identity, boardHolder.transform);
             _boardList.Add(board.gameObject);
->>>>>>> hereBestOption
         }
         GameObject.Find("ObstaclesManager").GetComponent<ObstaclesManager>().spawnObstacles();
 

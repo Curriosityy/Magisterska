@@ -8,13 +8,9 @@ public class JumpingTurret : MonoBehaviour
 {
     [SerializeField] float _timeBetweenCast = 3f;
     float _timer = 0;
-<<<<<<< HEAD
     private bool shootTarget=true;
     private bool shootTarget2 = true;
-
-=======
     int _a=0;
->>>>>>> hereBestOption
     int _tempHp = 0;
     List<string> _attackSpells;
     [SerializeField] GameObject _minionPrefab;
@@ -50,11 +46,8 @@ public class JumpingTurret : MonoBehaviour
     void Update()
     {
         _timer += Time.deltaTime;
-<<<<<<< HEAD
         if (_controledMinion.GetComponent<MinionHealth>().Statistics > 0)
         {
-            if (_timer >= 1f)
-=======
         if (_timer >= 1f)
         {
             if (_a%2==0)
@@ -62,7 +55,6 @@ public class JumpingTurret : MonoBehaviour
                 CastOffenciveSpell("fireball");
             }
             else
->>>>>>> hereBestOption
             {
                 if (shootTarget)
                 {
@@ -76,17 +68,6 @@ public class JumpingTurret : MonoBehaviour
                 }
                 _timer = 0;
             }
-<<<<<<< HEAD
-        }
-        
-       
-      /* if(_tempHp!=_controledMinion.GetComponent<MinionHealth>().Statistics)
-       {
-            Teleport();
-            _tempHp = _controledMinion.GetComponent<MinionHealth>().Statistics;
-        }*/
-        
-=======
             _timer = 0;
             _a++;
             _a %= 2;
@@ -96,8 +77,6 @@ public class JumpingTurret : MonoBehaviour
             Teleport();
             _tempHp = _controledMinion.GetComponent<MinionHealth>().Statistics;
         }
-
->>>>>>> hereBestOption
     }
 
     IEnumerator DoSequence()
@@ -111,29 +90,20 @@ public class JumpingTurret : MonoBehaviour
     {
         var spell = SpellFactory.GetSpell(v);
         string pos = "";
-<<<<<<< HEAD
         if (shootTarget2)
         {
-            pos = _target.Position;
-            shootTarget2 = false;
-=======
+        pos = _target.Position;
         if (_ticker<3)
         {
             pos = _target.Position;
             _ticker++;
->>>>>>> hereBestOption
         }
         else
         {
             pos += (char)(65 + UnityEngine.Random.Range(0, 7));
             pos += (char)(49 + UnityEngine.Random.Range(0, 7));
-<<<<<<< HEAD
             shootTarget2 = true;
-
-
-=======
             _ticker = 0;
->>>>>>> hereBestOption
         }
 
         spell.Cast(_controledMinion, pos);
