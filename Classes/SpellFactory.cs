@@ -39,4 +39,5 @@ public static class SpellFactory
         InitializeFactory();
         return _spellsByName.Keys;
     }
+   
 }

@@ -2,24 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class OffensivePopulationGenerator : MonoBehaviour
+public class DefensivePopulationGenerator : MonoBehaviour
 {
     [SerializeField] GameObject _aiPrefab;
     [SerializeField] BoardDictionary _boardPrefab;
     [SerializeField] GameObject _turretPrefab;
-    [SerializeField] Text _current;
+
     //Obie listy mogą zostać wykożystane do ustawiania bitew między AI
     List<GameObject> _boardList = new List<GameObject>();
-    List<OffensiveAiControler> _aiList = new List<OffensiveAiControler>();
-    List<JumpingTurret> _jumpingTurret = new List<JumpingTurret>();
-
-<<<<<<< HEAD
-    public List<GameObject> BoardList { get => _boardList; set => _boardList = value; }
-
-=======
->>>>>>> hereBestOption
+    List<DefensiveAiControler> _aiList = new List<DefensiveAiControler>();
+    List<SpellCasterTurret> _spellCasterTurrets = new List<SpellCasterTurret>();
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -32,65 +26,36 @@ public class OffensivePopulationGenerator : MonoBehaviour
         for (int i = 0; i < NeatValues.populationSize; i++)
         {
             var ai = Instantiate(_aiPrefab, aiHolder.transform);
-            _aiList.Add(ai.GetComponent<OffensiveAiControler>());
-            _aiList[i].AssignToBoard(BoardList[i].transform);
+            _aiList.Add(ai.GetComponent<DefensiveAiControler>());
+            _aiList[i].AssignToBoard(_boardList[i].transform);
             _aiList[i].Restart();
 
             ai = Instantiate(_turretPrefab, turretHolder.transform);
-            _jumpingTurret.Add(ai.GetComponent<JumpingTurret>());
-            _jumpingTurret[i].AssignToBoard(BoardList[i].transform);
-            _jumpingTurret[i].Restart();
+            _spellCasterTurrets.Add(ai.GetComponent<SpellCasterTurret>());
+            _spellCasterTurrets[i].AssignToBoard(_boardList[i].transform);
+            _spellCasterTurrets[i].Restart();
 
         }
         AssignNeatToAi();
-    }
-
-    private void Update()
-    {
-        int max = 0;
-        for (int i = 0; i < _aiList.Count; i++)
-        {
-            if (_aiList[max].Points < _aiList[i].Points)
-            {
-
-                max = i;
-            }
-        }
-        var t = Camera.main.transform.position;
-        t.y = _aiList[max].ControledMinion.transform.position.y;
-        Camera.main.transform.position = t;
-        _current.text = _aiList[max].Points.ToString();
     }
 
     private void GenerateBoards(GameObject boardHolder)
     {
         for (int i = 0; i < NeatValues.populationSize; i++)
         {
-<<<<<<< HEAD
             var board = Instantiate(_boardPrefab, new Vector3(0, i*3, 0), Quaternion.identity, boardHolder.transform);
-            BoardList.Add(board.gameObject);
-
-=======
-            var board = Instantiate(_boardPrefab, new Vector3(0, i * 3, 0), Quaternion.identity, boardHolder.transform);
             _boardList.Add(board.gameObject);
->>>>>>> hereBestOption
         }
-        GameObject.Find("ObstaclesManager").GetComponent<ObstaclesManager>().spawnObstacles();
-
     }
 
     public void AssignNeatToAi()
     {
         var neats = Population.Instance.Generation;
-        for (int i = 0; i < neats.Count; i++)
+        for (int i = 0; i < NeatValues.populationSize; i++)
         {
-            if (i < _aiList.Count)
-            {
-                _aiList[i].NeuralNetwork = neats[i];
-                _aiList[i].Restart();
-                _jumpingTurret[i].Restart();
-            }
-
+            _aiList[i].NeuralNetwork = neats[i];
+            _aiList[i].Restart();
+            _spellCasterTurrets[i].Restart();
         }
     }
 
@@ -99,8 +64,8 @@ public class OffensivePopulationGenerator : MonoBehaviour
         foreach (var ai in _aiList)
         {
             ai.NeuralNetwork.Fitness = ai.Points;
-            //if (ai.IsAlive)
-            //ai.NeuralNetwork.Fitness += 100;
+            if (ai.IsAlive)
+                ai.NeuralNetwork.Fitness += 100;
             if (NeatValues.BestFitness < ai.NeuralNetwork.Fitness)
                 NeatValues.BestFitness = ai.NeuralNetwork.Fitness;
         }

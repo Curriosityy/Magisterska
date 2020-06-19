@@ -3,25 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-
-public class JumpingTurret : MonoBehaviour
+public class SpellCasterTurret : MonoBehaviour
 {
-    [SerializeField] float _timeBetweenCast = 3f;
+    public bool t = false;
+    [SerializeField] float _timeBetweenCast = 1f;
     float _timer = 0;
-<<<<<<< HEAD
-    private bool shootTarget=true;
-    private bool shootTarget2 = true;
-
-=======
-    int _a=0;
->>>>>>> hereBestOption
-    int _tempHp = 0;
     List<string> _attackSpells;
+
     [SerializeField] GameObject _minionPrefab;
     Minion _controledMinion;
     Minion _target;
     private Transform _board;
-    int _ticker = 0;
     public void AssignToBoard(Transform board)
     {
         _board = board;
@@ -33,7 +25,7 @@ public class JumpingTurret : MonoBehaviour
         foreach (var spellName in SpellFactory.GetSpellsName())
         {
             spell = SpellFactory.GetSpell(spellName);
-            if (spell.Type == SpellType.Defensive)
+            if (spell.Type == SpellType.Offensive)
             {
                 _attackSpells.Add(spellName);
             }
@@ -50,54 +42,12 @@ public class JumpingTurret : MonoBehaviour
     void Update()
     {
         _timer += Time.deltaTime;
-<<<<<<< HEAD
-        if (_controledMinion.GetComponent<MinionHealth>().Statistics > 0)
+        if (_timeBetweenCast <= _timer && _target.IsAlive)
         {
-            if (_timer >= 1f)
-=======
-        if (_timer >= 1f)
-        {
-            if (_a%2==0)
-            {
-                CastOffenciveSpell("fireball");
-            }
-            else
->>>>>>> hereBestOption
-            {
-                if (shootTarget)
-                {
-                    CastOffenciveSpell("fireball");
-                    shootTarget = false;
-                }
-                else
-                {
-                    Teleport();
-                    shootTarget = true;
-                }
-                _timer = 0;
-            }
-<<<<<<< HEAD
+            _timer -= _timeBetweenCast;
+            StartCoroutine(DoSequence());
+            _controledMinion.GetComponent<MinionMana>().Statistics = 100;
         }
-        
-       
-      /* if(_tempHp!=_controledMinion.GetComponent<MinionHealth>().Statistics)
-       {
-            Teleport();
-            _tempHp = _controledMinion.GetComponent<MinionHealth>().Statistics;
-        }*/
-        
-=======
-            _timer = 0;
-            _a++;
-            _a %= 2;
-        }
-        if (_tempHp != _controledMinion.GetComponent<MinionHealth>().Statistics)
-        {
-            Teleport();
-            _tempHp = _controledMinion.GetComponent<MinionHealth>().Statistics;
-        }
-
->>>>>>> hereBestOption
     }
 
     IEnumerator DoSequence()
@@ -111,31 +61,17 @@ public class JumpingTurret : MonoBehaviour
     {
         var spell = SpellFactory.GetSpell(v);
         string pos = "";
-<<<<<<< HEAD
-        if (shootTarget2)
+        if (t==true)
         {
             pos = _target.Position;
-            shootTarget2 = false;
-=======
-        if (_ticker<3)
-        {
-            pos = _target.Position;
-            _ticker++;
->>>>>>> hereBestOption
+            t = false;
         }
         else
         {
             pos += (char)(65 + UnityEngine.Random.Range(0, 7));
             pos += (char)(49 + UnityEngine.Random.Range(0, 7));
-<<<<<<< HEAD
-            shootTarget2 = true;
-
-
-=======
-            _ticker = 0;
->>>>>>> hereBestOption
+            t = true;
         }
-
         spell.Cast(_controledMinion, pos);
     }
     private void Teleport()
@@ -161,7 +97,5 @@ public class JumpingTurret : MonoBehaviour
             _controledMinion.Restart(2);
         }
         _timer = 0;
-        _tempHp = _controledMinion.GetComponent<MinionHealth>().Statistics;
-        _ticker = 0;
     }
 }

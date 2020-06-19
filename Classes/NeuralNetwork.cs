@@ -44,7 +44,7 @@ public class NeuralNetwork
         for(int i=0;i<_maxLevel;i++)
         {
             neurons = GetNeuronOfLevel(i);
-            if(i>0 && neurons.Count>0 && i < _maxLevel-1)
+            if(i>0 && neurons.Count>0)
             {
                 neurons.ForEach(n => n.UseActivationFunction());
             }
@@ -105,16 +105,8 @@ public class NeuralNetwork
 
     private void MutateBias()
     {
-        float rand= (float)_rand.NextDouble();
-        if (rand <= NeatValues.biasMutationProbability)
-        {
-            MutateBias(_neurons[_rand.Next(0, _neurons.Count)]);
-        }
-        else if (rand <= NeatValues.biasMutationProbability + NeatValues.biasRandomMutationProbability)
-        {
-            RandomizeBias(_neurons[_rand.Next(0, _neurons.Count)]);
-        }
-        /*foreach (var neuron in _neurons)
+        float rand;
+        foreach (var neuron in _neurons)
         {
             rand = (float)_rand.NextDouble();
             if (rand <= NeatValues.biasMutationProbability)
@@ -125,7 +117,7 @@ public class NeuralNetwork
             {
                 RandomizeBias(neuron);
             }
-        }*/
+        }
     }
 
     private void RandomizeBias(Neuron neuron)
@@ -202,16 +194,7 @@ public class NeuralNetwork
 
     private void MutateWeights()
     {
-        float rand = (float)_rand.NextDouble();
-        if (rand <= NeatValues.weightMutationProbability)
-        {
-            MutateWeight(_connections[_rand.Next(0, _connections.Count)]);
-        }
-        else if (rand <= NeatValues.weightMutationProbability + NeatValues.weightRandomMutationProbability)
-        {
-            RandomizeWeight(_connections[_rand.Next(0, _connections.Count)]);
-        }
-        /*float rand;
+        float rand;
         foreach (var connection in GetEnabledConnections())
         {
             rand = Random();
@@ -223,7 +206,7 @@ public class NeuralNetwork
             {
                 RandomizeWeight(connection);
             }
-        }*/
+        }
     }
 
 

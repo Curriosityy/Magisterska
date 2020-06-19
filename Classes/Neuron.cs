@@ -37,12 +37,8 @@ public class Neuron
 
     public void UseActivationFunction()
     {
-<<<<<<< HEAD
-        _value = Mathf.Max(0, _value) + _bias;
-=======
             _value = Mathf.Max(0, _value + _bias);
 
->>>>>>> hereBestOption
         //switch (_neuronType)
         //{
         //    case NeuronType.hidden:
@@ -69,7 +65,7 @@ public class Neuron
         _neuronID = neuronID;
         _neuronType = neuronType;
         _level = level;
-        _bias = 0;
+        _bias = 1;
     }
     public Neuron(int neuronID, NeuronType neuronType, int level,float bias)
     {
