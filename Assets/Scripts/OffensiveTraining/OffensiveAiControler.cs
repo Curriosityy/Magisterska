@@ -59,7 +59,7 @@ public class OffensiveAiControler : MonoBehaviour
                 return 1;
             }
             if (_controledMinion != null && _controledMinion.SpellCasted > 0)
-                return getPoints() + DefensivePoints();
+                return getPoints() + DefensivePoints()+fireballCasted*3;
             return 1;
         }
     }
@@ -191,7 +191,7 @@ public class OffensiveAiControler : MonoBehaviour
 
             Debug.Log(a + " equals = " + index + ", wait " + value[0] + ", shoot " + value[1] + ", jump " + value[2] + ", walk " + value[3] + " Output " + (int)value[4], this);
         }
-        if (value[4] >= _tv.Length)
+        if (value[4] >= _tv.Length || value[4]<0)
         {
             index = -1;
         }
@@ -202,10 +202,15 @@ public class OffensiveAiControler : MonoBehaviour
             {
                 if ((int)value[4] != pos)
                 {
+                    Debug.Log("FIREBALL POG");
                     _controledMinion.SpellCasted += 1;
                     Spell spell = SpellFactory.GetSpell("fireball");
                     //Debug.Log(_tv[pos2] + " " + _turret.Position);
-                    spell?.Cast(_controledMinion, _tv[pos2]);
+                    if ((int)(int)value[4] < 0 || (int)(int)value[4] >= _tv.Length)
+                    {
+                        value[4] = 0;
+                    }
+                    spell?.Cast(_controledMinion, _tv[(int)value[4]]);
                     _timer2 = 0;
                 }
                 if (fireballCasted <= 10)
@@ -233,7 +238,6 @@ public class OffensiveAiControler : MonoBehaviour
                 Spell spell = SpellFactory.GetSpell("walk");
                 if ((int)(int)value[4] < 0 || (int)(int)value[4] >= _tv.Length)
                 {
-                    Debug.Break();
                     value[4] = 0;
                 }
                 spell?.Cast(_controledMinion, _tv[(int)value[4]]);

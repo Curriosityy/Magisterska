@@ -31,6 +31,12 @@ public class OffensiveGameManager : MonoBehaviour
             Population.Instance.GenerateNextPopulation();
             _dpg.AssignNeatToAi();
             _timer = 0;
+            var fb = FindObjectsOfType<FireBall>();
+            for(int i=0;i<fb.Length;i++)
+            {
+                Destroy(fb[i].gameObject);
+            }
+
         }
     }
 }
