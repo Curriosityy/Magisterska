@@ -207,8 +207,17 @@ public class Population
             Generation[i].AdjustedFitness = Generation[i].Fitness / sh;
         }
     }
+
+    public float findBestFit() {
+        float bestFit =0;
+        foreach (var ind in _generation) {
+            if (ind.Fitness > bestFit) bestFit = ind.Fitness;
+        }
+        return bestFit;
+    }
     public void getDatatoXML()
     {
+        populationSave.bestFitGen.Add(findBestFit());
         populationSave.AverageAdjFitness = SumAdjFittnes() / NeatValues.populationSize;
         populationSave.AverageFitness = getSumFitness() / NeatValues.populationSize;
         populationSave.TotalFitness = getSumFitness();

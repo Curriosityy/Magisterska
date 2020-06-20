@@ -7,6 +7,8 @@ using UnityEngine;
 public class SaveData
 {
     public List<float> allGens = new List<float>();
+    public List<float> bestFit = new List<float>();
+    public List<float> bestFitGen = new List<float>();
     public int GenerationNumber;
     public float TotalFitness;
     public float AverageFitness;
@@ -36,6 +38,7 @@ public class SaveData
     }
    public void getData()
     {
+        bestFit.Add(NeatValues.BestFitness);
         GenerationNumber = NeatValues.GenerationCount;
         PopulationSize = NeatValues.populationSize;
         minBias = NeatValues.minBias;

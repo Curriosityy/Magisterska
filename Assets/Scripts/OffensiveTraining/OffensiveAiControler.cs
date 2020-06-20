@@ -202,7 +202,7 @@ public class OffensiveAiControler : MonoBehaviour
             {
                 if ((int)value[4] != pos)
                 {
-                    Debug.Log("FIREBALL POG");
+                   // Debug.Log("FIREBALL POG");
                     _controledMinion.SpellCasted += 1;
                     Spell spell = SpellFactory.GetSpell("fireball");
                     //Debug.Log(_tv[pos2] + " " + _turret.Position);
