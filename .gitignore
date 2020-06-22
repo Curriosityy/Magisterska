@@ -37,3 +37,6 @@ sysinfo.txt
 *.xml
 *.snap
 *.meta
+
+.fake
+.ionide
