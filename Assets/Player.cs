@@ -19,8 +19,9 @@ public class Player : MonoBehaviour
     private void SpawnMinion()
     {
         var minion = Instantiate(_minionPrefab);
-        minion.transform.position = _dictionary.Board["A3"].transform.position;
-       
+        minion.transform.position = _dictionary.Board[_dictionary.SpawningPoint1].transform.position;
+        minion.transform.SetParent(_dictionary.transform);
+        minion.Restart(1);
         _controledMinion = minion;
     }
     // Update is called once per frame
