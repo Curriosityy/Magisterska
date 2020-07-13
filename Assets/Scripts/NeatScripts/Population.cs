@@ -42,8 +42,8 @@ public class Population
         
         NeatValues.IncreaseGeneration();
         CalculateAdjustedFitness();
-        getDatatoXML();
         KillWorstIndividualsInAllSpecies();
+        savePopulation();
         DeleteWorstSpecies();
         GenerateNewPopulation();
         AssignGeneration();
@@ -248,16 +248,20 @@ public class Population
     }
     public void savePopulation()
     {
+
+        var max = _generation.Max(s => s.Fitness);
+        var ludek = _generation.Where(s => s.Fitness == max).FirstOrDefault();
+        if (ludek == null) return;
         string fileName = Application.streamingAssetsPath + "/XML/"+NeatValues.GenerationCount+".xml";
         XmlSerializer serializer = new XmlSerializer(typeof(NeuralNetwork));
         
         using (FileStream stream = new FileStream(fileName, FileMode.Create))
         {
-            serializer.Serialize(stream, _generation[0]);
+            serializer.Serialize(stream, ludek);
         }
 
     }
-    public void loadPopulation(int gen=0)
+    public NeuralNetwork loadPopulation(int gen=0)
     {
         List<NeuralNetwork> loadedPopulation = new List<NeuralNetwork>();
         XmlSerializer serializer = new XmlSerializer(typeof(NeuralNetwork));
@@ -270,11 +274,7 @@ public class Population
             {
                 NeuralNetwork.allEdges.Add(new Edge(conn));
             }
-            
-            for (int i = 0; i < NeatValues.populationSize; i += 1)
-            {
-                loadedPopulation.Add(new NeuralNetwork(loadedNeat));
-            }
+            return loadedNeat;
         }
     }
     private void CreateSpecie(NeuralNetwork candidate)

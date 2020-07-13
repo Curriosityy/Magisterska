@@ -95,17 +95,18 @@ public class OffensiveAiControler : MonoBehaviour
 
     public Minion ControledMinion { get => _controledMinion; }
 
-    public void Restart()
+    public void Restart(int i = 1,Transform tran=null)
     {
         StopAllCoroutines();
         if (_controledMinion == null)
         {
             _controledMinion = Instantiate(_minionPrefab, Vector3.zero, Quaternion.identity, _board).GetComponent<Minion>();
-            _controledMinion.Restart(1);
+            if(tran!=null)_controledMinion.transform.SetParent(tran);
+            _controledMinion.Restart(i);
         }
         else
         {
-            _controledMinion.Restart(1);
+            _controledMinion.Restart(i);
             _controledMinion.GetComponentInChildren<Renderer>().material.color = _neuralNetwork.Color;
         }
         _bd = _controledMinion.transform.parent.GetComponent<BoardDictionary>();

@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     {
         //Replace it with somekind of injection for multiboard purpose, while train ai.
         _dictionary = FindObjectOfType<BoardDictionary>();
+        SpawnMinion();
     }
 
     private void SpawnMinion()
