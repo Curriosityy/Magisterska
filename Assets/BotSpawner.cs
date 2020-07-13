@@ -13,6 +13,7 @@ public class BotSpawner : MonoBehaviour
         var pop = Population.Instance;
         _offensiveAiControler.NeuralNetwork = pop.loadPopulation();
         _offensiveAiControler.Restart(2, _board);
+
     }
 
     // Update is called once per frame
