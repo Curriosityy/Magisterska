@@ -46,219 +46,273 @@ MonoBehaviour:
   _neuralNetwork:
     _maxLevel: 1
     _neurons:
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 0
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 1
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 2
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 3
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 4
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 5
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 6
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 7
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 8
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 9
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 10
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 11
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 12
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 13
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 14
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 15
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 16
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 17
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 18
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 19
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 20
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 21
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 22
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 23
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 24
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 25
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 26
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 27
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 28
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 29
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 30
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 31
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 32
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 33
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 34
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 35
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 36
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 37
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 38
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 39
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 40
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 41
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 42
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 43
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 44
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 45
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 46
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 47
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 48
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 49
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 50
       _neuronType: 0
-    - _level: 0
+    - _value: 0
+      _level: 0
       _bias: 1
       _neuronID: 51
       _neuronType: 0
-    - _level: 1
+    - _value: 0
+      _level: 1
       _bias: 1
       _neuronID: 52
       _neuronType: 2
-    - _level: 1
+    - _value: 0
+      _level: 1
       _bias: 1
       _neuronID: 53
       _neuronType: 2
@@ -785,4 +839,8 @@ MonoBehaviour:
       _isActivated: 1
   _minionPrefab: {fileID: 8289378699829051058, guid: e93f2aa087cc8834983ad29623f4eb50,
     type: 3}
+  _askTimer: 0.2
+  _teleTime: 0
+  _askTeleTimer: 1
   spawnPoint: {fileID: 0}
+  damageDealt: 0
