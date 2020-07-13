@@ -2146,6 +2146,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: AIControler
       objectReference: {fileID: 0}
+    - target: {fileID: 8653557465098021278, guid: 9b756fc011b851648b8c63a2699c3d65,
+        type: 3}
+      propertyPath: spawnPoint
+      value: 
+      objectReference: {fileID: 280908985}
     - target: {fileID: 942315344477131933, guid: 9b756fc011b851648b8c63a2699c3d65,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2201,11 +2206,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8653557465098021278, guid: 9b756fc011b851648b8c63a2699c3d65,
-        type: 3}
-      propertyPath: spawnPoint
-      value: 
-      objectReference: {fileID: 280908985}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b756fc011b851648b8c63a2699c3d65, type: 3}
 --- !u!1 &1590446438

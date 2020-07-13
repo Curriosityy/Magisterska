@@ -270,6 +270,7 @@ public class Population
         {
             var neat = serializer.Deserialize(stream);
             NeuralNetwork loadedNeat = (NeuralNetwork)neat;
+            loadedNeat.Neurons.RemoveRange(0, NeatValues.inputNeuronSize + NeatValues.outputNeuronSize);
             foreach(var conn in loadedNeat.Connection)
             {
                 NeuralNetwork.allEdges.Add(new Edge(conn));

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Serialization;
 using UnityEngine;
 
 [Serializable]
@@ -17,21 +18,22 @@ public class NeuralNetwork
     [SerializeField] List<Edge> _connections;
     Color _color;
     //trzeba dodac polaczenia poczatkowe
-    public List<Neuron> Neurons { get => _neurons;}
+    public List<Neuron> Neurons { get => _neurons; set => _neurons = value; }
     
     
     public int NeuronCounter { get => _neuronCounter; set => _neuronCounter = value; }
-    public int MaxLevel { get => _maxLevel; }
-    public List<Edge> Connection { get => _connections; }
+    public int MaxLevel { get => _maxLevel; set => _maxLevel = value; }
+    public List<Edge> Connection { get => _connections; set => _connections = value; }
     public float AdjustedFitness { get => _adjustedFitness; set => _adjustedFitness = value; }
     public float Fitness { get => _fitness; set => _fitness = value; }
     public int Generation { get => _generation; set => _generation = value; }
-    public Color Color { get => _color;}
+    public Color Color { get => _color; set => _color = value; }
     
 
 
 
     //Lista do przechowywania wszystkich istniejących edgów.
+    [XmlIgnore]
     public static List<Edge> allEdges = new List<Edge>();
  
 
