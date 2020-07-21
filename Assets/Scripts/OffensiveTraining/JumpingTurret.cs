@@ -39,12 +39,23 @@ public class JumpingTurret : MonoBehaviour
 
     private void FindTarget()
     {
-        _target = _controledMinion.transform.parent.GetComponentsInChildren<Minion>().Where(m => m != _controledMinion).First();
+       // _target = _controledMinion.transform.parent.GetComponentsInChildren<Minion>().Where(m => m != _controledMinion).First();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (_target == null)
+        {
+            _target = FindObjectOfType<Player>().Minion;
+            return;
+        }
+        if(_controledMinion == null)
+        {
+            Restart();
+        }
+        if (_target.GetComponent<MinionHealth>().Statistics <= 0)
+            return;
         _timer += Time.deltaTime;
         if (_controledMinion.GetComponent<MinionHealth>().Statistics > 0)
         {
@@ -72,12 +83,14 @@ public class JumpingTurret : MonoBehaviour
                 _a++;
                 _a %= 2;
             }
-            if (_tempHp != _controledMinion.GetComponent<MinionHealth>().Statistics)
-            {
-                Teleport();
-                _tempHp = _controledMinion.GetComponent<MinionHealth>().Statistics;
-            }
         }
+
+        if (_tempHp != _controledMinion.GetComponent<MinionHealth>().Statistics)
+        {
+            Teleport();
+            _tempHp = _controledMinion.GetComponent<MinionHealth>().Statistics;
+        }
+        _controledMinion.GetComponent<MinionMana>().Statistics=100;
     }
 
     IEnumerator DoSequence()

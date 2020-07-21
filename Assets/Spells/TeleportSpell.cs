@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using UnityEngine;
 
 class TeleportSpell : Spell
 {
@@ -16,7 +16,7 @@ class TeleportSpell : Spell
     public override void Cast(Minion caster, string position)
     {
         base.Cast(caster, position);
-        var bd = caster.transform.parent.GetComponent<BoardDictionary>();
+        var bd = GameObject.FindObjectOfType<BoardDictionary>();
         if (!canCast || caster.Position==position || !bd.Board[position].GetComponent<PointInfo>().Walkable)
         {
             return;

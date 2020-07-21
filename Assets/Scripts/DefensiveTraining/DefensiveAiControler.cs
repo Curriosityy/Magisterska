@@ -87,10 +87,6 @@ public class DefensiveAiControler : MonoBehaviour
             inputValue.Add(vecmag);
 
             float ivalue = Vector3.Dot(vec, vec2) / (vecmag * vec2.magnitude);
-            if (Selection.activeGameObject == _controledMinion.gameObject)
-            {
-                //Debug.Log(ivalue);
-            }
             inputValue.Add(ivalue*10);
         }
         else
@@ -139,15 +135,6 @@ public class DefensiveAiControler : MonoBehaviour
         if (value[0] <=0)
         {
             value[0] = 0;
-        }
-        if (Selection.activeGameObject == _controledMinion.gameObject)
-        {
-            string a = "";
-            foreach (var inp in inputValue)
-            {
-                a += inp.ToString() + " ";
-            }
-            Debug.Log(a + " equals = " + value[0] + ", " + value[1]);
         }
 
 

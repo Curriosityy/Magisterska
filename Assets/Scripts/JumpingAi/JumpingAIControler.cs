@@ -65,10 +65,6 @@ public class JumpingAIControler : MonoBehaviour
         _controledMinion.GetDistanceToNextObstacle(out inputValue);
         var value = _neuralNetwork.CalculateNeuralNetworkValue(inputValue);
 
-        if (Selection.activeGameObject == _controledMinion.gameObject)
-        {
-            Debug.Log(inputValue[0]+", " +inputValue[1]+" equals = " +value);
-        }
 
         if (Mathf.RoundToInt(value[0]) >= 1)
             _controledMinion.Jump();

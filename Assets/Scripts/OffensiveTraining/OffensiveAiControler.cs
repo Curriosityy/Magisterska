@@ -127,7 +127,7 @@ public class OffensiveAiControler : MonoBehaviour
     {
         _timer += Time.deltaTime;
         _timer2 += Time.deltaTime;
-        if (IsAlive && !_controledMinion.IsDoingSomething && _timer >= _askTimer)
+        if (IsAlive && !_controledMinion.IsDoingSomething && _timer >= _askTimer && _turret.GetComponent<MinionHealth>().Statistics>0)
         {
             CalculateMove();
             _timer = 0;
@@ -158,10 +158,6 @@ public class OffensiveAiControler : MonoBehaviour
                 inputValue.Add(vecmag);
 
             float ivalue = Vector3.Dot(vec, vec2) / (vecmag * vec2.magnitude);
-            if (Selection.activeGameObject == _controledMinion.gameObject)
-            {
-                //Debug.Log(ivalue);
-            }
 
             inputValue.Add(ivalue * 10);
         }
@@ -182,16 +178,6 @@ public class OffensiveAiControler : MonoBehaviour
         var value = _neuralNetwork.CalculateNeuralNetworkValue(inputValue.ToArray());
         int index = GetAwekedIndex(value);
 
-        if (Selection.activeGameObject == _controledMinion.gameObject || Selection.activeGameObject == gameObject)
-        {
-            string a = "";
-            foreach (var inp in inputValue)
-            {
-                a += inp.ToString() + " ";
-            }
-
-            Debug.Log(a + " equals = " + index + ", wait " + value[0] + ", shoot " + value[1] + ", jump " + value[2] + ", walk " + value[3] + " Output " + (int)value[4], this);
-        }
         if (value[4] >= _tv.Length || value[4]<0)
         {
             index = -1;
@@ -211,7 +197,7 @@ public class OffensiveAiControler : MonoBehaviour
                     {
                         value[4] = 0;
                     }
-                    spell?.Cast(_controledMinion, _tv[(int)value[4]]);
+                    spell?.Cast(_controledMinion, _tv[pos2]);
                     _timer2 = 0;
                 }
                 if (fireballCasted <= 10)

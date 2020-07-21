@@ -72,7 +72,7 @@ public class Minion : MonoBehaviour
     public void Restart(int restartPoint)
     {
         hitat = new List<int>();
-        var bd = transform.parent.GetComponent<BoardDictionary>();
+        var bd = FindObjectOfType<BoardDictionary>();
         switch (restartPoint)
         {
             case 1:

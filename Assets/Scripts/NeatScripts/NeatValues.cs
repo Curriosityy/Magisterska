@@ -32,7 +32,7 @@ public static class NeatValues
     /// Population size powinno być parzyste
     /// </summary>
 
-    public const int populationSize = 100;
+    public const int populationSize = 50;
     public const int generationTreshhold = 9999;
     public const int fitnessTreshold = 9999;
     public const int activationFunction = 1; // 1=ReLu
